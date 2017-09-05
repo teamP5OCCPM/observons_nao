@@ -1,0 +1,20 @@
+{
+  "name": "observons_nao",
+  "version": "1.0.0",
+  "description": "Project 5 OpenclassRooms",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-phpcs": "^2.0.0",
+    "gulp-ruby-sass": "^2.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,120 @@
+//
+// GENERAL
+//-----------------------------------------------
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-sans-serif !important;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.default-container {
+  margin-top: 70px;
+}
+
+.bg-transparent-5 { background-color: rgba(255,255,255,0.5); }
+.bg-transparent-7 { background-color: rgba(255,255,255,0.7); }
+
+//
+// MATERIAL DESIGN
+//-----------------------------------------------
+// Cards
+.card {
+  margin-bottom: 2rem;
+  box-shadow: $cust-shadow;
+  transition: box-shadow .3s;
+  img {
+    transform: scale(1);
+    transition: transform .3s;
+  }
+  .badge {
+    position: absolute;
+    margin-top: -30px;
+    font-family: $font-family-sans-serif;
+    text-transform: uppercase;
+  }
+  &:hover {
+    box-shadow: $cust-shadow-hover;
+    & img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.img-card-box {
+  overflow: hidden;
+}
+
+// Button
+.btn-rounded {
+  position: relative;
+  top: -41px;
+  right: 20px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  font-size: 1.6rem;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%;
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+//
+// NAV BAR
+//-----------------------------------------------
+// search bar
+.filter-search {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+.nav-item {
+  position: relative;
+}
+
+// Nav Bar effects
+@media screen and (min-width: 768px) {
+  li.nav-item {
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 45px;
+      width: 1px;
+      height: 3px;
+      background-color: transparent;
+      transition: all .3s ease-in-out;
+    }
+    &:hover:after {
+      width: 100%;
+      background-color: $naoorange;
+    }
+  }
+}
+
+//
+// HOMEPAGE
+//-----------------------------------------------
+// Search Block
+.search-block {
+  height: 100vh;
+  background: url("../img/bluejay_basdef.jpg");
+  background-position: center center;
+  background-size: cover;
+}
