@@ -1,28 +1,45 @@
 //
 // GENERAL
 //-----------------------------------------------
-* {
+*
+{
   box-sizing: border-box;
 }
 
-.row {
-  margin-bottom: 20px;
+// HTML
+@media screen and (max-width: 768px)
+{
+  html
+  {
+    font-size: 15px;
+  }
 }
 
-h1, h2, h3, h4, h5, h6 {
+@media screen and (max-width: 576px)
+{
+  html
+  {
+    font-size: 14px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6
+{
   font-family: $font-family-sans-serif !important;
 }
 
-h2 {
-  margin-bottom: 10px;
+h2
+{
+  margin-bottom: .8rem;
 }
 
-.default-container {
-  margin-top: 70px;
+@media screen and (max-width: 768px)
+{
+  h1.display-2, h1.display-3
+  {
+    font-size: 4rem;
+  }
 }
-
-.bg-transparent-5 { background-color: rgba(255,255,255,0.5); }
-.bg-transparent-7 { background-color: rgba(255,255,255,0.7); }
 
 //
 // MATERIAL DESIGN
@@ -55,37 +72,181 @@ h2 {
 }
 
 // Button
-.btn-rounded {
-  position: relative;
-  top: -41px;
-  right: 20px;
-  display: block;
-  width: 40px;
-  height: 40px;
-  font-size: 1.6rem;
-  line-height: 40px;
-  color: #fff;
-  text-align: center;
+.btn-rounded
+{
+  position:       relative;
+  top:            -41px;
+  right:          20px;
+  display:        block;
+  width:          40px;
+  height:         40px;
+  font-size:      1.6rem;
+  line-height:    40px;
+  color:          $white;
+  text-align:     center;
   vertical-align: middle;
-  border-radius: 50%;
-  &:hover {
-    color: #fff;
+  border:         none;
+  border-radius:  50%;
+  box-shadow:     0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  &:hover
+  {
+    color:           $gray-300;
     text-decoration: none;
+  }
+}
+
+.searchbar-mobile
+{
+  display:  block;
+  position: fixed;
+  bottom:   1rem;
+  z-index:  1031;
+  right:    3rem;
+  & .search-action
+  {
+    position:         fixed;
+    width:            100%;
+    bottom:           0;
+    left:             0;
+    padding:          1rem;
+    background-color: $naoorange;
+  }
+}
+
+.btn-floating
+{
+  display:          inline-block;
+  color:            $white;
+  position:         relative;
+  overflow:         hidden;
+  background-color: $naoorange;
+  width:            50px;
+  height:           50px;
+  padding:          0;
+  font-size:        1.2rem;
+  line-height:      1.2rem;
+  border:           none;
+  border-radius:    50%;
+  box-shadow:       0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  cursor:           pointer;
+  &:focus, &:active
+  {
+    outline: 0;
+  }
+}
+
+.btn
+{
+  font-family:    $font-family-sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  font-weight:    500;
+  padding:        .65rem 1.85rem;
+  &:hover
+  {
+    color: $gray-300;
+  }
+  &-sm
+  {
+    padding: .45rem 1.55rem;
+    &:hover
+    {
+      color: $gray-300;
+    }
+  }
+  &-lg
+  {
+    font-weight: 700;
+    padding:     .65rem 2.5rem;
+    &:hover
+    {
+      color: $gray-300;
+    }
+  }
+}
+
+.cta-small
+{
+  max-height: 36px;
+  color:      $white;
+}
+
+@media screen and (max-width: 767px)
+{
+  .cta-small
+  {
+    margin: 0 auto;
   }
 }
 
 //
 // NAV BAR
 //-----------------------------------------------
-// search bar
-.filter-search {
-  background-color: transparent;
-  border: 0;
-  outline: none;
+// nav item
+.navbar-toggler
+{
+  outline: 0;
+  &:hover, &:focus
+  {
+    outline: 0;
+  }
 }
 
-.nav-item {
+.navbar-brand
+{
+  & img
+  {
+    margin-top: -8px;
+    height:     38px;
+  }
+}
+
+.nav-item
+{
   position: relative;
+}
+
+// Nav Bar effects
+@media screen and (min-width: 768px)
+{
+  .navbar-nav li.nav-item
+  {
+    &:after
+    {
+      content:          '';
+      display:          block;
+      position:         absolute;
+      top:              45px;
+      width:            1px;
+      height:           3px;
+      background-color: transparent;
+      transition:       all .3s ease-in-out;
+    }
+    &:hover:after
+    {
+      width:            100%;
+      background-color: $naoorange;
+    }
+  }
+}
+
+.nav-search
+{
+  position:         fixed;
+  background-color: $naoorange-darken;
+  top:              53px;
+  height:           26px;
+  width:            100%;
+  color:            $white;
+  padding:          .2rem;
+}
+
+.user-icon
+{
+  position:   absolute;
+  right:      6rem;
+  align-self: self-start;
+  margin-top: 10px;
 }
 
 // Nav Bar effects
@@ -112,9 +273,140 @@ h2 {
 // HOMEPAGE
 //-----------------------------------------------
 // Search Block
-.search-block {
-  height: 100vh;
-  background: url("../img/bluejay_basdef.jpg");
-  background-position: center center;
+.search-block
+{
+  height:          100vh;
+  background:      url("../img/bluejay_basdef.jpg") center center;
   background-size: cover;
+  a
+  {
+    margin: 0 25px;
+  }
+}
+
+.filter-search
+{
+  background-color: transparent;
+  border:           0;
+  &:focus
+  {
+    border: 0;
+  }
+  &:hover
+  {
+    border: 0;
+  }
+  &:visited
+  {
+    border: 0;
+  }
+  &:link
+  {
+    border: 0;
+  }
+}
+
+//
+// FOOTER
+//-----------------------------------------------
+footer
+{
+  h5
+  {
+    color: $naogreen;
+  }
+  ul
+  {
+    -webkit-padding-start: 1rem;
+    -moz-padding-start:    1rem;
+  }
+  p
+  {
+    padding-top:   2rem;
+    margin-bottom: 0;
+  }
+  a
+  {
+    color: $white;
+    &:hover
+    {
+      color: $naoorange;
+    }
+  }
+}
+
+//
+// HELPERS
+//-----------------------------------------------
+.mt70
+{
+  margin-top: 70px;
+}
+
+.bg-transprent
+{
+  background-color: transparent !important;
+}
+
+.bg-transparent-5
+{
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bg-transparent-7
+{
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.overlay
+{
+  display:          block;
+  position:         fixed;
+  width:            100%;
+  height:           100vh;
+  top:              0;
+  left:             0;
+  background-color: $naodark-gray;
+  opacity:          .7;
+  z-index:          1030;
+}
+
+//
+// ANIMATION
+//-----------------------------------------------
+// Navbar
+@keyframes toTransparent
+{
+  from
+  {
+    background-color: $naoblue;
+  }
+  to
+  {
+    background-color: transparent;
+  }
+}
+
+@keyframes toPrimary
+{
+  from
+  {
+    background-color: transparent;
+  }
+  to
+  {
+    background-color: $naoblue;
+  }
+}
+
+.navbar-to-transparent
+{
+  animation:           toTransparent .3s;
+  animation-fill-mode: forwards;
+}
+
+.navbar-to-primary
+{
+  animation:           toPrimary .3s;
+  animation-fill-mode: forwards;
 }

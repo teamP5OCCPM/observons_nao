@@ -1,7 +1,52 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
 {% block body %}
-    <div class="container default-container">
-        <h1>Hello Teamp P5</h1>
+    <div class="search-block d-flex align-items-center justify-content-center">
+        <div class="container d-flex flex-wrap justify-content-center">
+            <h1 class="display-3 text-white mb-3 text-center w-100">Observez</h1>
+            <a href="#" class="btn btn-secondary text-white align-items-center d-md-block d-none">Proposer une observation</a>
+            <button class="btn-floating d-md-none d-block">
+                <i class="fa fa-binoculars" aria-hidden="true"></i>
+            </button>
+            <h1 class="display-3 text-white mb-3 mt-5 text-center w-100">Recherchez</h1>
+            <button id="btn-search-cover" class="btn-floating d-md-none d-block">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+            <form action="" class="w-100 d-none d-md-block">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon bg-transparent-7 d-sm-block d-none">
+                            <select name="search-filter" id="search-filter" class="filter-search">
+                                <option value="name">Tous</option>
+                                <option value="species">Nom</option>
+                                <option value="place">Lieu</option>
+                            </select>
+                        </div>
+                        <input type="search" class="form-control bg-transparent-5" id="home-search">
+                        <button type="rechercher" class="btn btn-sm btn-primary">Go</button>
+                    </div>
+                </div>
+            </form>
+            <p class="lead text-center text-light mt-3 mt-md-5">Nous lançons un programme de recherche visant à étudier les effets du climat, de l'urbanisation et de l'agriculture.</p>
+        </div>
     </div>
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap justify-content-between mt-5 mb-3">
+            <h2>Nos dernières observations</h2>
+            <a href="#" class="btn btn-secondary btn-sm cta-small">Toutes les observations</a>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between mt-5 mb-3">
+            <h2>Nos derniers articles du blog</h2>
+            <a href="#" class="btn btn-nao-green btn-sm cta-small">Tout les articles</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/index.js') }}"></script>
 {% endblock %}

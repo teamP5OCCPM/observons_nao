@@ -1,9 +1,14 @@
 //
 // Color system
-//
 $naoblue: #00a9c0;
+$naoblue-darken: #008799;
+$naoblue-lighten: #30afbf;
 $naoorange: #f90;
+$naoorange-lighten: #ffb340;
+$naoorange-darken: #bf7300;
 $naogreen: #85b800;
+$naogreen-lighten: #91b82e;
+$naogreen-darken: #689100;
 $naodark-gray: #282828;
 
 $white:  #fff;
@@ -30,25 +35,31 @@ $teal:    #20c997;
 $cyan:    #17a2b8;
 
 $theme-colors: (
-  primary: $naoblue,
-  secondary: $naoorange,
-  success: $green,
-  info: $blue,
-  warning: $yellow,
-  danger: $red,
-  light: $gray-100,
-  dark: $naodark-gray,
-  nao-green: $naogreen
-);
+                       primary: $naoblue,
+                       secondary: $naoorange,
+                       success: $green,
+                       info: $blue,
+                       warning: $yellow,
+                       danger: $red,
+                       light: $gray-100,
+                       dark: $naodark-gray,
+                       nao-blue-darken: $naoblue-darken,
+                       nao-blue-lighten: $naoblue-lighten,
+                       nao-green: $naogreen,
+                       nao-greendarken: $naogreen-darken
+               );
 
 //
 // Options
-//
 $enable-shadows: true;
 
-// Fonts
 //
-// Font, line-height, and color for body text, headings, and more.
+// Body
+$body-bg:       $gray-100;
+$body-color:    $naodark-gray;
+
+//
+// Fonts
 $font-family-sans-serif:  Roboto, sans-serif;
 $font-family-ss-text:     Josefin Sans, sans-serif;
 $font-family-base:        $font-family-ss-text;
