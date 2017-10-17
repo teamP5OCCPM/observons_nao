@@ -55,20 +55,4 @@ class CoreController extends Controller
     {
         return $this->render('core/why.html.twig');
     }
-
-    /**
-     * @Route("/inscription", name="subscribe")
-     */
-    public function subscribeAction(Request $request)
-    {
-        return $this->render('core/subscribe.html.twig');
-    }
-
-    /**
-     * @Route("/connexion", name="login")
-     */
-    public function loginAction(Request $request)
-    {
-        return $this->render('core/login.html.twig');
-    }
 }

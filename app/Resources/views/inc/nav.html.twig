@@ -2,7 +2,7 @@
     <a class="navbar-brand" href="{{ path('homepage') }}">
         <img src="{{ asset('img/logo-carre_BD.jpg') }}" alt="" class="d-inline-block align-top">
     </a>
-    <a class="text-white d-md-none d-block user-icon" href="{{ path('login') }}" data-toggle="tooltip" data-placement="left" title="Se connecter">
+    <a class="text-white d-md-none d-block user-icon" href="#" data-toggle="tooltip" data-placement="left" title="Se connecter">
         <i class="fa fa-user-o" aria-hidden="true"></i>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,20 @@
             <li class="nav-item"><a class="nav-link" href="{{ path('contact') }}">Contact</a></li>
         </ul>
     </div>
-    <a class="text-white d-md-block d-none align-self-center" href="{{ path('login') }}" data-toggle="tooltip" data-placement="left" title="Se connecter">
+    <form id="searchbar-navbar" class="searchbar-desktop-navbar">
+        <div class="input-group">
+            <div class="input-group-addon bg-transparent-7 d-sm-block d-none">
+                <select name="search-filter" id="search-filter" class="filter-search">
+                    <option value="name">Tous</option>
+                    <option value="species">Nom</option>
+                    <option value="place">Lieu</option>
+                </select>
+            </div>
+            <input id="search-navbar-input" class="form-control bg-transparent-5" type="text" placeholder="Rechercher..." aria-label="Rechercher">
+        </div>
+    </form>
+    <a id="search-navbar-btn" class="text-white mr-4 d-md-block d-none" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+    <a class="text-white d-md-block d-none align-self-center" href="#" data-toggle="tooltip" data-placement="left" title="Se connecter">
         <i class="fa fa-user-o" aria-hidden="true"></i>
     </a>
 </nav>

@@ -1,8 +1,12 @@
 $(document).ready(function () {
-    const searchBox =  $('#search-box');
-    const searchBtnCover = $('#btn-search-cover');
-    const searchBtn = $('#btn-search');
-    const overlay = $('.overlay');
+    const searchBox =  $('#search-box'),
+        searchBtnCover = $('#btn-search-cover'),
+        searchBtn = $('#btn-search'),
+        overlay = $('.overlay'),
+        overlayNavbar = $('.overlay-search-navbar'),
+        searchNavbarBtn = $('#search-navbar-btn'),
+        searchNavbar = $('#searchbar-navbar'),
+        searchNavbarInput = $('#search-navbar-input');
 
     searchBtn.click(function (e) {
         e.stopPropagation();
@@ -21,5 +25,24 @@ $(document).ready(function () {
     overlay.click(function () {
         overlay.toggleClass("invisible");
         searchBox.toggleClass("d-block");
-    })
+    });
+
+    searchNavbarBtn.click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if(searchNavbar.hasClass("reply")) {
+            searchNavbar.removeClass("reply")
+        }
+        searchNavbar.addClass("deploy");
+        overlayNavbar.removeClass("invisible");
+        searchNavbarInput.focus();
+    });
+
+    overlayNavbar.click(function () {
+        overlayNavbar.toggleClass("invisible");
+        if(searchNavbar.hasClass("deploy")) {
+            searchNavbar.removeClass("deploy");
+            searchNavbar.addClass("reply");
+        }
+    });
 });

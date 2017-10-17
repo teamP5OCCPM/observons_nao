@@ -206,39 +206,20 @@ h2
   position: relative;
 }
 
-// Nav Bar effects
-@media screen and (min-width: 768px)
-{
-  .navbar-nav li.nav-item
-  {
-    &:after
-    {
-      content:          '';
-      display:          block;
-      position:         absolute;
-      top:              45px;
-      width:            1px;
-      height:           3px;
-      background-color: transparent;
-      transition:       all .3s ease-in-out;
-    }
-    &:hover:after
-    {
-      width:            100%;
-      background-color: $naoorange;
-    }
+.searchbar-desktop-navbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 0%;
+  margin-right: 1rem;
+  opacity: 0;
+  & input {
+    width: 100%;
   }
 }
 
-.nav-search
-{
-  position:         fixed;
-  background-color: $naoorange-darken;
-  top:              53px;
-  height:           26px;
-  width:            100%;
-  color:            $white;
-  padding:          .2rem;
+#search-navbar-btn {
+  z-index: 1;
 }
 
 .user-icon
@@ -288,19 +269,7 @@ h2
 {
   background-color: transparent;
   border:           0;
-  &:focus
-  {
-    border: 0;
-  }
-  &:hover
-  {
-    border: 0;
-  }
-  &:visited
-  {
-    border: 0;
-  }
-  &:link
+  &:focus, &:hover, &:visited, &:link
   {
     border: 0;
   }
@@ -358,7 +327,7 @@ footer
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-.overlay
+.overlay, .overlay-search-navbar
 {
   display:          block;
   position:         fixed;
@@ -368,7 +337,7 @@ footer
   left:             0;
   background-color: $naodark-gray;
   opacity:          .7;
-  z-index:          1030;
+  z-index:          1029;
 }
 
 //
@@ -409,4 +378,45 @@ footer
 {
   animation:           toPrimary .3s;
   animation-fill-mode: forwards;
+}
+
+// Searchbar navbar
+@keyframes toDeploy
+ {
+   from
+   {
+     width: 0%;
+     opacity: 0;
+   }
+   to
+   {
+     width: 100%;
+     opacity: 1;
+   }
+ }
+
+@keyframes toReply
+{
+  from
+  {
+    width: 100%;
+    opacity: 1;
+  }
+  to
+  {
+    width: 0%;
+    opacity: 0;
+  }
+}
+
+.deploy {
+  animation: toDeploy .3s;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+}
+
+.reply {
+  animation: toReply .3s;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
 }
