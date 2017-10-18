@@ -17,11 +17,17 @@
 
 <body>
 <header>
-    {% include 'inc/nav.html.twig' %}
+    {% include 'inc/nav-admin.html.twig' %}
 </header>
 
-{% block body %}
-{% endblock %}
+<div class="overlay-search-navbar invisible"></div>
+
+<div class="d-flex">
+    {% include 'inc/sidenav.html.twig' %}
+
+    {% block body %}
+    {% endblock %}
+</div>
 
 {% block javascript %}
     <!-- Bootstrap core JavaScript
@@ -36,6 +42,7 @@
     <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ asset('js/bootstrap/ie10-viewport-bug-workaround.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
