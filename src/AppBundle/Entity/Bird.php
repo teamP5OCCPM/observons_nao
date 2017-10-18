@@ -24,7 +24,7 @@ class Bird
     /**
      * @var string
      *
-     * @ORM\Column(name="species", type="string", length=255)
+     * @ORM\Column(name="species", type="string", length=255, unique=true)
      */
     private $species;
 
