@@ -11,12 +11,16 @@ class CoreController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $observations = $em->getRepository('AppBundle:Observation')->findAll();
+        $articles = $em->getRepository('AppBundle:Article')->findAll();
 
-        return $this->render('core/index.html.twig', ['observations' => $observations]);
+        return $this->render('core/index.html.twig', [
+                'observations' => $observations,
+                'articles' => $articles
+        ]);
     }
 
     /**

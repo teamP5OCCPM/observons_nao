@@ -52,7 +52,7 @@
                                 <h4 class="card-title">{{ observation.title }}</h4>
                             </a>
                             <h6 class="card-subtitle mb-2 text-muted">{{ observation.bird.species }}</h6>
-                            <p class="card-text">{{ observation.description }}</p>
+                            <p class="card-text">{{ observation.description | truncate(160, true, '...') }}</p>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">{{ observation.user.lastname }}</small>
@@ -66,6 +66,29 @@
         <div class="d-flex flex-wrap justify-content-between mt-5 mb-3">
             <h2>Nos derniers articles du blog</h2>
             <a href="#" class="btn btn-nao-green btn-sm cta-small">Tout les articles</a>
+            <div class="row mt-4">
+                {% for article in articles %}
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card hoverable">
+                        <div class="img-card-box">
+                            <img class="card-img-top" src="{{ asset(article.image) }}" alt="Card image cap">
+                        </div>
+                        <div class="card-body">
+                            <div class="badge badge-primary">New</div>
+                            <a href="#" class="btn-rounded bg-nao-green float-right" data-toggle="tooltip" data-placement="left" title="Lire la suite">+</a>
+                            <a href="#">
+                                <h4 class="card-title">{{ article.title }}</h4>
+                            </a>
+                            <p class="card-text">{{ article.content | truncate(160, true, '...') }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ article.user.lastName }}</small>
+                            <small class="text-muted float-right">{{ article.createdAt | date("d F Y") }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
