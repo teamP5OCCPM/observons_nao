@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 class CoreController extends Controller
@@ -17,10 +18,21 @@ class CoreController extends Controller
         $observations = $em->getRepository('AppBundle:Observation')->findAll();
         $articles = $em->getRepository('AppBundle:Article')->findAll();
 
-        return $this->render('core/index.html.twig', [
-                'observations' => $observations,
-                'articles' => $articles
-        ]);
+        return $this->render('core/index.html.twig', ['observations' => $observations, 'articles' => $articles]);
+    }
+
+    /**
+     * @param $slug
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/observation/{slug}", name="showObservation")
+     */
+    public function showObservationAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $observation = $em->getRepository('AppBundle:Observation')->findOneBySlug($slug);
+
+        return $this->render('core/showObservation.html.twig', ['observation' => $observation]);
     }
 
     /**
@@ -28,7 +40,10 @@ class CoreController extends Controller
      */
     public function observationsAction(Request $request)
     {
-        return $this->render('core/observations.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository('AppBundle:Observation')->findAll();
+
+        return $this->render('core/observations.html.twig', ['observations' => $observations]);
     }
 
     /**

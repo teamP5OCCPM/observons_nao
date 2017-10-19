@@ -6692,6 +6692,7 @@ h2 {
     font-size: 2.4rem; } }
 .card {
   margin-bottom: 2rem;
+  border: none;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   transition: box-shadow .3s; }
   .card img {
@@ -6702,14 +6703,21 @@ h2 {
     margin-top: -30px;
     font-family: Roboto, sans-serif;
     text-transform: uppercase; }
-  .card:hover {
-    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
-    .card:hover img {
-      transform: scale(1.05); }
+
+.hoverable:hover {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+  .hoverable:hover img {
+    transform: scale(1.05); }
 
 .img-card-box {
   overflow: hidden; }
 
+@media screen and (max-width: 768px) {
+  .card .img-card-box.col-md-2 {
+    padding-left: 0;
+    padding-right: 0; }
+  .card p.btn-rounded, .card a.btn-rounded, .card span.btn-rounded {
+    font-size: 2rem; } }
 .btn-rounded {
   position: relative;
   top: -41px;
@@ -6864,6 +6872,20 @@ h2 {
   border: 0; }
   .filter-search:focus, .filter-search:hover, .filter-search:visited, .filter-search:link {
     border: 0; }
+
+.share-box {
+  background-color: #85b800;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0 0.2rem .2rem;
+  color: #fff; }
+  .share-box a {
+    color: #fff; }
+    .share-box a:hover {
+      color: #689100; }
+
+.show-box-img {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2); }
 
 footer h5 {
   color: #85b800; }

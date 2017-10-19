@@ -46,9 +46,9 @@
                             <img class="card-img-top" src="{{ asset(observation.image) }}" alt="Card image cap">
                         </div>
                         <div class="card-body">
-                            <a href="#" class="btn-rounded bg-secondary float-right" data-toggle="tooltip" data-placement="left" title="Voir l'observation">+</a>
-                            <div class="badge badge-primary">New</div>
-                            <a href="#">
+                            <a href="{{ path('showObservation', {'slug': observation.slug}) }}" class="btn-rounded bg-secondary float-right" data-toggle="tooltip" data-placement="left" title="Voir l'observation">+</a>
+                            <div class="badge badge-primary">Nouveau</div>
+                            <a href="{{ path('showObservation', {'slug': observation.slug}) }}">
                                 <h4 class="card-title">{{ observation.title }}</h4>
                             </a>
                             <h6 class="card-subtitle mb-2 text-muted">{{ observation.bird.species }}</h6>
@@ -74,7 +74,7 @@
                             <img class="card-img-top" src="{{ asset(article.image) }}" alt="Card image cap">
                         </div>
                         <div class="card-body">
-                            <div class="badge badge-primary">New</div>
+                            <div class="badge badge-primary">Nouveau</div>
                             <a href="#" class="btn-rounded bg-nao-green float-right" data-toggle="tooltip" data-placement="left" title="Lire la suite">+</a>
                             <a href="#">
                                 <h4 class="card-title">{{ article.title }}</h4>
