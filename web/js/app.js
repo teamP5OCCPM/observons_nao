@@ -6,7 +6,11 @@ $(document).ready(function () {
         overlayNavbar = $('.overlay-search-navbar'),
         searchNavbarBtn = $('#search-navbar-btn'),
         searchNavbar = $('#searchbar-navbar'),
-        searchNavbarInput = $('#search-navbar-input');
+        searchNavbarInput = $('#search-navbar-input'),
+        sidenav = $('.sidenav'),
+        sidenavItems = $('.sidenav-items'),
+        reduceIco = $('.reduce-ico'),
+        reduceSidenav = $('.reduce-sidenav');
 
     searchBtn.click(function (e) {
         e.stopPropagation();
@@ -45,4 +49,12 @@ $(document).ready(function () {
             searchNavbar.addClass("reply");
         }
     });
+
+    reduceSidenav.click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        sidenav.toggleClass('isReduced');
+        sidenavItems.toggleClass('d-lg-inline-block');
+        reduceIco.toggleClass('rotate-90');
+    })
 });

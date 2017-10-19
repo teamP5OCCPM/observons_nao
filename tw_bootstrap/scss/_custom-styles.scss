@@ -39,35 +39,46 @@ h2
   {
     font-size: 4rem;
   }
+
+  h1
+  {
+    font-size: 2.4rem;
+  }
 }
 
 //
 // MATERIAL DESIGN
 //-----------------------------------------------
 // Cards
-.card {
+.card
+{
   margin-bottom: 2rem;
-  box-shadow: $cust-shadow;
-  transition: box-shadow .3s;
-  img {
-    transform: scale(1);
+  box-shadow:    $cust-shadow;
+  transition:    box-shadow .3s;
+  img
+  {
+    transform:  scale(1);
     transition: transform .3s;
   }
-  .badge {
-    position: absolute;
-    margin-top: -30px;
-    font-family: $font-family-sans-serif;
+  .badge
+  {
+    position:       absolute;
+    margin-top:     -30px;
+    font-family:    $font-family-sans-serif;
     text-transform: uppercase;
   }
-  &:hover {
+  &:hover
+  {
     box-shadow: $cust-shadow-hover;
-    & img {
+    & img
+    {
       transform: scale(1.05);
     }
   }
 }
 
-.img-card-box {
+.img-card-box
+{
   overflow: hidden;
 }
 
@@ -179,6 +190,16 @@ h2
   }
 }
 
+// dropdown menu
+.dropdown-menu {
+  border: none;
+  border-radius: .15rem;
+  box-shadow: $cust-shadow;
+  .dropdown-item {
+    color: $naodark-gray !important;
+  }
+}
+
 //
 // NAV BAR
 //-----------------------------------------------
@@ -206,19 +227,41 @@ h2
   position: relative;
 }
 
-.searchbar-desktop-navbar {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  width: 0%;
-  margin-right: 1rem;
-  opacity: 0;
-  & input {
+.navbar-social {
+  position: absolute;
+  right: 100px;
+  top: 15px;
+  font-size: .7rem;
+  span a {
+    color: $white;
+    &:hover {
+      color: $naoorange;
+    }
+  }
+}
+
+.searchbar-desktop-navbar
+{
+  position: fixed;
+  top: 55px;
+  right: -100px;
+  display:      flex;
+  flex-wrap:    nowrap;
+  align-items:  center;
+  width:        0%;
+  opacity:      0;
+  z-index: 1030;
+  & form {
+    width: 100%;
+  }
+  & input
+  {
     width: 100%;
   }
 }
 
-#search-navbar-btn {
+#search-navbar-btn
+{
   z-index: 1;
 }
 
@@ -230,21 +273,25 @@ h2
   margin-top: 10px;
 }
 
-// Nav Bar effects
-@media screen and (min-width: 768px) {
-  li.nav-item {
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 45px;
-      width: 1px;
-      height: 3px;
+// Nav Bar hover
+@media screen and (min-width: 768px)
+{
+  li.nav-hover
+  {
+    &:after
+    {
+      content:          '';
+      display:          block;
+      position:         absolute;
+      top:              45px;
+      width:            1px;
+      height:           3px;
       background-color: transparent;
-      transition: all .3s ease-in-out;
+      transition:       all .3s ease-in-out;
     }
-    &:hover:after {
-      width: 100%;
+    &:hover:after
+    {
+      width:            100%;
       background-color: $naoorange;
     }
   }
@@ -305,6 +352,72 @@ footer
 }
 
 //
+// AMDIN
+//-----------------------------------------------
+// Sidenav
+.sidenav
+{
+  position:         sticky;
+  top:              0;
+  width:            18rem;
+  height:           100vh;
+  background-color: $naodark-gray;
+  box-shadow:       $cust-shadow;
+  color:            $white;
+  transition: width .3s ease-in-out;
+  &.isReduced {
+    width: 3rem;
+  }
+  & .sidenav-body
+  {
+    margin:  0;
+    padding: 0;
+    & li:hover
+    {
+      background-color: $naogreen-darken;
+    }
+    & a.nav-link
+    {
+      color:      $white;
+      opacity:    .5;
+      transform:  translatex(0px);
+      transition: all .15s ease-in-out;
+      &:hover
+      {
+        opacity:   .8;
+        transform: translatex(4px);
+      }
+      &.active
+      {
+        opacity:   1;
+        transform: translatex(4px);
+        font-size: .9rem;
+      }
+    }
+    & .reduce-sidenav {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      color: $naoorange;
+      text-decoration: none;
+    }
+  }
+}
+
+.reduce-ico {
+  transform: rotate(0);
+  transition: transform .5s ease-in-out;
+}
+
+@media screen and (max-width: 992px)
+{
+  .sidenav
+  {
+    width: 3rem;
+  }
+}
+
+//
 // HELPERS
 //-----------------------------------------------
 .mt70
@@ -325,6 +438,10 @@ footer
 .bg-transparent-7
 {
   background-color: rgba(255, 255, 255, 0.7);
+}
+
+.rotate-90 {
+  transform: rotate(180deg);
 }
 
 .overlay, .overlay-search-navbar
@@ -382,41 +499,49 @@ footer
 
 // Searchbar navbar
 @keyframes toDeploy
- {
-   from
-   {
-     width: 0%;
-     opacity: 0;
-   }
-   to
-   {
-     width: 100%;
-     opacity: 1;
-   }
- }
+{
+  from
+  {
+    right: -100px;
+    width:      0%;
+    opacity:    0;
+  }
+
+  to
+  {
+    right: 0;
+    width:      80%;
+    opacity:    1;
+  }
+}
 
 @keyframes toReply
 {
   from
   {
-    width: 100%;
-    opacity: 1;
+    right: 0;
+    width:      80%;
+    opacity:    1;
   }
+
   to
   {
-    width: 0%;
-    opacity: 0;
+    right: -100px;
+    width:      0%;
+    opacity:    0;
   }
 }
 
-.deploy {
-  animation: toDeploy .3s;
+.deploy
+{
+  animation:           toDeploy .3s;
   animation-fill-mode: forwards;
   animation-direction: normal;
 }
 
-.reply {
-  animation: toReply .3s;
+.reply
+{
+  animation:           toReply .3s;
   animation-fill-mode: forwards;
   animation-direction: normal;
 }
