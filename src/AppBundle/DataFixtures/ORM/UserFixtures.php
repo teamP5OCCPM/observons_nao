@@ -10,7 +10,7 @@ use AppBundle\Entity\User;
 class UserFixtures extends Fixture
 {
     // Dans l'argument de la méthode load, l'objet $manager est l'EntityManager
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager) : void
     {
         $user = new User();
         $user->setFirstName('Jean-Maurice');

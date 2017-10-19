@@ -13,7 +13,10 @@ class CoreController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('core/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository('AppBundle:Observation')->findAll();
+
+        return $this->render('core/index.html.twig', ['observations' => $observations]);
     }
 
     /**
