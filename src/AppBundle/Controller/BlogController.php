@@ -13,7 +13,10 @@ class BlogController extends Controller
      */
     public function articlesAction(Request $request)
     {
-        return $this->render('blog/articles.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('AppBundle:Article')->findAll();
+
+        return $this->render('blog/articles.html.twig', ['articles' => $articles]);
     }
 
     /**

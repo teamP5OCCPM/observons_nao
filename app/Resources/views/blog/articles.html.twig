@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Blog - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container mt70">
+        <h1>Les articles</h1>
+        <div class="row mt-4">
+            {% for article in articles %}
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card hoverable">
+                        <div class="img-card-box">
+                            <img class="card-img-top" src="{{ asset(article.image) }}" alt="Card image cap">
+                        </div>
+                        <div class="card-body">
+                            <div class="badge badge-primary">Nouveau</div>
+                            <a href="#" class="btn-rounded bg-nao-green float-right" data-toggle="tooltip" data-placement="left" title="Lire la suite">+</a>
+                            <a href="#">
+                                <h4 class="card-title">{{ article.title }}</h4>
+                            </a>
+                            <p class="card-text">{{ article.content | truncate(160, true, '...') }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ article.user.lastName }}</small>
+                            <small class="text-muted float-right">{{ article.createdAt | date("d F Y") }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
