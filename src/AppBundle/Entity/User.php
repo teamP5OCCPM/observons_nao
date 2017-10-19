@@ -46,13 +46,13 @@ class User
 
     /**
      * @var
-     *  @ORM\OneToMany(targetEntity="Observation", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Observation", mappedBy="user", cascade={"persist"})
      */
     private $observations;
 
     /**
      * @var
-     *  @ORM\OneToMany(targetEntity="Article", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="user", cascade={"persist"})
      */
     private $articles;
 

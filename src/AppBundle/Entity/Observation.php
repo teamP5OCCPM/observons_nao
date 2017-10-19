@@ -79,13 +79,13 @@ class Observation
 
     /**
      * @var
-     *  @ORM\ManyToOne(targetEntity="User", inversedBy="observations")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="observations")
      */
     private $user;
 
     /**
      * @var
-     *  @ORM\OneToOne(targetEntity="Bird")
+     * @ORM\OneToOne(targetEntity="Bird")
      */
     private $bird;
 

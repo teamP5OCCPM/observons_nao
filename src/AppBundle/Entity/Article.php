@@ -65,7 +65,7 @@ class Article
 
     /**
      * @var
-     *  @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
      */
     private $user;
 
