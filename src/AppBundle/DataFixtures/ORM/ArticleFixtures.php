@@ -57,6 +57,20 @@ class ArticleFixtures extends Fixture
         $manager->persist($article2);
         $manager->persist($article3);
         $manager->persist($article4);
+
+        for ($i = 0; $i < 30; $i++) {
+            $articled = new Article();
+            $articled->setUser($this->getReference('user'));
+            $articled->setImage('img/adefault.jpg');
+            $articled->setTitle('article' . $i);
+            $articled->setSlug('article-' . $i);
+            $articled->setCreatedAt(new \DateTime());
+            $articled->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
+            $articled->setIsPublished(true);
+
+            $manager->persist($articled);
+        }
+
         // On déclenche l'enregistrement de toutes les objets
         $manager->flush();
     }

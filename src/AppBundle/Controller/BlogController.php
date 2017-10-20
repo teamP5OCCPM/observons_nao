@@ -35,6 +35,20 @@ class BlogController extends Controller
     }
 
     /**
+     * @param $slug
+     *
+     * @return Response
+     * @Route("/article/{slug}", name="showArticle")
+     */
+    public function showArticleAction($slug) : Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
+
+        return $this->render('blog/showArticle.html.twig', ['article' => $article]);
+    }
+
+    /**
      * @return Response
      *
      * @Route("/blog/ajouter-article", name="addArticle")

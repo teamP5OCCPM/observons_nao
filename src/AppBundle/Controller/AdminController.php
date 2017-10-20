@@ -35,9 +35,12 @@ class AdminController extends Controller
     /**
      * @Route("/gestion-observations", name="manageObservations")
      */
-    public function manageObservationsAction(Request $request)
+    public function manageObservationsAction()
     {
-        return $this->render('admin/manageObservations.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $observations = $em->getRepository('AppBundle:Observation')->findAll();
+        return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
     }
 
     /**

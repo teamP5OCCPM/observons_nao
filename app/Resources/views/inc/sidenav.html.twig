@@ -2,30 +2,30 @@
     <div class="sidenav-body">
         <ul class="nav flex-column mt70">
             <li class="nav-item" title="Tableau de bord">
-                <a class="nav-link" href=""><i class="fa fa-desktop" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Tableau de bord</span></a>
+                <a class="nav-link" href="{{ path('board') }}"><i class="fa fa-desktop" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Tableau de bord</span></a>
             </li>
             <li class="nav-item" title="Mon compte">
-                <a class="nav-link" href="#"><i class="fa fa-user" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Mon compte</span></a>
+                <a class="nav-link" href="{{ path('myAccount') }}"><i class="fa fa-user" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Mon compte</span></a>
             </li>
             <li class="nav-item" title="Mes observations">
-                <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Mes observations</span></a>
+                <a class="nav-link" href="{{ path('myObservations') }}"><i class="fa fa-search" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Mes observations</span></a>
             </li>
             <li class="nav-item" title="Gestion des observations">
-                <a class="nav-link active" href="#"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Gestion des Observations</span></a>
+                <a class="nav-link active" href="{{ path('manageObservations') }}"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Gestion des Observations</span></a>
             </li>
             <li class="nav-item dropdown" title="Gestion du blog">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Gestion du blog</span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown02">
-                    <a class="dropdown-item" href="#" title="Gestion des articles">Les articles</a>
-                    <a class="dropdown-item" href="#" title="Gestion des commentaires">Les commentaires</a>
-                    <a class="dropdown-item" href="#" title="Ajouter un article">Ajouter un article</a>
+                    <a class="dropdown-item" href="{{ path('manageArticles') }}" title="Gestion des articles">Les articles</a>
+                    <a class="dropdown-item" href="{{ path('manageComs') }}" title="Gestion des commentaires">Les commentaires</a>
+                    <a class="dropdown-item" href="{{ path('addArticle') }}" title="Ajouter un article">Ajouter un article</a>
                 </div>
             </li>
             <li class="nav-item" title="Mise à jour de la base de données">
-                <a class="nav-link" href="#"><i class="fa fa-upload" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Mise à jour BDD</span></a>
+                <a class="nav-link" href="{{ path('manageBdd') }}"><i class="fa fa-upload" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Mise à jour BDD</span></a>
             </li>
             <li class="nav-item" title="Gestion des comptes">
-                <a class="nav-link" href="#"><i class="fa fa-wrench" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Gestion des comptes</span></a>
+                <a class="nav-link" href="{{ path('manageAccounts') }}"><i class="fa fa-wrench" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Gestion des comptes</span></a>
             </li>
         </ul>
         <a class="reduce-sidenav d-lg-inline-block d-none" href="#"><i class="fa fa-angle-double-left reduce-ico" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Réduire</span></a>

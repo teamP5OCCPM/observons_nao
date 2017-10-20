@@ -6942,6 +6942,11 @@ footer a {
 @media screen and (max-width: 992px) {
   .sidenav {
     width: 3rem; } }
+.card-accordion {
+  background-color: #fff; }
+  .card-accordion img {
+    width: 100%; }
+
 .mt70 {
   margin-top: 70px; }
 
