@@ -1,6 +1,14 @@
+# app/config/routing.yml
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+
+route_fos:
+    resource: "@AppBundle/Resources/config/routing.yml"
+
+
 
 #fos_user_security:
 #    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
