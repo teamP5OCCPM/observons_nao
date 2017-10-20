@@ -35,7 +35,7 @@ class ObservationFixtures extends Fixture
         $observation2->setCreatedAt(new \DateTime());
         $observation2->setLng('42.800503');
         $observation2->setLat('1.085325');
-        $observation2->setStatus('validate');
+        $observation2->setStatus('waiting');
         $observation2->setSlug('faucon-royal-en-montagne');
 
         // Observation 3
@@ -48,7 +48,7 @@ class ObservationFixtures extends Fixture
         $observation3->setCreatedAt(new \DateTime());
         $observation3->setLng('42.800503');
         $observation3->setLat('1.085325');
-        $observation3->setStatus('validate');
+        $observation3->setStatus('refused');
         $observation3->setSlug('moineau-royal-en-montagne');
 
         // Observation 4
@@ -69,6 +69,22 @@ class ObservationFixtures extends Fixture
         $manager->persist($observation2);
         $manager->persist($observation3);
         $manager->persist($observation4);
+
+        for ($i = 0; $i < 30; $i++) {
+            $observationD = new Observation();
+            $observationD->setUser($this->getReference('user'));
+            $observationD->setBird($this->getReference('bird'));
+            $observationD->setTitle('Oiseau en montagne' . $i);
+            $observationD->setImage('img/default.jpg');
+            $observationD->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
+            $observationD->setCreatedAt(new \DateTime());
+            $observationD->setLng('42.800503');
+            $observationD->setLat('1.085325');
+            $observationD->setStatus('validate');
+            $observationD->setSlug('oiseau-en-montagne-' . $i);
+
+            $manager->persist($observationD);
+        }
 
         // On enregistre les objets
         $manager->flush();

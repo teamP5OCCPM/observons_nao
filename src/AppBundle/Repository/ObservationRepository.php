@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ObservationRepository
@@ -28,5 +29,28 @@ class ObservationRepository extends EntityRepository
                 ->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param $page
+     * @param $nbPerPage
+     *
+     * @return Paginator
+     */
+    public function getObservations($page, $nbPerPage) : Paginator
+    {
+        $query = $this->createQueryBuilder('o')
+                ->leftJoin('o.bird', 'bir')
+                ->addSelect('bir')
+                ->leftJoin('o.user', 'usr')
+                ->addSelect('usr')
+                ->orderBy('o.createdAt', 'DESC')
+                ->getQuery();
+
+        $query
+                ->setFirstResult(($page-1) * $nbPerPage)
+                ->setMaxResults($nbPerPage);
+
+        return new Paginator($query, true);
     }
 }

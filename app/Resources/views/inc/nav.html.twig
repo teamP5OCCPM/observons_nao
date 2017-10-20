@@ -14,12 +14,12 @@
             <li class="nav-item nav-hover dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Observations</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="{{ path('observations') }}">Les observations</a>
+                    <a class="dropdown-item" href="{{ path('observations', {'page': 1}) }}">Les observations</a>
                     <a class="dropdown-item" href="{{ path('addObservation') }}">Ajouter une observation</a>
                 </div>
             </li>
             <li class="nav-item nav-hover"><a class="nav-link" href="#">Activités du mois</a></li>
-            <li class="nav-item nav-hover"><a class="nav-link" href="{{ path('articles') }}">Blog</a></li>
+            <li class="nav-item nav-hover"><a class="nav-link" href="{{ path('articles', {'page': 1}) }}">Blog</a></li>
             <li class="nav-item nav-hover"><a class="nav-link" href="{{ path('contact') }}">Contact</a></li>
         </ul>
     </div>

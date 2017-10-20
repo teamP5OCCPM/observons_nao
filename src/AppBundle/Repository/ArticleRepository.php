@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ArticleRepository
@@ -26,5 +27,26 @@ class ArticleRepository extends EntityRepository
                 ->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param $page
+     * @param $nbPerPage
+     *
+     * @return Paginator
+     */
+    public function getArticles($page, $nbPerPage) : Paginator
+    {
+        $query = $this->createQueryBuilder('a')
+                ->leftJoin('a.user', 'usr')
+                ->addSelect('usr')
+                ->orderBy('a.createdAt', 'DESC')
+                ->getQuery();
+
+        $query
+                ->setFirstResult(($page-1) * $nbPerPage)
+                ->setMaxResults($nbPerPage);
+
+        return new Paginator($query, true);
     }
 }

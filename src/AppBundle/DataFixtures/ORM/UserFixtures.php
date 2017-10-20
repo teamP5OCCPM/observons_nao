@@ -24,6 +24,7 @@ class UserFixtures extends Fixture
         $user2->setLastName('Eagleman');
         $user2->setNewsletter(false);
 
+
         $manager->persist($user);
         $manager->persist($user2);
         $manager->flush();

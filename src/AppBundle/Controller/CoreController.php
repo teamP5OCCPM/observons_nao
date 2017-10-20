@@ -37,17 +37,29 @@ class CoreController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param $page
      *
      * @return Response
-     * @Route("/les-observations", name="observations")
+     * @Route("/les-observations/{page}", name="observations")
      */
-    public function observationsAction(Request $request) : Response
+    public function observationsAction($page) : Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $observations = $em->getRepository('AppBundle:Observation')->findAll();
+        if ($page < 1) {
+            throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
+        }
 
-        return $this->render('core/observations.html.twig', ['observations' => $observations]);
+        $em = $this->getDoctrine()->getManager();
+
+        $nbPerPage = 12;
+        $listObservations = $em->getRepository('AppBundle:Observation')->getObservations($page, $nbPerPage);
+
+        $nbPages = ceil(count($listObservations) / $nbPerPage);
+
+        if ($page > $nbPages) {
+            throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
+        }
+
+        return $this->render('core/observations.html.twig', ['observations' => $listObservations, 'nbPages' => $nbPages, 'page' => $page]);
     }
 
     /**

@@ -87,7 +87,7 @@ class Observation
 
     /**
      * @var
-     * @ORM\OneToOne(targetEntity="Bird")
+     * @ORM\ManyToOne(targetEntity="Bird")
      */
     private $bird;
 
