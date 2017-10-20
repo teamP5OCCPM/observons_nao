@@ -42,7 +42,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="newsletter", type="boolean")
      */
-    private $newsletter;
+    private $newsletter = false;
 
 
     /**
