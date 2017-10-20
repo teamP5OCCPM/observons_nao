@@ -14,12 +14,18 @@ class UserFixtures extends Fixture
     {
         //user1
         $user = new User();
+        $user->setUsername('JMaurice');
+        $user->setEmail('Jean-Maurice@test.fr');
+        $user->setPassword('password');
         $user->setFirstName('Jean-Maurice');
         $user->setLastName('Birdman');
         $user->setNewsletter(false);
 
         //user2
         $user2 = new User();
+        $user2->setUsername('moumou');
+        $user2->setEmail('Jean-Mouloud@test.fr');
+        $user2->setPassword('password');
         $user2->setFirstName('Jean-Mouloud');
         $user2->setLastName('Eagleman');
         $user2->setNewsletter(false);
