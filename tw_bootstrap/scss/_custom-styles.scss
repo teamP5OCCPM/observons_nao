@@ -467,6 +467,15 @@ footer
   }
 }
 
+.card-accordion
+{
+  background-color: $white;
+  & img
+  {
+    width: 100%;
+  }
+}
+
 //
 // HELPERS
 //-----------------------------------------------
