@@ -2,9 +2,16 @@
     <a class="navbar-brand" href="{{ path('homepage') }}">
         <img src="{{ asset('img/logo-carre_BD.jpg') }}" alt="" class="d-inline-block align-top">
     </a>
-    <a class="text-white d-md-none d-block user-icon" href="#" data-toggle="tooltip" data-placement="left" title="Se connecter">
-        <i class="fa fa-user-o" aria-hidden="true"></i>
-    </a>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </a>
+    {% else %}
+        <a class="text-white d-md-none d-block user-icon" href="{{ path('fos_user_security_login') }}" data-toggle="tooltip" data-placement="left" title="Se connecter">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+        </a>
+    {% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,7 +36,14 @@
         <span><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i></a></span>
     </div>
     <a id="search-navbar-btn" class="text-white mr-4 d-md-block d-none" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-    <a class="text-white d-md-block d-none align-self-center" href="#" data-toggle="tooltip" data-placement="left" title="Se connecter">
-        <i class="fa fa-user-o" aria-hidden="true"></i>
-    </a>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </a>
+    {% else %}
+        <a class="text-white d-md-block d-none align-self-center" href="{{ path('fos_user_security_login') }}" data-toggle="tooltip" data-placement="left" title="Se connecter">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+        </a>
+    {% endif %}
 </nav>

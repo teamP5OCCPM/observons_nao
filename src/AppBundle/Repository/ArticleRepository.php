@@ -22,9 +22,9 @@ class ArticleRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('a');
         $qb->leftJoin('a.user', 'user')
-                ->addSelect('user')
-                ->orderBy('a.createdAt', 'DESC')
-                ->setMaxResults($limit);
+            ->addSelect('user')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }
@@ -38,14 +38,14 @@ class ArticleRepository extends EntityRepository
     public function getArticles($page, $nbPerPage) : Paginator
     {
         $query = $this->createQueryBuilder('a')
-                ->leftJoin('a.user', 'usr')
-                ->addSelect('usr')
-                ->orderBy('a.createdAt', 'DESC')
-                ->getQuery();
+            ->leftJoin('a.user', 'usr')
+            ->addSelect('usr')
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery();
 
         $query
-                ->setFirstResult(($page-1) * $nbPerPage)
-                ->setMaxResults($nbPerPage);
+            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
 
         return new Paginator($query, true);
     }

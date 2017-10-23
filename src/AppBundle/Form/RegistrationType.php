@@ -1,23 +1,21 @@
 <?php
 
-// src/AppBundle/Form/RegistrationType.php
-
 namespace AppBundle\Form;
 
-
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-
 
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
-            ;
+            ->add('firstName', TextType::class, ['label' => 'form.firstname', 'translation_domain' => 'FOSUserBundle'])
+            ->add('lastName', TextType::class, ['label' => 'form.lastname', 'translation_domain' => 'FOSUserBundle'])
+            ->add('newsletter', CheckboxType::class, ['label' => 'form.newsletter', 'translation_domain' => 'FOSUserBundle'])
+        ;
     }
 
     public function getParent()
@@ -36,6 +34,4 @@ class RegistrationType extends AbstractType
     {
         return $this->getBlockPrefix();
     }
-
-
 }

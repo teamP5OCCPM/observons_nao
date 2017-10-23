@@ -1,5 +1,10 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
 {% block fos_user_content %}
-    {{ include('@FOSUser/Security/login_content.html.twig') }}
+    <div class="card form-card">
+        <div class="card-body">
+            <h1 class="card-title">Connectez-vous</h1>
+            {{ include('@FOSUser/Security/login_content.html.twig') }}
+        </div>
+    </div>
 {% endblock fos_user_content %}

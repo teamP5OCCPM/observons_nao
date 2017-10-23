@@ -68,6 +68,9 @@ h2
     font-family:    $font-family-sans-serif;
     text-transform: uppercase;
   }
+  &.form-card {
+    width: 30rem;
+  }
 }
 
 .hoverable
@@ -319,6 +322,15 @@ h2
       background-color: $naoorange;
     }
   }
+}
+
+//
+// FOSUSER
+//-----------------------------------------------
+// General
+.fosuser-content {
+  display: flex;
+  justify-content: center;
 }
 
 //
