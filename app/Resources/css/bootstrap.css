@@ -6703,8 +6703,6 @@ h2 {
     margin-top: -30px;
     font-family: Roboto, sans-serif;
     text-transform: uppercase; }
-  .card.form-card {
-    width: 30rem; }
 
 .hoverable:hover {
   box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
@@ -6843,6 +6841,12 @@ h2 {
 #search-navbar-btn {
   z-index: 1; }
 
+.user-dropdown .dropdown-toggle:after {
+  position: absolute;
+  top: 1rem; }
+.user-dropdown .dropdown-menu {
+  left: -7rem; }
+
 .user-icon {
   position: absolute;
   right: 6rem;
@@ -6862,10 +6866,6 @@ h2 {
   li.nav-hover:hover:after {
     width: 100%;
     background-color: #f90; } }
-.fosuser-content {
-  display: flex;
-  justify-content: center; }
-
 .search-block {
   height: 100vh;
   background: url("../img/bluejay_basdef.jpg") center center;

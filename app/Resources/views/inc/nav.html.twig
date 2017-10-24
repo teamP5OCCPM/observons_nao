@@ -3,8 +3,7 @@
         <img src="{{ asset('img/logo-carre_BD.jpg') }}" alt="" class="d-inline-block align-top">
     </a>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-        <a href="{{ path('fos_user_security_logout') }}">
+        <a class="text-white d-md-none d-block user-icon" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="left" title="Allez à l'administration">
             <i class="fa fa-user" aria-hidden="true"></i>
         </a>
     {% else %}
@@ -35,13 +34,17 @@
         <span><a href="http://twitter.com"><i class="fa fa-twitter-square fa-2x mr-2" aria-hidden="true"></i></a></span>
         <span><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i></a></span>
     </div>
-    <a id="search-navbar-btn" class="text-white mr-4 d-md-block d-none" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-        <a href="{{ path('fos_user_security_logout') }}">
-            <i class="fa fa-user" aria-hidden="true"></i>
-        </a>
+        <a id="search-navbar-btn" class="text-white mr-1 d-md-block d-none" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+        <div class="nav-item dropdown user-dropdown">
+            <a class="nav-link dropdown-toggle text-white d-md-block d-none align-self-center" href="#" id="dropNav" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></a>
+            <div class="dropdown-menu" aria-labelledby="dropNav">
+                <a class="dropdown-item" href="{{ path('board') }}">Administration</a>
+                <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+            </div>
+        </div>
     {% else %}
+        <a id="search-navbar-btn" class="text-white mr-4 d-md-block d-none" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
         <a class="text-white d-md-block d-none align-self-center" href="{{ path('fos_user_security_login') }}" data-toggle="tooltip" data-placement="left" title="Se connecter">
             <i class="fa fa-user-o" aria-hidden="true"></i>
         </a>

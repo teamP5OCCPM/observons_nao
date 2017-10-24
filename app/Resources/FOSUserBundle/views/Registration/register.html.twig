@@ -1,10 +1,19 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
 {% block fos_user_content %}
-    <div class="card form-card">
-        <div class="card-body">
-            <h1 class="card-title">Inscrivez-vous</h1>
-            {% include "@FOSUser/Registration/register_content.html.twig" %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Inscrivez-vous</h1>
+                    {% include "@FOSUser/Registration/register_content.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="text-center">Vous êtes déjà inscrit ?</p><p class="text-center"><a href="{{ path('fos_user_security_login') }}">Connectez-vous !</a></p>
         </div>
     </div>
 {% endblock fos_user_content %}

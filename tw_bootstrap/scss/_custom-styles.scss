@@ -68,9 +68,6 @@ h2
     font-family:    $font-family-sans-serif;
     text-transform: uppercase;
   }
-  &.form-card {
-    width: 30rem;
-  }
 }
 
 .hoverable
@@ -292,6 +289,18 @@ h2
   z-index: 1;
 }
 
+.user-dropdown {
+  .dropdown-toggle {
+    &:after {
+      position: absolute;
+      top: 1rem;
+    }
+  }
+  .dropdown-menu {
+    left: -7rem;
+  }
+}
+
 .user-icon
 {
   position:   absolute;
@@ -322,15 +331,6 @@ h2
       background-color: $naoorange;
     }
   }
-}
-
-//
-// FOSUSER
-//-----------------------------------------------
-// General
-.fosuser-content {
-  display: flex;
-  justify-content: center;
 }
 
 //

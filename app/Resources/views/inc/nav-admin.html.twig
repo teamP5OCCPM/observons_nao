@@ -2,7 +2,7 @@
     <a class="navbar-brand" href="{{ path('homepage') }}">
         <img src="{{ asset('img/logo-carre_BD.jpg') }}" alt="" class="d-inline-block align-top">
     </a>
-    <a class="text-white d-md-none d-block user-icon" href="#" data-toggle="tooltip" data-placement="left" title="Se déconnecter">
+    <a class="text-white d-md-none d-block user-icon" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="left" title="Se déconnecter">
         <i class="fa fa-user-times" aria-hidden="true"></i>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@
             <li class="nav-item nav-hover"><a class="nav-link" href="{{ path('contact') }}">Contact</a></li>
         </ul>
     </div>
-    <a class="text-white d-md-block d-none align-self-center" href="#" data-toggle="tooltip" data-placement="left" title="Se déconnecter">
+    <a class="text-white d-md-block d-none align-self-center" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="left" title="Se déconnecter">
         <i class="fa fa-user-times" aria-hidden="true"></i>
     </a>
 </nav>

@@ -55,7 +55,7 @@ resetting:
 
     request:
         username: 'Nom d''utilisateur ou adresse e-mail'
-        submit: 'Réinitialiser le mot de passe'
+        submit: 'Réinitialiser'
     reset:
         submit: 'Modifier le mot de passe'
     flash:
