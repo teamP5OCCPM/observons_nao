@@ -16,7 +16,7 @@
                         {{ form_start(form_observation) }}
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <img class="card-img-top" src="{{ asset('img/default.jpg') }}" alt="">
+                                <img id="add-observation-img" class="card-img-top" src="{{ asset('img/observations/default.jpg') }}" alt="">
                                 {{ form_row(form_observation.image) }}
                             </div>
                             <div class="col-md-6 col-12">
@@ -33,12 +33,12 @@
                                     <div class="col-md-4">{{ form_row(form_observation.lat) }}</div>
                                     <div class="col-md-4">
                                         <p>Me géolocatliser</p>
-                                        <button class="btn btn-sm btn-info">
+                                        <button id="geoloc-btn" class="btn btn-sm btn-info">
                                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </div>
-                                {{ form_row(form_observation.createdAt) }}
+                                {{ form_row(form_observation.observedAt) }}
                                 {{ form_row(form_observation.description) }}
                                 {{ form_row(form_observation.save) }}
                             </div>
@@ -49,4 +49,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/add-observation-img.js') }}"></script>
 {% endblock %}

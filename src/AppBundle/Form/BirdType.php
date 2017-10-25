@@ -14,12 +14,12 @@ class BirdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('species')
-                ->add('reign')
-                ->add('phylum')
-                ->add('ranking')
-                ->add('family')
-                ->add('lbName')
-                ->add('lbAuthor');
+            ->add('reign')
+            ->add('phylum')
+            ->add('ranking')
+            ->add('family')
+            ->add('lbName')
+            ->add('lbAuthor');
     }
     
     /**
@@ -27,9 +27,11 @@ class BirdType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => 'AppBundle\Entity\Bird'
-        ));
+            )
+        );
     }
 
     /**

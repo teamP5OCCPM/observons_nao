@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Observation;
 use AppBundle\Form\ObservationType;
+use AppBundle\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,12 +66,14 @@ class CoreController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request      $request
+     *
+     * @param FileUploader $fileUploader
      *
      * @return Response
      * @Route("/ajouter-observation", name="addObservation")
      */
-    public function addObservationAction(Request $request) : Response
+    public function addObservationAction(Request $request, FileUploader $fileUploader) : Response
     {
         $em = $this->getDoctrine()->getManager();
         $observation = new Observation();
@@ -80,9 +83,14 @@ class CoreController extends Controller
         $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $observation->setStatus("waiting");
+            if ($form->getData()->getImage() !== null) {
+                $image = $observation->getImage();
+                $filename = $fileUploader->upload($image);
+                $observation->setImage("img/observations/".$filename);
+            } else {
+                $observation->setImage("img/observations/default.jpg");
+            }
             $observation->setUser($user);
-            $observation->setSlug("mon-slug-temporaire");
             $em->persist($observation);
             $em->flush();
 

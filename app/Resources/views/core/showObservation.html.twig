@@ -9,9 +9,9 @@
         <div class="d-flex flex-wrap justify-content-between mb-3">
             <div>
                 <h2>{{ observation.title }}</h2>
-                <p class="text-muted">{{ observation.user.lastname }} | {{ observation.createdAt | date("d/m/Y") }} | lieu</p>
+                <p class="text-muted">{{ observation.user.username }} | {{ observation.observedAt | date("d/m/Y") }} | <span id="location"></span></p>
             </div>
-            <a href="#" class="btn btn-secondary btn-sm cta-small">Proposer une observation</a>
+            <a href="{{ path('addObservation') }}" class="btn btn-secondary btn-sm cta-small">Proposer une observation</a>
         </div>
         <div class="clearfix"></div>
         <div class="card justify-content-around">
@@ -33,20 +33,15 @@
                     <p class="text-muted">{{ observation.bird.species }} | Ordre : {{ observation.bird.ranking }}
                         | Famille : {{ observation.bird.family }}
                     </p>
-                    <p class="card-text"><span>{{ observation.description }}</span></p>
+                    <p class="card-text">{{ observation.description }}</p>
                 </div>
             </div>
         </div>
         <h2>Géolocalisation</h2>
-        <iframe
-                width="100%"
-                height="450"
-                frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1501047.0109202869!2d-0.6740312100500657!3d42.709385765791836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a8a48b202023d5%3A0x1711d86785a522d6!2zUHlyw6luw6llcw!5e0!3m2!1sfr!2sfr!4v1505926189595" allowfullscreen>
-        </iframe>
+        <div id="map" class="google-map"></div>
         <div class="d-flex justify-content-between flex-wrap mt-5 mb-3">
             <h2>De la même espèce</h2>
-            <a href="#" class="btn btn-secondary btn-sm cta-small">Consulter plus d'observations</a>
+            <a href="{{ path('observations', {'page': 1}) }}" class="btn btn-secondary btn-sm cta-small">Consulter plus d'observations</a>
         </div>
         <div class="row">
             <div class="col-md-6 col-lg-4 col-xl-3">
@@ -102,6 +97,42 @@
                 </div>
             </div>
         </div>
-
     </div>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+    <script>
+        function initMap() {
+            const position = {lat: {{ observation.lat }}, lng: {{ observation.lng }} };
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 11,
+                center: position
+            });
+            const marker = new google.maps.Marker({
+                position: position,
+                map: map
+            });
+
+            const geocoder = new google.maps.Geocoder;
+            geocodeLatLng(geocoder);
+        }
+
+        // Décode lat et lng en adresse
+        function geocodeLatLng(geocoder) {
+            geocoder.geocode({'location': {lat: {{ observation.lat }}, lng: {{ observation.lng }} }}, function(results, status) {
+                if (status === "OK") {
+                    const locationBox = document.querySelector('#location');
+                    const town = results[2].address_components[1].long_name // récupère la ville
+                    locationBox.append(town);
+                    console.log(town);
+                } else {
+                    window.alert('La ville n\'a pas été récupérée : ' + status);
+                }
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpjozrtNrPzeimlfhrvX2h8LGpgUV4gsA&callback=initMap">
+    </script>
 {% endblock %}

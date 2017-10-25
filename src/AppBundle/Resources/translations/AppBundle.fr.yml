@@ -1,9 +1,0 @@
-form_addObservation:
-    title: 'Nom de l''observation'
-    image: 'Votre photo'
-    bird: 'Espèce d''oiseau'
-    lng: 'Longitude'
-    lat: 'Latitude'
-    createdAt: 'Date de l''observation'
-    description: 'Description de l''observation'
-    save: 'Envoyer'
