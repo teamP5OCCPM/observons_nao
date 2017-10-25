@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% trans_default_domain 'AppBundle' %}
+
 {% block title %}
     Ajouter une observation - {{ parent() }}
 {% endblock %}
@@ -7,5 +9,44 @@
 {% block body %}
     <div class="container mt70">
         <h1>Ajouter une observation</h1>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form_observation) }}
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <img class="card-img-top" src="{{ asset('img/default.jpg') }}" alt="">
+                                {{ form_row(form_observation.image) }}
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(form_observation.title) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form_observation.bird) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">{{ form_row(form_observation.lng) }}</div>
+                                    <div class="col-md-4">{{ form_row(form_observation.lat) }}</div>
+                                    <div class="col-md-4">
+                                        <p>Me géolocatliser</p>
+                                        <button class="btn btn-sm btn-info">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                {{ form_row(form_observation.createdAt) }}
+                                {{ form_row(form_observation.description) }}
+                                {{ form_row(form_observation.save) }}
+                            </div>
+                        </div>
+                        {{ form_end(form_observation) }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

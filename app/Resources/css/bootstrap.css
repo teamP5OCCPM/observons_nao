@@ -6690,6 +6690,10 @@ h2 {
 
   h1 {
     font-size: 2.4rem; } }
+.message-flash {
+  position: absolute;
+  margin: 0 auto; }
+
 .card {
   margin-bottom: 2rem;
   border: none;

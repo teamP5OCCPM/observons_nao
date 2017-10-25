@@ -25,6 +25,6 @@
             {{ 'security.login.remember_me'|trans }}
         </label>
     </div>
-
+    <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
     <input class="btn btn-success w-100" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 </form>

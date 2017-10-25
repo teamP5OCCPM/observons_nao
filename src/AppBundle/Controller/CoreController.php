@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Observation;
+use AppBundle\Form\ObservationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,7 +72,26 @@ class CoreController extends Controller
      */
     public function addObservationAction(Request $request) : Response
     {
-        return $this->render('core/addObservation.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $observation = new Observation();
+        $form = $this->createForm(ObservationType::class, $observation);
+        $form->handleRequest($request);
+
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $observation->setStatus("waiting");
+            $observation->setUser($user);
+            $observation->setSlug("mon-slug-temporaire");
+            $em->persist($observation);
+            $em->flush();
+
+            $this->addFlash('success', "L'observation est bien enregistrée et sera soumise à validation");
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('core/addObservation.html.twig', ['form_observation' => $form->createView()]);
     }
 
     /**

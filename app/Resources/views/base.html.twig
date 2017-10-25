@@ -22,6 +22,16 @@
 
 {% include 'inc/searchbar.html.twig' %}
 
+<div class="message-flash">
+    {% for label, messages in app.flashes(['warning', 'error']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+
 {% block body %}
 {% endblock %}
 
