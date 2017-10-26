@@ -55,8 +55,8 @@
                             <p class="card-text">{{ observation.description | truncate(160, true, '...') }}</p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">{{ observation.user.lastname }}</small>
-                            <small class="text-muted float-right">{{ observation.createdAt | date("d F Y") }}</small>
+                            <small class="text-muted">{{ observation.user.username }}</small>
+                            <small class="text-muted float-right">{{ observation.observedAt | date("d F Y") }}</small>
                         </div>
                     </div>
                 </div>

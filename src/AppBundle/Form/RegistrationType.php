@@ -14,8 +14,7 @@ class RegistrationType extends AbstractType
         $builder
             ->add('firstName', TextType::class, ['label' => 'form.firstname', 'translation_domain' => 'FOSUserBundle'])
             ->add('lastName', TextType::class, ['label' => 'form.lastname', 'translation_domain' => 'FOSUserBundle'])
-            ->add('newsletter', CheckboxType::class, ['label' => 'form.newsletter', 'required' => false, 'translation_domain' => 'FOSUserBundle'])
-        ;
+            ->add('newsletter', CheckboxType::class, ['label' => 'form.newsletter', 'required' => false, 'translation_domain' => 'FOSUserBundle']);
     }
 
     public function getParent()

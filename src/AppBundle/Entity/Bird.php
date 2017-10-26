@@ -70,6 +70,11 @@ class Bird
      */
     private $lbAuthor;
 
+    public function __toString()
+    {
+        return $this->species;
+    }
+
 
     /**
      * Get id

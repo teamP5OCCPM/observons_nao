@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Observation;
+use AppBundle\Form\ObservationType;
+use AppBundle\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,14 +66,40 @@ class CoreController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request      $request
+     *
+     * @param FileUploader $fileUploader
      *
      * @return Response
      * @Route("/ajouter-observation", name="addObservation")
      */
-    public function addObservationAction(Request $request) : Response
+    public function addObservationAction(Request $request, FileUploader $fileUploader) : Response
     {
-        return $this->render('core/addObservation.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $observation = new Observation();
+        $form = $this->createForm(ObservationType::class, $observation);
+        $form->handleRequest($request);
+
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->getData()->getImage() !== null) {
+                $image = $observation->getImage();
+                $filename = $fileUploader->upload($image);
+                $observation->setImage("img/observations/".$filename);
+            } else {
+                $observation->setImage("img/observations/default.jpg");
+            }
+            $observation->setUser($user);
+            $em->persist($observation);
+            $em->flush();
+
+            $this->addFlash('success', "L'observation est bien enregistrée et sera soumise à validation");
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('core/addObservation.html.twig', ['form_observation' => $form->createView()]);
     }
 
     /**

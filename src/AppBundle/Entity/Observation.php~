@@ -104,7 +104,6 @@ class Observation
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->observedAt = new \DateTime();
         $this->status = "waiting";
     }
 
@@ -356,29 +355,5 @@ class Observation
     public function getBird()
     {
         return $this->bird;
-    }
-
-    /**
-     * Set observedAt
-     *
-     * @param \DateTime $observedAt
-     *
-     * @return Observation
-     */
-    public function setObservedAt($observedAt)
-    {
-        $this->observedAt = $observedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get observedAt
-     *
-     * @return \DateTime
-     */
-    public function getObservedAt()
-    {
-        return $this->observedAt;
     }
 }

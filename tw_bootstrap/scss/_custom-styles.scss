@@ -46,6 +46,14 @@ h2
   }
 }
 
+.message-flash {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 //
 // MATERIAL DESIGN
 //-----------------------------------------------
@@ -377,6 +385,11 @@ h2
       color: $naogreen-darken;
     }
   }
+}
+
+.google-map {
+  height: 400px;
+  width: 100%;
 }
 
 .show-box-img

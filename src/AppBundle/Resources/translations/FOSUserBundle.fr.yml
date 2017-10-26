@@ -75,6 +75,7 @@ layout:
     login: Connexion
     register: Inscription
     logged_in_as: 'Connecté en tant que %username%'
+
 form:
     group_name: 'Nom du groupe'
     firstname: 'Prénom'
