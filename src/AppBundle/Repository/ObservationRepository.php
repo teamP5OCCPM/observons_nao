@@ -18,9 +18,11 @@ class ObservationRepository extends EntityRepository
      *
      * @return array
      */
-    public function getIndexObservations($limit) : array
+    public function getIndexObservations($limit, $status) : array
     {
-        $qb = $this->createQueryBuilder('o');
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.status = :status')
+            ->setParameter('status', $status);
         $qb->leftJoin('o.bird', 'bird')
             ->addSelect('bird')
             ->leftJoin('o.user', 'user')
@@ -37,9 +39,11 @@ class ObservationRepository extends EntityRepository
      *
      * @return Paginator
      */
-    public function getObservations($page, $nbPerPage) : Paginator
+    public function getObservations($page, $nbPerPage, $status) : Paginator
     {
         $query = $this->createQueryBuilder('o')
+                ->where('o.status = :status')
+                ->setParameter('status', $status)
             ->leftJoin('o.bird', 'bir')
             ->addSelect('bir')
             ->leftJoin('o.user', 'usr')

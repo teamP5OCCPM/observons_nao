@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Observation;
 use AppBundle\Form\ObservationType;
-use AppBundle\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +18,7 @@ class CoreController extends Controller
     public function indexAction() : Response
     {
         $em = $this->getDoctrine()->getManager();
-        $observations = $em->getRepository('AppBundle:Observation')->getIndexObservations(4);
+        $observations = $em->getRepository('AppBundle:Observation')->getIndexObservations(4, "validate");
         $articles = $em->getRepository('AppBundle:Article')->getIndexArticles(4);
 
         return $this->render('core/index.html.twig', ['observations' => $observations, 'articles' => $articles]);
@@ -54,7 +53,7 @@ class CoreController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $nbPerPage = 12;
-        $listObservations = $em->getRepository('AppBundle:Observation')->getObservations($page, $nbPerPage);
+        $listObservations = $em->getRepository('AppBundle:Observation')->getObservations($page, $nbPerPage, "validate");
 
         $nbPages = ceil(count($listObservations) / $nbPerPage);
 
@@ -66,30 +65,21 @@ class CoreController extends Controller
     }
 
     /**
-     * @param Request      $request
-     *
-     * @param FileUploader $fileUploader
-     *
+     * @param Request      $request     *
      * @return Response
      * @Route("/ajouter-observation", name="addObservation")
      */
-    public function addObservationAction(Request $request, FileUploader $fileUploader) : Response
+    public function addObservationAction(Request $request) : Response
     {
         $em = $this->getDoctrine()->getManager();
         $observation = new Observation();
         $form = $this->createForm(ObservationType::class, $observation);
         $form->handleRequest($request);
 
+        $image = "default.jpg";
         $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->getData()->getImage() !== null) {
-                $image = $observation->getImage();
-                $filename = $fileUploader->upload($image);
-                $observation->setImage("img/observations/".$filename);
-            } else {
-                $observation->setImage("img/observations/default.jpg");
-            }
             $observation->setUser($user);
             $em->persist($observation);
             $em->flush();
@@ -99,7 +89,34 @@ class CoreController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('core/addObservation.html.twig', ['form_observation' => $form->createView()]);
+        return $this->render('core/addObservation.html.twig', ['title' => "Ajouter une observation", 'form_observation' => $form->createView(), 'image' => $image]);
+    }
+
+    /**
+     * @param Request $request
+     * @param         $slug
+     *
+     * @return Response
+     * @Route("/editer-observation/{slug}", name="editObservation")
+     */
+    public function editObservationAction(Request $request, $slug) : Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $observation = $em->getRepository('AppBundle:Observation')->findOneBySlug($slug);
+        $form = $this->createForm(ObservationType::class, $observation);
+        $form->handleRequest($request);
+
+        $image = $observation->getImageName();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $this->addFlash('success', "L'observation à bien été modifié");
+
+            return $this->redirectToRoute('manageObservations', ['status'  => 'tous']);
+        }
+
+        return $this->render('core/addObservation.html.twig', ['title' => "Editer une observation", 'form_observation' => $form->createView(), 'image' => $image]);
     }
 
     /**

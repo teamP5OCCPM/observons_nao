@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Gestion dynamique de l'affichage de l'image
     //------------------------------------------------------------
-    const inputImgUp = $('#appbundle_observation_image'),
+    const inputImgUp = $('#appbundle_observation_imageFile_file'),
         imageBox = $('#add-observation-img');
 
     function readURL(input) {
