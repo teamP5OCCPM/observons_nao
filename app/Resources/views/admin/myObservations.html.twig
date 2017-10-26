@@ -7,5 +7,52 @@
 {% block body %}
     <div class="container mt70">
         <h1>Mes observations</h1>
+        <div id="accordion" role="tablist">
+            {% if observations is empty %}
+                <div class="alert alert-warning">
+                    Vous n'avez pas encore saisie d'observations, cliquez <a href="{{ path('addObservation') }}">ici</a> si vous souhaitez en saisire une.
+                </div>
+            {% endif %}
+            {% for observation in observations %}
+                <div class="card card-accordion">
+                    <div class="card-header
+                    {% if observation.status == "refused" %}bg-danger
+                    {% elseif observation.status == "waiting" %}bg-secondary
+                    {% else %}bg-nao-green
+                    {% endif %}"
+                         role="tab" id="heading{{ loop.index }}">
+                        <h5 class="mb-0">
+                            <a class="collapsed text-white" data-toggle="collapse" href="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                                {{ observation.title }}
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse{{ loop.index }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6">
+                                    <img class="mb-2" src="{{ asset("img/observations/" ~ observation.imageName) }}" alt="">
+                                </div>
+                                <div class="col-lg-8 col-md-6">
+                                    <h4>{{ observation.bird.species }}</h4>
+                                    {{ observation.description }}
+                                </div>
+                            </div>
+                            {% if observation.status != "refused" %}
+                                <hr>
+                            {% endif %}
+                            <div class="row d-flex justify-content-around">
+                                {% if observation.status == "waiting" %}
+                                    <a href="{{ path('editObservation', {'slug': observation.slug}) }}" class="btn btn-warning btn-sm text-white mt-3">Editer</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        {{ observation.user.lastname }} <span class="float-right">{{ observation.ObservedAt | date('d/m/Y') }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

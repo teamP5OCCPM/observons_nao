@@ -22,6 +22,7 @@
       <w>lequel</w>
       <w>mise</w>
       <w>méthode</w>
+      <w>nullable</w>
       <w>objets</w>
       <w>onload</w>
       <w>persiste</w>
@@ -30,6 +31,8 @@
       <w>searchbar</w>
       <w>sidenav</w>
       <w>toutes</w>
+      <w>uploadable</w>
+      <w>vich</w>
     </words>
   </dictionary>
 </component>

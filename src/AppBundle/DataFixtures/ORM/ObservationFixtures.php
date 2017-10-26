@@ -17,11 +17,13 @@ class ObservationFixtures extends Fixture
         $observation->setUser($this->getReference('user'));
         $observation->setBird($this->getReference('bird'));
         $observation->setTitle('Aigle royal en montagne');
-        $observation->setImage('img/observations/01.jpg');
+        $observation->setImageName('01.jpg');
         $observation->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation->setCreatedAt(new \DateTime());
-        $observation->setLng('42.800503');
-        $observation->setLat('1.085325');
+        $observation->setObservedAt(new \DateTime());
+        $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+        $observation->setLng('1.085325');
+        $observation->setLat('42.800503');
         $observation->setStatus('validate');
         $observation->setSlug('aigle-royal-en-montagne');
 
@@ -30,11 +32,13 @@ class ObservationFixtures extends Fixture
         $observation2->setUser($this->getReference('user'));
         $observation2->setBird($this->getReference('bird2'));
         $observation2->setTitle('Faucon royal en montagne');
-        $observation2->setImage('img/observations/02.jpg');
+        $observation2->setImageName('02.jpg');
         $observation2->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation2->setCreatedAt(new \DateTime());
-        $observation2->setLng('42.800503');
-        $observation2->setLat('1.085325');
+        $observation->setObservedAt(new \DateTime());
+        $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+        $observation2->setLng('1.085325');
+        $observation2->setLat('42.800503');
         $observation2->setStatus('waiting');
         $observation2->setSlug('faucon-royal-en-montagne');
 
@@ -43,11 +47,13 @@ class ObservationFixtures extends Fixture
         $observation3->setUser($this->getReference('user'));
         $observation3->setBird($this->getReference('bird3'));
         $observation3->setTitle('Moineau en montagne');
-        $observation3->setImage('img/observations/03.jpg');
+        $observation3->setImageName('03.jpg');
         $observation3->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation3->setCreatedAt(new \DateTime());
-        $observation3->setLng('42.800503');
-        $observation3->setLat('1.085325');
+        $observation->setObservedAt(new \DateTime());
+        $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+        $observation3->setLng('1.085325');
+        $observation3->setLat('42.800503');
         $observation3->setStatus('refused');
         $observation3->setSlug('moineau-royal-en-montagne');
 
@@ -56,11 +62,13 @@ class ObservationFixtures extends Fixture
         $observation4->setUser($this->getReference('user'));
         $observation4->setBird($this->getReference('bird4'));
         $observation4->setTitle('Pigeon en montagne');
-        $observation4->setImage('img/observations/04.jpg');
+        $observation4->setImageName('04.jpg');
         $observation4->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation4->setCreatedAt(new \DateTime());
-        $observation4->setLng('42.800503');
-        $observation4->setLat('1.085325');
+        $observation->setObservedAt(new \DateTime());
+        $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+        $observation4->setLng('1.085325');
+        $observation4->setLat('42.800503');
         $observation4->setStatus('validate');
         $observation4->setSlug('pigeon-royal-en-montagne');
 
@@ -75,11 +83,13 @@ class ObservationFixtures extends Fixture
             $observationD->setUser($this->getReference('user'));
             $observationD->setBird($this->getReference('bird'));
             $observationD->setTitle('Oiseau en montagne' . $i);
-            $observationD->setImage('img/observations/default.jpg');
+            $observationD->setImageName('default.jpg');
             $observationD->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
             $observationD->setCreatedAt(new \DateTime());
-            $observationD->setLng('42.800503');
-            $observationD->setLat('1.085325');
+            $observation->setObservedAt(new \DateTime());
+            $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+            $observationD->setLng('1.085325');
+            $observationD->setLat('42.800503');
             $observationD->setStatus('validate');
             $observationD->setSlug('oiseau-en-montagne-' . $i);
 

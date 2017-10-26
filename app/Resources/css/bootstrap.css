@@ -6695,7 +6695,9 @@ h2 {
   position: absolute;
   flex-direction: column;
   align-items: center;
-  width: 100%; }
+  width: 100%;
+  top: 4rem;
+  z-index: 1; }
 
 .card {
   margin-bottom: 2rem;

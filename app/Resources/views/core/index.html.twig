@@ -43,7 +43,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card hoverable">
                         <div class="img-card-box">
-                            <img class="card-img-top" src="{{ asset(observation.image) }}" alt="Card image cap">
+                            <img class="card-img-top" src="{{ asset("img/observations/" ~ observation.imageName) }}" alt="Card image cap">
                         </div>
                         <div class="card-body">
                             <a href="{{ path('showObservation', {'slug': observation.slug}) }}" class="btn-rounded bg-secondary float-right" data-toggle="tooltip" data-placement="left" title="Voir l'observation">+</a>

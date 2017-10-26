@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Observation
  *
  * @ORM\Table(name="nao_observation")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ObservationRepository")
+ * @Vich\Uploadable
  */
 class Observation
 {
@@ -30,11 +33,25 @@ class Observation
     private $title;
 
     /**
+     *  @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="image_name", type="string", length=255)
      */
-    private $image;
+    private $imageName;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
 
     /**
      * @var string
@@ -104,6 +121,7 @@ class Observation
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->observedAt = new \DateTime();
         $this->status = "waiting";
     }
 
@@ -139,30 +157,6 @@ class Observation
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Observation
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
@@ -355,5 +349,101 @@ class Observation
     public function getBird()
     {
         return $this->bird;
+    }
+
+    /**
+     * Set observedAt
+     *
+     * @param \DateTime $observedAt
+     *
+     * @return Observation
+     */
+    public function setObservedAt($observedAt)
+    {
+        $this->observedAt = $observedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get observedAt
+     *
+     * @return \DateTime
+     */
+    public function getObservedAt()
+    {
+        return $this->observedAt;
+    }
+
+    /**
+     * @param File|null $image
+     *
+     * @return $this
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set imageName
+     *
+     * @param string $imageName
+     *
+     * @return Observation
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get imageName
+     *
+     * @return string
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Observation
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
