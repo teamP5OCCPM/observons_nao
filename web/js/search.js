@@ -2,21 +2,16 @@ $(document).ready(function(){
     
         // Defining the local dataset
     
-        var cars = ['Audi', 'BMW', 'Bugatti', 'Ferrari', 'Ford', 'Lamborghini', 'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen'];
-    
+        var birds = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('species'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: 'birds.json'
+          });    
         
     
         // Constructing the suggestion engine
     
-        var cars = new Bloodhound({
-    
-            datumTokenizer: Bloodhound.tokenizers.whitespace,
-    
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-    
-            local: cars
-    
-        });
+       console.log(birds);
     
         
     
@@ -34,9 +29,9 @@ $(document).ready(function(){
     
         {
     
-            name: 'cars',
-    
-            source: cars
+            name: 'birds',
+            display: 'species',
+            source: birds
     
         });
     

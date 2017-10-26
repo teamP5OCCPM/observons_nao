@@ -5,6 +5,21 @@
 {% endblock %}
 
 {% block body %}
+{% block style %}
+<style>
+.twitter-typeahead {
+    width: 100%;
+}
+
+#home-search {
+    width: 100%;
+}
+.typeahead.tt-hint {
+    width: 100%;
+}
+
+</style>
+{% endblock %}
     <div class="search-block d-flex align-items-center justify-content-center">
         <div class="container d-flex flex-wrap justify-content-center">
             <h1 class="display-3 text-white mb-3 text-center w-100">Observez</h1>
@@ -25,8 +40,8 @@
                                 <option value="species">Nom</option>
                                 <option value="place">Lieu</option>
                             </select>
-                        </div>
-                        <input type="text" class="form-control bg-transparent-5" id="home-search">
+                        </div> 
+                        <input type="text" class="form-control typeahead bg-transparent-5" id="home-search">
                         <button type="search" class="btn btn-sm btn-primary">Go</button>
                     </div>
                 </div>

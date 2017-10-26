@@ -107,20 +107,7 @@ class CoreController extends Controller
         return $this->render('core/why.html.twig');
     }
 
-    /**
-     * @param Request $request
-     * 
-     * @return Response
-     * @Route("/recherche", name="search")
-     */
-    public function searchAction(Request $request) : Response
-    {
-        $form = $this->createFormBuilder(null)
-                ->add('search', SearchType::class)
-                ->getForm();
-
-        return $this->render('inc/searchfield.html.twig', ['form' => $form->createView()]);
-    }
+  
 
     /**
      * @param $page
@@ -160,7 +147,7 @@ class CoreController extends Controller
      * @return JsonResponse
      * @Route("/resultsJson", name="resultsJson")
      */
-    public function resultsJsonAction(Request $request) : JsonResponse
+    public function searchAction(Request $request) : JsonResponse
     {
         $repository = $this
         ->getDoctrine()
@@ -171,6 +158,25 @@ class CoreController extends Controller
         $listMarkers = $repository->findMarkers();
     
         return new JsonResponse($listMarkers);
+    }
+
+     /**
+     *  @param Request $request
+     * 
+     * @return JsonResponse
+     * @Route("/birds.json", name="birdsJson")
+     */
+    public function findBirdsAction(Request $request) : JsonResponse
+    {
+        $repository = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('AppBundle:Bird')
+        ;
+
+        $listBirds = $repository->findArray();
+    
+        return new JsonResponse($listBirds);
     }
 }
 
