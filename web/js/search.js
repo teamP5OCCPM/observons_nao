@@ -6,6 +6,12 @@
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: 'birds.json'
       });
+
+    var observations = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: 'resultsJson'
+      });
     
     
     var substringMatcher = function(strs) {
@@ -68,7 +74,7 @@ $.getJSON("locations.json", function(data) {
         
         hint: true,
         highlight: true, 
-        minLength: 1 
+        minLength: 3 
     },
     {
         name: 'places',
@@ -83,6 +89,14 @@ $.getJSON("locations.json", function(data) {
         source: birds,
         templates: {
             header: '<h3 class="birds-title">Espèces</h3>'
+        }
+    },
+    {        
+        name: 'observations',
+        display: 'title',
+        source: observations,
+        templates: {
+            header: '<h3 class="birds-title">Observations</h3>'
         }       
     });
 
@@ -95,7 +109,7 @@ $.getJSON("locations.json", function(data) {
                 
                     hint: true,
                     highlight: true,         
-                    minLength: 1         
+                    minLength: 3         
                 },       
                 {        
                     name: 'birds',
@@ -110,7 +124,7 @@ $.getJSON("locations.json", function(data) {
                 
                 hint: true,
                 highlight: true, 
-                minLength: 1 
+                minLength: 3 
             },
             {
                 name: 'places',
@@ -124,7 +138,7 @@ $.getJSON("locations.json", function(data) {
                 
                 hint: true,
                 highlight: true, 
-                minLength: 1 
+                minLength: 3 
             },
             {
                 name: 'places',
@@ -140,6 +154,14 @@ $.getJSON("locations.json", function(data) {
                 templates: {
                     header: '<h3 class="birds-title">Espèces</h3>'
                 }       
+            },
+            {        
+                name: 'observations',
+                display: 'title',
+                source: observations,
+                templates: {
+                    header: '<h3 class="obs-title">Observations</h3>'
+                }
             });
             break;
             
