@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
+use AppBundle\Form\ArticleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends Controller
 {
@@ -12,7 +15,7 @@ class BlogController extends Controller
      * @param $page
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/blog/{page}", name="articles")
+     * @Route("/blog/{page}", name="articles", requirements={"page": "\d+"})
      */
     public function articlesAction($page) : Response
     {
@@ -48,13 +51,37 @@ class BlogController extends Controller
         return $this->render('blog/showArticle.html.twig', ['article' => $article]);
     }
 
+
+
     /**
      * @return Response
      *
      * @Route("/blog/ajouter-article", name="addArticle")
      */
-    public function addArticleAction()
+    public function addArticleAction(Request $request) : Response
     {
-        return $this->render('blog/addArticle.html.twig');
+
+
+        $em = $this->getDoctrine()->getManager();
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        $image = "adefault.jpg";
+
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setUser($user);
+            $em->persist($article);
+            $em->flush();
+
+            $this->addFlash('success', "L'article est bien enregistrée et sera soumis à validation");
+
+            return $this->redirectToRoute('addArticle');
+        }
+
+
+        return $this->render('blog/addArticle.html.twig', ['title' => "Ajouter un article", 'form_article' => $form->createView(), 'image' => $image]);
     }
 }

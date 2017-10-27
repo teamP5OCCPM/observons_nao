@@ -6,13 +6,17 @@
 
 {% block body %}
     <div class="container mt70">
-        <h1>Les articles</h1>
+        <div class="d-flex flex-wrap justify-content-between mt-5 mb-3">
+            <h1>Les articles</h1>
+            <a href="{{ path('addArticle') }}" class="btn btn-nao-green btn-sm cta-small">Ajouter un article</a>
+        </div>
+
         <div class="row mt-4">
             {% for article in articles %}
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="card hoverable">
                         <div class="img-card-box">
-                            <img class="card-img-top" src="{{ asset(article.image) }}" alt="Card image cap">
+                            <img class="card-img-top" src="{{ asset(article.imageName) }}" alt="Card image cap">
                         </div>
                         <div class="card-body">
                             <div class="badge badge-primary">Nouveau</div>

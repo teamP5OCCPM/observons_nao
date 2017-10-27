@@ -1,4 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
+
+{% trans_default_domain 'AppBundle' %}
 
 {% block title %}
     Ajouter un article - {{ parent() }}
@@ -6,6 +8,34 @@
 
 {% block body %}
     <div class="container mt70">
-        <h1>Ajouter un article</h1>
+        <h1>{{ title }}</h1>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form_article) }}
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <img id="add-article-img" class="card-img-top mb-3" src="{{ asset('img/' ~ image) }}" alt="">
+                                {{ form_widget(form_article.imageFile) }}
+                            </div>
+                            <div class="col-md-6 col-12">
+                                {{ form_row(form_article.title) }}
+
+                                {{ form_row(form_article.content) }}
+
+                                {{ form_row(form_article.save) }}
+                            </div>
+                        </div>
+                        {{ form_end(form_article) }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/add-article-img.js') }}"></script>
 {% endblock %}

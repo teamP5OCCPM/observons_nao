@@ -12,7 +12,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Table(name="nao_article")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
- * @Vich\Uploadable
  */
 class Article
 {
@@ -272,8 +271,6 @@ class Article
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->createdAt = new \DateTime();
-        $this->setIsPublished(false);
     }
 
     /**

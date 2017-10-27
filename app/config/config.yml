@@ -88,3 +88,8 @@ vich_uploader:
             namer:
                 service: vich_uploader.namer_property
                 options: { property: 'title', transliterate: true}
+        article_image:
+                    upload_destination: '%kernel.root_dir%/../web/img'
+                    namer:
+                        service: vich_uploader.namer_property
+                        options: { property: 'title', transliterate: true}
