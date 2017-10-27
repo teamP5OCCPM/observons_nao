@@ -170,7 +170,7 @@ class CoreController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $nbPerPage = 12;
-        $listObservations = $em->getRepository('AppBundle:Observation')->getObservations($page, $nbPerPage);
+        $listObservations = $em->getRepository('AppBundle:Observation')->getObservations($page, $nbPerPage, "validate");
         $nbOfResults = count($listObservations);
 
         $nbPages = ceil($nbOfResults / $nbPerPage);
@@ -183,7 +183,7 @@ class CoreController extends Controller
             'observations' => $listObservations, 
             'nbPages' => $nbPages, 
             'page' => $page,
-            'nbOfResults' => $nbOfResults
+            
             ]);        
     }
 
