@@ -57,4 +57,25 @@ class ObservationRepository extends EntityRepository
 
         return new Paginator($query, true);
     }
+
+    /**
+     * @return array
+     */
+    public function findMarkers() : array
+    {
+        $query = $this->_em->createQuery('SELECT o.title, o.lat, o.lng FROM AppBundle:Observation o');
+        $results = $query->getArrayResult();
+    
+        return $results;
+    }
+
+    public function findAllLocations() : array
+    {
+        $qb = $this->_em->createQuery('SELECT o.lat, o.lng FROM AppBundle:Observation o GROUP BY o.lat, o.lng');
+        $results = $qb->getArrayResult();
+
+        return $results;
+    }
+
+    
 }

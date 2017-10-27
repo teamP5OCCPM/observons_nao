@@ -5,6 +5,57 @@
 {% endblock %}
 
 {% block body %}
+{% block style %}
+<style>
+.twitter-typeahead {
+    width: 100%;
+}
+
+#home-search, #search-navbar-input {
+    width: 100%;
+}
+.typeahead.tt-hint {
+    width: 100%;
+}
+
+
+.tt-input { /* UPDATE: newer versions use tt-input instead of tt-query */
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+    color: #999;
+}
+
+.tt-menu { /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+    width: 422px;
+    margin-top: 12px;
+    padding: 8px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+    padding: 3px 20px;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.tt-suggestion.tt-selectable:hover { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+    color: #fff;
+    background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
+
+</style>
+{% endblock %}
     <div class="search-block d-flex align-items-center justify-content-center">
         <div class="container d-flex flex-wrap justify-content-center">
             <h1 class="display-3 text-white mb-3 text-center w-100">Observez</h1>
@@ -20,13 +71,13 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon bg-transparent-7 d-sm-block d-none">
-                            <select name="search-filter" id="search-filter" class="filter-search">
+                            <select name="search-filter" id="search-filter-index" class="filter-search">
                                 <option value="name">Tous</option>
                                 <option value="species">Nom</option>
                                 <option value="place">Lieu</option>
                             </select>
-                        </div>
-                        <input type="search" class="form-control bg-transparent-5" id="home-search">
+                        </div> 
+                        <input type="text" class="form-control typeahead bg-transparent-5" id="home-search">
                         <button type="search" class="btn btn-sm btn-primary">Go</button>
                     </div>
                 </div>
@@ -96,4 +147,5 @@
 {% block javascript %}
     {{ parent() }}
     <script src="{{ asset('js/index.js') }}"></script>
+     
 {% endblock %}

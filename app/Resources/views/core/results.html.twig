@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Les observations - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+{% block styles %}
+<style>
+#mapResults {
+    width:  100%;
+    height: 400px;
+}
+</style>
+{% endblock %}
+    <div class="container mt70">
+        <h1>Résultats de votre recherche</h1>
+        <p>{{ nbOfResults }} résultats pour votre recherche.</p>
+        <div id="mapResults"></div>
+        <div class="row mt-4">
+            {% for observation in observations %}
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card hoverable">
+                        <div class="img-card-box">
+                            <img class="card-img-top" src="{{ asset(observation.image) }}" alt="Card image cap">
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ path('showObservation', {'slug': observation.slug}) }}" class="btn-rounded bg-secondary float-right" data-toggle="tooltip" data-placement="left" title="Voir l'observation">+</a>
+                            <div class="badge badge-primary">Nouveau</div>
+                            <a href="{{ path('showObservation', {'slug': observation.slug}) }}">
+                                <h4 class="card-title">{{ observation.title }}</h4>
+                            </a>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ observation.bird.species }}</h6>
+                            <p class="card-text">{{ observation.description | truncate(100, true, '...') }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ observation.user.lastname }}</small>
+                            <small class="text-muted float-right">{{ observation.createdAt | date("d F Y") }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page != 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('observations', {'page': page - 1}) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for p in range(1, nbPages) %}
+                    <li{% if p == page %} class="page-item active light-blue lighten-2"{% endif %}>
+                        <a class="page-link" href="{{ path('observations', {'page': p}) }}">{{ p }}</a>
+                    </li>
+                {% endfor %}
+                {% if page != nbPages %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('observations', {'page': page + 1}) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% block javascript %}
+    {{ parent() }}
+    
+    
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
+    </script>
+    <script src="{{ asset('js/results.js') }}"></script>
+    {% endblock %}
+{% endblock %}

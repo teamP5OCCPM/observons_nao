@@ -45,13 +45,21 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script>window.jQuery || document.write('<script src="{{ asset('js/bootstrap/jquery-slim.min.js') }}"><\/script>')</script>
 <script src="{{ asset('js/bootstrap/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+
+
+<script src="{{ asset('js/typeahead/dist/typeahead.bundle.min.js') }}"></script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
+    </script>
+<script src="{{ asset('js/search.js') }}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{{ asset('js/bootstrap/ie10-viewport-bug-workaround.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
@@ -60,6 +68,7 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
+
 {% endblock %}
 </body>
 </html>
