@@ -65,5 +65,13 @@ class ObservationRepository extends EntityRepository
         return $results;
     }
 
+    public function findAllLocations() : array
+    {
+        $qb = $this->_em->createQuery('SELECT o.lat, o.lng FROM AppBundle:Observation o GROUP BY o.lat, o.lng');
+        $results = $qb->getArrayResult();
+
+        return $results;
+    }
+
     
 }

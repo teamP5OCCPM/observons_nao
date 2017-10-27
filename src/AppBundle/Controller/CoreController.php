@@ -178,5 +178,24 @@ class CoreController extends Controller
     
         return new JsonResponse($listBirds);
     }
+
+     /**
+     *  @param Request $request
+     * 
+     * @return JsonResponse
+     * @Route("/locations.json", name="locationsJson")
+     */
+    public function findLocationsAction(Request $request) : JsonResponse
+    {
+        $repository = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('AppBundle:Observation')
+        ;
+
+        $listLocations = $repository->findAllLocations();
+    
+        return new JsonResponse($listLocations);
+    }
 }
 
