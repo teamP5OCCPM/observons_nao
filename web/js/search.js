@@ -74,7 +74,7 @@ $.getJSON("locations.json", function(data) {
         name: 'places',
         source: substringMatcher(places),
         templates: {
-            header: '<h3 class="places-name">Lieux</h3>'
+            header: '<h3 class="places-title">Lieux</h3>'
         }
     },
     {        

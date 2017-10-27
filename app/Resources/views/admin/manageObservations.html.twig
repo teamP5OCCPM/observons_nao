@@ -43,7 +43,7 @@
                         {% endif %}
                         <div class="row d-flex justify-content-around">
                             {% if observation.status == "validate" %}
-                                <a class="btn btn-primary btn-sm mt-3" href="{{ path('showObservation', {'slug': observation.slug}) }}">Accèder</a>
+                                <a class="btn btn-primary btn-sm mt-3" href="{{ path('showObservation', {'slug': observation.slug}) }}">Accéder</a>
                                 <a href="{{ path('waitingObservation', {'slug': observation.slug}) }}" class="btn btn-secondary btn-sm text-white mt-3">Mettre en attente</a>
 
                             {% endif %}
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    {{ observation.user.lastname }} <span class="float-right">{{ observation.ObservedAt | date('d/m/Y') }}</span>
+                    {{ observation.user.lastName }} <span class="float-right">{{ observation.ObservedAt | date('d/m/Y') }}</span>
                 </div>
             </div>
             <!-- Modal -->
