@@ -33,7 +33,7 @@ class Observation
     private $title;
 
     /**
-     *  @Vich\UploadableField(mapping="observation_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="observation_image", fileNameProperty="imageName")
      *
      * @var File
      */

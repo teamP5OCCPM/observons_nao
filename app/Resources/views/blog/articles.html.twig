@@ -8,7 +8,9 @@
     <div class="container mt70">
         <div class="d-flex flex-wrap justify-content-between mt-5 mb-3">
             <h1>Les articles</h1>
+            {% if is_granted("ROLE_EDITOR") %}
             <a href="{{ path('addArticle') }}" class="btn btn-nao-green btn-sm cta-small">Ajouter un article</a>
+            {% endif %}
         </div>
 
         <div class="row mt-4">

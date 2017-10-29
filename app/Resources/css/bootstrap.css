@@ -6946,7 +6946,7 @@ footer a {
       .sidenav .sidenav-body a.nav-link.active {
         opacity: 1;
         transform: translatex(4px);
-        font-size: .9rem; }
+        font-size: 1rem; }
     .sidenav .sidenav-body .reduce-sidenav {
       position: absolute;
       bottom: 1.5rem;
@@ -6958,6 +6958,11 @@ footer a {
   transform: rotate(0);
   transition: transform .5s ease-in-out; }
 
+@media screen and (max-width: 1380px) {
+  .sidenav-body a.nav-link {
+    font-size: .9rem !important; }
+    .sidenav-body a.nav-link.active {
+      font-size: .9rem !important; } }
 @media screen and (max-width: 992px) {
   .sidenav {
     width: 3rem; } }
