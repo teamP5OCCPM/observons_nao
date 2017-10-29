@@ -193,7 +193,7 @@ class CoreController extends Controller
      * @return JsonResponse
      * @Route("/resultsJson", name="resultsJson")
      */
-    public function searchAction(Request $request) : JsonResponse
+    public function searchAction(Request $request) 
     {
         $repository = $this
         ->getDoctrine()

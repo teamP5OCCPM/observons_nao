@@ -96,7 +96,7 @@ $.getJSON("locations.json", function(data) {
         display: 'title',
         source: observations,
         templates: {
-            header: '<h3 class="birds-title">Observations</h3>'
+            header: '<h3 class="obs-title">Observations</h3>'
         }       
     });
 
