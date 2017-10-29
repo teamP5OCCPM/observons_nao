@@ -3,7 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Comment;
 use AppBundle\Form\ArticleType;
+use AppBundle\Form\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +50,12 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
 
-        return $this->render('blog/showArticle.html.twig', ['article' => $article]);
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+
+
+        return $this->render('blog/showArticle.html.twig', ['article' => $article, 'form' => $form->createView()]);
     }
 
 

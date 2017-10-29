@@ -1,5 +1,5 @@
 <?php
-// src/AppBundle/DataFixtures/ORM/LoadBird.php
+// src/AppBundle/DataFixtures/ORM/LoadArticle.php
 
 namespace AppBundle\DataFixtures\ORM;
 
@@ -15,7 +15,7 @@ class ArticleFixtures extends Fixture
         // article1
         $article = new Article();
         $article->setUser($this->getReference('user'));
-        $article->setImage('img/a01.jpg');
+        $article->setImageName('a01.jpg');
         $article->setTitle('Mon premier article');
         $article->setSlug('mon-premier-article');
         $article->setCreatedAt(new \DateTime());
@@ -25,7 +25,7 @@ class ArticleFixtures extends Fixture
         // article2
         $article2 = new Article();
         $article2->setUser($this->getReference('user2'));
-        $article2->setImage('img/a02.jpg');
+        $article2->setImageName('a02.jpg');
         $article2->setTitle('Mon deuxième article');
         $article2->setSlug('mon-deuxième-article');
         $article2->setCreatedAt(new \DateTime());
@@ -35,7 +35,7 @@ class ArticleFixtures extends Fixture
         // article3
         $article3 = new Article();
         $article3->setUser($this->getReference('user'));
-        $article3->setImage('img/a03.jpg');
+        $article3->setImageName('a03.jpg');
         $article3->setTitle('Mon troisième article');
         $article3->setSlug('mon-troisième-article');
         $article3->setCreatedAt(new \DateTime());
@@ -45,7 +45,7 @@ class ArticleFixtures extends Fixture
         // article4
         $article4 = new Article();
         $article4->setUser($this->getReference('user2'));
-        $article4->setImage('img/a04.jpg');
+        $article4->setImageName('a04.jpg');
         $article4->setTitle('Mon quatrième article');
         $article4->setSlug('mon-quatrième-article');
         $article4->setCreatedAt(new \DateTime());
@@ -61,7 +61,7 @@ class ArticleFixtures extends Fixture
         for ($i = 0; $i < 30; $i++) {
             $articled = new Article();
             $articled->setUser($this->getReference('user'));
-            $articled->setImage('img/adefault.jpg');
+            $articled->setImageName('adefault.jpg');
             $articled->setTitle('article' . $i);
             $articled->setSlug('article-' . $i);
             $articled->setCreatedAt(new \DateTime());
@@ -73,6 +73,9 @@ class ArticleFixtures extends Fixture
 
         // On déclenche l'enregistrement de toutes les objets
         $manager->flush();
+
+
+        $this->addReference('article3', $article3);
     }
 
     // Détermine la dépendance de la fixtures Observation

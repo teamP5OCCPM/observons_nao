@@ -129,12 +129,40 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/gestion-articles", name="manageArticles")
+     * @Route("/gestion-articles/{status}", name="manageArticles")
      */
-    public function manageArticlesAction(Request $request)
+    public function manageArticlesAction($status)
     {
-        return $this->render('admin/manageArticles.html.twig');
+
+        $em = $this->getDoctrine()->getManager();
+
+
+        switch ($status) {
+            case "tous":
+                $articles = $em->getRepository('AppBundle:Article')->findAll();
+                return $this->render('admin/manageArticles.html.twig', ['articles' => $articles ]);
+                break;
+
+            case "isPublished":
+               $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(1);
+                return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
+                break;
+
+            case "waitting":
+                $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(0);
+                return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
+                break;
+        }
+
+        $articles = $em->getRepository('AppBundle:Article')->findAll();
+
+        return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
+
+
     }
+
+
+
 
     /**
      * @Route("/gestion-commentaires", name="manageComs")

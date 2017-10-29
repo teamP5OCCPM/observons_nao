@@ -5,9 +5,60 @@
 {% endblock %}
 
 {% block body %}
-<div class="container mt70">
-    <h1>{{ article.title }}</h1>
-    <p>{{ article.content }}</p>
-</div>
+
+    <div class="container mt70">
+        <div class="d-flex flex-wrap justify-content-between mb-3">
+            <div>
+                <h2>{{ article.title }}</h2>
+                <p class="text-muted">{{ article.user.username }} | {{ article.createdAt | date("d/m/Y") }}</p>
+            </div>
+            <a href="{{ path('addArticle') }}" class="btn btn-secondary btn-sm cta-small">Ajouter un article</a>
+        </div>
+        <div class="clearfix"></div>
+        <div class="card justify-content-around">
+            <div class="card-body d-flex flex-wrap">
+                <div class="col-md-6">
+                    <div class="show-box-img">
+                        <img class="card-img-top" src="{{ asset("img/" ~ article.imageName) }}" alt="">
+                        <div class="share-box">
+                            <p class="text-center">Partagez cette article</p>
+                            <div class="row pb-1 justify-content-center">
+                                <span><a href="http://facebook.com"><i class="fa fa-facebook-square fa-2x mr-2" aria-hidden="true"></i></a></span>
+                                <span><a href="http://twitter.com"><i class="fa fa-twitter-square fa-2x mr-2" aria-hidden="true"></i></a></span>
+                                <span><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="card-text">{{ article.content }}</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Laisser un commentaire</h3>
+        <div class="card justify-content-around">
+            <div class="card-body d-flex flex-wrap">
+                <div class="col-md-12">
+                    {{ form_start(form) }}
+                    {{ form_row(form.author) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.message) }}
+                    {{ form_row(form.author) }}
+                    {{ form_row(form.save) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <h3>Commentaires</h3>
+        {% for comment in article.comments %}
+            {{  include('blog/comment.html.twig') }}
+        {% endfor %}
+
+
+
+    </div>
+
+
 {% endblock %}
 

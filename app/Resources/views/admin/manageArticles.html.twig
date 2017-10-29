@@ -6,6 +6,81 @@
 
 {% block body %}
     <div class="container mt70">
-        <h1>Gestion des articles</h1>
+        <h2>Gestion des articles</h2>
+        <div class="btn-group btn-group-sm mb-4 d-sm-inline-flex d-flex flex-wrap flex-sm-row flex-column" role="group" aria-label="Basic example">
+            <a href="{{ path('manageArticles', {'status': 'tous'}) }}" type="button" class="btn btn-dark">Tous</a>
+            <a href="{{ path('manageArticles', {'status': 'isPublished'}) }}" type="button" class="btn btn-dark">Publié</a>
+            <a href="{{ path('manageArticles', {'status': 'waitting'}) }}" type="button" class="btn btn-dark">En attente</a>
+        </div>
+        <div id="accordion" role="tablist">
+            {% for article in articles %}
+                <div class="card card-accordion">
+                    <div class="card-header
+                    {% if article.ispublished == false %}bg-danger
+                    {% else %}bg-nao-green
+                    {% endif %}"
+                         role="tab" id="heading{{ loop.index }}">
+                        <h5 class="mb-0">
+                            <a class="collapsed text-white" data-toggle="collapse" href="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                                {{ article.title }}
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse{{ loop.index }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6">
+                                    <img class="mb-2" src="{{ asset("img/" ~ article.imageName) }}" alt="">
+                                </div>
+                                <div class="col-lg-8 col-md-6">
+                                    {{ article.content }}
+                                </div>
+                            </div>
+                           {# {% if observation.status != "refused" %} #}
+                                <hr>
+                            {#{% endif %}#}
+                            <div class="row d-flex justify-content-around">
+                                {% if article.ispublished == true %}
+                                    <a class="btn btn-primary btn-sm mt-3" href="#">Accéder</a>
+                                    <a href="#" class="btn btn-secondary btn-sm text-white mt-3">Mettre en attente</a>
+
+                                {% endif %}
+                                {% if article.ispublished == false %}
+                                    <a href="#" class="btn btn-success btn-sm mt-3">Valider</a>
+                                    <a href="#" class="btn btn-warning btn-sm text-white mt-3">Editer</a>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#observationModal{{ article.id }}">
+                                        Refuser
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        {{ article.user.lastName }} <span class="float-right">{{ article.createdAt | date('d/m/Y') }}</span>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="observationModal{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Refuser l'observation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Vous êtes sur le point de refusé l'observation {{ article.title }}, en êtes-vous sûr ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">Annuler</button>
+                                <a href="#" class="btn btn-danger btn-sm">Refuser</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

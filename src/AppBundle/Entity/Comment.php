@@ -54,21 +54,21 @@ class Comment
      *
      * @ORM\Column(name="is_reported", type="boolean")
      */
-    private $isReported;
+    private $isReported = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="is_hidden", type="boolean")
      */
-    private $isHidden;
+    private $isHidden = false;
 
 
     /**
      * @var integer
      * @ORM\Column(name="level", type="integer")
      */
-    private $level;
+    private $level = 1;
 
 
     /**
@@ -253,6 +253,7 @@ class Comment
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     /**
