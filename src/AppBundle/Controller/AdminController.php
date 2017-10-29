@@ -12,7 +12,7 @@ class AdminController extends Controller
     /**
      * @Route("/admin", name="board")
      */
-    public function boardAction(Request $request)
+    public function boardAction(Request $request) 
     {
         return $this->render('admin/board.html.twig');
     }
@@ -96,7 +96,7 @@ class AdminController extends Controller
      * @return RedirectResponse
      * @Route("/admin/waiting-observation/{slug}", name="waitingObservation")
      */
-    public function waitingObservationAction($slug)
+    public function waitingObservationAction($slug) : Response
     {
         $em = $this->getDoctrine()->getManager();
         $observation = $em->getRepository('AppBundle:Observation')->findOneBySlug($slug);

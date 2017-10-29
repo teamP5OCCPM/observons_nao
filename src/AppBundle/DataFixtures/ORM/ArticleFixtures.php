@@ -15,6 +15,7 @@ class ArticleFixtures extends Fixture
         // article1
         $article = new Article();
         $article->setUser($this->getReference('user'));
+
         $article->setImageName('a01.jpg');
         $article->setTitle('Mon premier article');
         $article->setSlug('mon-premier-article');
@@ -25,6 +26,7 @@ class ArticleFixtures extends Fixture
         // article2
         $article2 = new Article();
         $article2->setUser($this->getReference('user2'));
+
         $article2->setImageName('a02.jpg');
         $article2->setTitle('Mon deuxième article');
         $article2->setSlug('mon-deuxième-article');
@@ -35,6 +37,7 @@ class ArticleFixtures extends Fixture
         // article3
         $article3 = new Article();
         $article3->setUser($this->getReference('user'));
+
         $article3->setImageName('a03.jpg');
         $article3->setTitle('Mon troisième article');
         $article3->setSlug('mon-troisième-article');
@@ -45,6 +48,7 @@ class ArticleFixtures extends Fixture
         // article4
         $article4 = new Article();
         $article4->setUser($this->getReference('user2'));
+
         $article4->setImageName('a04.jpg');
         $article4->setTitle('Mon quatrième article');
         $article4->setSlug('mon-quatrième-article');
@@ -61,6 +65,7 @@ class ArticleFixtures extends Fixture
         for ($i = 0; $i < 30; $i++) {
             $articled = new Article();
             $articled->setUser($this->getReference('user'));
+
             $articled->setImageName('adefault.jpg');
             $articled->setTitle('article' . $i);
             $articled->setSlug('article-' . $i);
