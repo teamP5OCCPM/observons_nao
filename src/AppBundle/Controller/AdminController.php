@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
+use AppBundle\Form\ArticleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -124,13 +126,41 @@ class AdminController extends Controller
     }
 
     /**
+     * @param Request $request
+     *
+     * @return Response
+     * @Route("/ajouter-article", name="addArticle")
+     */
+    public function addArticleAction(Request $request) : Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        $image = "adefault.jpg";
+
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setUser($user);
+            $em->persist($article);
+            $em->flush();
+
+            $this->addFlash('success', "L'article est bien enregistrée et sera soumis à validation");
+
+            return $this->redirectToRoute('addArticle');
+        }
+
+        return $this->render('admin/addArticle.html.twig', ['title' => "Ajouter un article", 'form_article' => $form->createView(), 'image' => $image]);
+    }
+
+    /**
      * @Route("/gestion-articles/{status}", name="manageArticles")
      */
     public function manageArticlesAction($status)
     {
-
         $em = $this->getDoctrine()->getManager();
-
 
         switch ($status) {
             case "tous":
@@ -152,12 +182,7 @@ class AdminController extends Controller
         $articles = $em->getRepository('AppBundle:Article')->findAll();
 
         return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
-
-
     }
-
-
-
 
     /**
      * @Route("/gestion-commentaires", name="manageComs")

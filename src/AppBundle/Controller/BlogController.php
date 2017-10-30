@@ -57,38 +57,4 @@ class BlogController extends Controller
 
         return $this->render('blog/showArticle.html.twig', ['article' => $article, 'form' => $form->createView()]);
     }
-
-
-
-    /**
-     * @return Response
-     *
-     * @Route("/blog/ajouter-article", name="addArticle")
-     */
-    public function addArticleAction(Request $request) : Response
-    {
-
-
-        $em = $this->getDoctrine()->getManager();
-        $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
-
-        $image = "adefault.jpg";
-
-        $user = $this->getUser();
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setUser($user);
-            $em->persist($article);
-            $em->flush();
-
-            $this->addFlash('success', "L'article est bien enregistrée et sera soumis à validation");
-
-            return $this->redirectToRoute('addArticle');
-        }
-
-
-        return $this->render('blog/addArticle.html.twig', ['title' => "Ajouter un article", 'form_article' => $form->createView(), 'image' => $image]);
-    }
 }
