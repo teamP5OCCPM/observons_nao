@@ -42,8 +42,8 @@ class ObservationRepository extends EntityRepository
     public function getObservations($page, $nbPerPage, $status) : Paginator
     {
         $query = $this->createQueryBuilder('o')
-                ->where('o.status = :status')
-                ->setParameter('status', $status)
+            ->where('o.status = :status')
+            ->setParameter('status', $status)
             ->leftJoin('o.bird', 'bir')
             ->addSelect('bir')
             ->leftJoin('o.user', 'usr')

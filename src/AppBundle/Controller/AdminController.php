@@ -4,29 +4,28 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class AdminController
+ *
+ * @package         AppBundle\Controller
+ * @Route("/admin")
+ */
 class AdminController extends Controller
 {
     /**
-     * @Route("/admin", name="board")
+     * @Route("/", name="board")
      */
-    public function boardAction(Request $request) 
+    public function boardAction()
     {
         return $this->render('admin/board.html.twig');
     }
 
     /**
-     * @Route("/mon-compte", name="myAccount")
-     */
-    public function myAccountAction(Request $request)
-    {
-        return $this->render('admin/myAccount.html.twig');
-    }
-
-    /**
-     * @Route("/mon-observations", name="myObservations")
+     * @Route("/mes-observations", name="myObservations")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -41,33 +40,29 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion-observations/{status}", name="manageObservations")
+     * @param $status
+     *
+     * @return Response
      */
     public function manageObservationsAction($status)
     {
         $em = $this->getDoctrine()->getManager();
 
         switch ($status) {
-            case "validate":
-                $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
-
-                return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
+        case "validate":
+            $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
+            return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
                 break;
-
-            case "waiting":
-                $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
-
-                return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
+        case "waiting":
+            $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
+            return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
                 break;
-
-            case "refused":
-                $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
-
-                return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
+        case "refused":
+            $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
+            return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
                 break;
         }
-
         $observations = $em->getRepository('AppBundle:Observation')->findAll();
-
         return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
     }
 
@@ -75,9 +70,9 @@ class AdminController extends Controller
      * @param $slug
      *
      * @return RedirectResponse
-     * @Route("/admin/validate-observation/{slug}", name="validateObservation")
+     * @Route("/validate-observation/{slug}", name="validateObservation")
      */
-    public function validateObservationAction($slug)
+    public function validateObservationAction($slug) : RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $observation = $em->getRepository('AppBundle:Observation')->findOneBySlug($slug);
@@ -94,9 +89,9 @@ class AdminController extends Controller
      * @param $slug
      *
      * @return RedirectResponse
-     * @Route("/admin/waiting-observation/{slug}", name="waitingObservation")
+     * @Route("/waiting-observation/{slug}", name="waitingObservation")
      */
-    public function waitingObservationAction($slug) : Response
+    public function waitingObservationAction($slug) : RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $observation = $em->getRepository('AppBundle:Observation')->findOneBySlug($slug);
@@ -113,7 +108,7 @@ class AdminController extends Controller
      * @param $slug
      *
      * @return RedirectResponse
-     * @Route("/admin/refused-observation/{slug}", name="refusedObservation")
+     * @Route("/refused-observation/{slug}", name="refusedObservation")
      */
     public function refusedObservationAction($slug)
     {
@@ -167,7 +162,7 @@ class AdminController extends Controller
     /**
      * @Route("/gestion-commentaires", name="manageComs")
      */
-    public function manageComsAction(Request $request)
+    public function manageComsAction()
     {
         return $this->render('admin/manageComs.html.twig');
     }
@@ -175,7 +170,7 @@ class AdminController extends Controller
     /**
      * @Route("/mise-a-jour-bdd", name="manageBdd")
      */
-    public function manageBddAction(Request $request)
+    public function manageBddAction()
     {
         return $this->render('admin/manageBdd.html.twig');
     }
@@ -183,7 +178,7 @@ class AdminController extends Controller
     /**
      * @Route("/gestion-comptes", name="manageAccounts")
      */
-    public function manageAccountsAction(Request $request)
+    public function manageAccountsAction()
     {
         return $this->render('admin/manageAccounts.html.twig');
     }

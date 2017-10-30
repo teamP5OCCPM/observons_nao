@@ -66,7 +66,7 @@ class CoreController extends Controller
     }
 
     /**
-     * @param Request      $request     *
+     * @param Request $request *
      * @return Response
      * @Route("/ajouter-observation", name="addObservation")
      */
@@ -153,8 +153,6 @@ class CoreController extends Controller
         return $this->render('core/why.html.twig');
     }
 
-  
-
     /**
      * @param $page
      * 
@@ -179,27 +177,18 @@ class CoreController extends Controller
             throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
         }
 
-        return $this->render('core/results.html.twig', [
-            'observations' => $listObservations, 
-            'nbPages' => $nbPages, 
-            'page' => $page,
-            
-            ]);        
+        return $this->render('core/results.html.twig', ['observations' => $listObservations, 'nbPages' => $nbPages, 'page' => $page,]);
     }
 
     /**
-     *  @param Request $request
+     * @param Request $request
      * 
      * @return JsonResponse
      * @Route("/resultsJson", name="resultsJson")
      */
     public function searchAction(Request $request) 
     {
-        $repository = $this
-        ->getDoctrine()
-        ->getManager()
-        ->getRepository('AppBundle:Observation')
-        ;
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
 
         $listMarkers = $repository->findMarkers();
     
@@ -207,18 +196,14 @@ class CoreController extends Controller
     }
 
      /**
-     *  @param Request $request
-     * 
-     * @return JsonResponse
-     * @Route("/birds.json", name="birdsJson")
-     */
+      * @param Request $request
+      * 
+      * @return JsonResponse
+      * @Route("/birds.json", name="birdsJson")
+      */
     public function findBirdsAction(Request $request) : JsonResponse
     {
-        $repository = $this
-        ->getDoctrine()
-        ->getManager()
-        ->getRepository('AppBundle:Bird')
-        ;
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bird');
 
         $listBirds = $repository->findArray();
     
@@ -226,18 +211,14 @@ class CoreController extends Controller
     }
 
      /**
-     *  @param Request $request
-     * 
-     * @return JsonResponse
-     * @Route("/locations.json", name="locationsJson")
-     */
+      * @param Request $request
+      * 
+      * @return JsonResponse
+      * @Route("/locations.json", name="locationsJson")
+      */
     public function findLocationsAction(Request $request) : JsonResponse
     {
-        $repository = $this
-        ->getDoctrine()
-        ->getManager()
-        ->getRepository('AppBundle:Observation')
-        ;
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
 
         $listLocations = $repository->findAllLocations();
     

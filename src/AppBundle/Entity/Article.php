@@ -47,7 +47,7 @@ class Article
     private $createdAt;
 
     /**
-     *  @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
      *
      * @var File
      */

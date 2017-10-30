@@ -10,7 +10,8 @@ namespace AppBundle\Repository;
  */
 class BirdRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findArray() {
+    public function findArray() 
+    {
         $qb = $this->createQueryBuilder('b')
             ->getQuery();
         $results = $qb->getArrayResult();
