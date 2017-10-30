@@ -155,7 +155,6 @@ class CoreController extends Controller
 
     /**
      * @param $page
-     * 
      * @return Response
      * @Route("/resultats/{page}", name="results")
      */
@@ -181,12 +180,10 @@ class CoreController extends Controller
     }
 
     /**
-     * @param Request $request
-     * 
      * @return JsonResponse
      * @Route("/resultsJson", name="resultsJson")
      */
-    public function searchAction(Request $request) 
+    public function searchAction() : JsonResponse
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
 
@@ -197,7 +194,7 @@ class CoreController extends Controller
 
      /**
       * @param Request $request
-      * 
+      *
       * @return JsonResponse
       * @Route("/birds.json", name="birdsJson")
       */
@@ -212,7 +209,7 @@ class CoreController extends Controller
 
      /**
       * @param Request $request
-      * 
+      *
       * @return JsonResponse
       * @Route("/locations.json", name="locationsJson")
       */
@@ -225,4 +222,3 @@ class CoreController extends Controller
         return new JsonResponse($listLocations);
     }
 }
-

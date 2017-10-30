@@ -79,6 +79,4 @@ class ObservationRepository extends EntityRepository
 
         return $results;
     }
-
-    
 }

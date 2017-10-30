@@ -1,6 +1,4 @@
 <?php
-// src/AppBundle/DataFixtures/ORM/LoadComment.php
-
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -19,15 +17,12 @@ class CommentFixtures extends Fixture
         $comment->setEmail('sebgaudin@yahoo.fr');
         $comment->setMessage('Test de commentaire');
 
-
-
         // comment2
         $comment2 = new Comment();
         $comment2->setParent($comment);
         $comment2->setAuthor('sebius');
         $comment2->setEmail('sebgaudin@yahoo.fr');
         $comment2->setMessage('Réponse commentaire');
-
 
         // comment3
         $comment3 = new Comment();
@@ -41,9 +36,7 @@ class CommentFixtures extends Fixture
         $manager->persist($comment3);
 
         $manager->flush();
-
     }
-
 
     // Détermine la dépendance de la fixtures Observation
     // Détermine donc l'ordre dans lequel les fixtures se font
@@ -53,6 +46,4 @@ class CommentFixtures extends Fixture
             ArticleFixtures::class
         ];
     }
-
-
 }

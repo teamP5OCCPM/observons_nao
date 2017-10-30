@@ -51,18 +51,18 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         switch ($status) {
-        case "validate":
-            $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
-            return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                break;
-        case "waiting":
-            $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
-            return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                break;
-        case "refused":
-            $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
-            return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                break;
+            case "validate":
+                $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
+                return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
+                    break;
+            case "waiting":
+                $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
+                return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
+                    break;
+            case "refused":
+                $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
+                return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
+                    break;
         }
         $observations = $em->getRepository('AppBundle:Observation')->findAll();
         return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
@@ -166,17 +166,17 @@ class AdminController extends Controller
             case "tous":
                 $articles = $em->getRepository('AppBundle:Article')->findAll();
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles ]);
-                break;
+                    break;
 
             case "isPublished":
-               $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(1);
+                $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(1);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
-                break;
+                    break;
 
             case "waitting":
                 $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(0);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
-                break;
+                    break;
         }
 
         $articles = $em->getRepository('AppBundle:Article')->findAll();

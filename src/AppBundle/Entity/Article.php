@@ -333,5 +333,4 @@ class Article
     {
         return $this->comments;
     }
-    
 }

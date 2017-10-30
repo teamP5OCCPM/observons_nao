@@ -21,8 +21,7 @@ class CommentType extends AbstractType
             ->add('author', TextType::class)
             ->add('email', EmailType::class)
             ->add('message', TextareaType::class)
-            ->add('save', SubmitType::class)
-            ;
+            ->add('save', SubmitType::class);
     }
     
     /**
@@ -30,9 +29,7 @@ class CommentType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Comment'
-        ));
+        $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\Comment'));
     }
 
     /**
@@ -42,6 +39,4 @@ class CommentType extends AbstractType
     {
         return 'appbundle_comment';
     }
-
-
 }

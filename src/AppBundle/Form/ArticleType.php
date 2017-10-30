@@ -10,7 +10,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-
 class ArticleType extends AbstractType
 {
     /**
@@ -26,24 +25,12 @@ class ArticleType extends AbstractType
             ;
     }
 
-
-
-
-
-
-
-
-    
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-            'data_class' => 'AppBundle\Entity\Article'
-            )
-        );
+        $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\Article'));
     }
 
     /**
@@ -53,6 +40,4 @@ class ArticleType extends AbstractType
     {
         return 'appbundle_article';
     }
-
-
 }
