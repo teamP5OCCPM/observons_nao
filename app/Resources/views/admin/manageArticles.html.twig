@@ -41,15 +41,15 @@
                             {#{% endif %}#}
                             <div class="row d-flex justify-content-around">
                                 {% if article.ispublished == true %}
-                                    <a class="btn btn-primary btn-sm mt-3" href="#">Accéder</a>
-                                    <a href="#" class="btn btn-secondary btn-sm text-white mt-3">Mettre en attente</a>
+                                    <a class="btn btn-primary btn-sm mt-3" href="{{ path('showArticle', {'slug': article.slug }) }}">Accéder</a>
+                                    <a href="{{ path('waitingArticle', {'slug': article.slug }) }}" class="btn btn-secondary btn-sm text-white mt-3">Mettre en attente</a>
 
                                 {% endif %}
                                 {% if article.ispublished == false %}
-                                    <a href="#" class="btn btn-success btn-sm mt-3">Valider</a>
-                                    <a href="#" class="btn btn-warning btn-sm text-white mt-3">Editer</a>
+                                    <a href="{{ path('validateArticle', {'slug': article.slug}) }}" class="btn btn-success btn-sm mt-3">Publier</a>
+                                    <a href="{{ path('editArticle', {'slug': article.slug}) }}" class="btn btn-warning btn-sm text-white mt-3">Editer</a>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#observationModal{{ article.id }}">
+                                    <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#articleModal{{ article.id }}">
                                         Refuser
                                     </button>
                                 {% endif %}
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="observationModal{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="articleModal{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -71,11 +71,11 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Vous êtes sur le point de refusé l'observation {{ article.title }}, en êtes-vous sûr ?
+                                Vous êtes sur le point de refusé l'article "{{ article.title }}", en êtes-vous sûr ?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">Annuler</button>
-                                <a href="#" class="btn btn-danger btn-sm">Refuser</a>
+                                <a href="{{ path('refusedArticle', {'slug': article.slug}) }}" class="btn btn-danger btn-sm">Refuser</a>
                             </div>
                         </div>
                     </div>

@@ -184,13 +184,199 @@ class AdminController extends Controller
         return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
     }
 
+
     /**
-     * @Route("/gestion-commentaires", name="manageComs")
+     * @param $slug
+     *
+     * @return RedirectResponse
+     * @Route("/waiting-article/{slug}", name="waitingArticle")
      */
-    public function manageComsAction()
+    public function waitingArticleAction($slug) : RedirectResponse
     {
-        return $this->render('admin/manageComs.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
+        $article->setIsPublished(false);
+
+        $em->flush();
+
+        $this->addFlash('warning', "L'article, " . $article->getTitle() . " a bien été mis en attente");
+
+        return $this->redirectToRoute('manageArticles', ['status' => "tous"]);
     }
+
+
+    /**
+     * @param $slug
+     *
+     * @return RedirectResponse
+     * @Route("/validate-article/{slug}", name="validateArticle")
+     */
+    public function validateArticleAction($slug) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
+        $article->setIsPublished(true);
+
+        $em->flush();
+
+        $this->addFlash('warning', "L'article, " . $article->getTitle() . " a bien été publié");
+
+        return $this->redirectToRoute('manageArticles', ['status' => "tous"]);
+    }
+
+
+
+    /**
+     * @param Request $request
+     * @param         $slug
+     *
+     * @return Response
+     * @Route("/editer-article/{slug}", name="editArticle")
+     */
+    public function editArticleAction(Request $request, $slug) : Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        $image = $article->getImageName();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $this->addFlash('success', "L'article à bien été modifié");
+
+            return $this->redirectToRoute('manageArticles', ['status'  => 'tous']);
+        }
+
+        return $this->render('admin/addArticle.html.twig', ['title' => "Editer un article", 'form_article' => $form->createView(), 'image' => $image]);
+    }
+
+
+
+    /**
+     * @param $slug
+     *
+     * @return RedirectResponse
+     * @Route("/refused-article/{slug}", name="refusedArticle")
+     */
+    public function refusedArticleAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:article')->findOneBySlug($slug);
+
+        $em->remove($article);
+
+        $em->flush();
+
+        $this->addFlash('warning', "L'article a bien été supprimé.");
+
+        return $this->redirectToRoute('manageArticles', ['status' => "tous"]);
+    }
+
+
+
+
+    /**
+     * @Route("/gestion-commentaires/{status}", name="manageComs")
+     * @param $status
+     *
+     * @return Response
+     */
+    public function manageComsAction($status)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        switch ($status) {
+
+            case "isReported":
+                $comments = $em->getRepository('AppBundle:Comment')->findByIsReported(1);
+                return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
+                break;
+            case "isHidden":
+                $comments = $em->getRepository('AppBundle:Comment')->findByIsHidden(1);
+                return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
+                break;
+            default:
+                $comments = $em->getRepository('AppBundle:Comment')->findAll();
+                return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
+
+
+        }
+
+    }
+
+
+
+    /**
+     * @param $id
+     *
+     * @return RedirectResponse
+     * @Route("/hidden-comment/{id}", name="hiddenComment")
+     */
+    public function hiddenCommentAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('AppBundle:Comment')->findOneById($id);
+
+        $comment->setIsHidden(true);
+
+        $em->persist($comment);
+
+        $em->flush();
+
+        $this->addFlash('warning', "Le commentaire est masqué.");
+
+        return $this->redirectToRoute('manageComs', ['status' => "tous"]);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return RedirectResponse
+     * @Route("/validate-comment/{id}", name="validateComment")
+     */
+    public function validateCommentAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('AppBundle:Comment')->findOneById($id);
+
+        $comment->setIsReported(false);
+
+        $em->persist($comment);
+
+        $em->flush();
+
+        $this->addFlash('warning', "Le commentaire a été validé.");
+
+        return $this->redirectToRoute('manageComs', ['status' => "tous"]);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return RedirectResponse
+     * @Route("/noHidden-comment/{id}", name="noHiddenComment")
+     */
+    public function noHiddenCommentAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('AppBundle:Comment')->findOneById($id);
+
+        $comment->setIsHidden(false);
+
+        $em->persist($comment);
+
+        $em->flush();
+
+        $this->addFlash('warning', "Le commentaire a été démasqué.");
+
+        return $this->redirectToRoute('manageComs', ['status' => "tous"]);
+    }
+
+
 
     /**
      * @Route("/mise-a-jour-bdd", name="manageBdd")

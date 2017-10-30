@@ -6,6 +6,55 @@
 
 {% block body %}
     <div class="container mt70">
-        <h1>Gestion des commentaires</h1>
+        <h2>Gestion des commentaires</h2>
+        <div class="btn-group btn-group-sm mb-4 d-sm-inline-flex d-flex flex-wrap flex-sm-row flex-column" role="group" aria-label="Basic example">
+            <a href="{{ path('manageComs', {'status': 'tous'}) }}" type="button" class="btn btn-dark">Tous</a>
+            <a href="{{ path('manageComs', {'status': 'isReported'}) }}" type="button" class="btn btn-dark">Signalé</a>
+            <a href="{{ path('manageComs', {'status': 'isHidden'}) }}" type="button" class="btn btn-dark">Caché</a>
+        </div>
+        <div id="accordion" role="tablist">
+            {% for comment in comments %}
+                <div class="card card-accordion">
+                    <div class="card-header
+                    {% if comment.isReported == true %}bg-danger
+                    {% elseif comment.isHidden == true %}bg-nao-blue-lighten
+                    {% else %}bg-nao-green
+                    {% endif %}"
+                         role="tab" id="heading{{ loop.index }}">
+                        <h5 class="mb-0">
+                            <a class="collapsed text-white" data-toggle="collapse" href="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                                {{ comment.author }}
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse{{ loop.index }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-6">
+                                    {{ comment.message }}
+                                </div>
+                            </div>
+                            {# {% if observation.status != "refused" %} #}
+                            <hr>
+                            {#{% endif %}#}
+                            <div class="row d-flex justify-content-around">
+                                {% if comment.isReported == false and comment.isHidden == false %}
+                                    <a class="btn btn-primary btn-sm mt-3" href="{{ path('hiddenComment', {'id': comment.id }) }}">Masquer</a>
+                                {% endif %}
+                                {% if comment.isReported == true %}
+                                    <a href="{{ path('validateComment', {'id': comment.id }) }}" class="btn btn-success btn-sm mt-3">Valider</a>
+                                {% endif %}
+                                {% if comment.isHidden == true %}
+                                    <a href="{{ path('noHiddenComment', {'id': comment.id }) }}" class="btn btn-nao-blue-lighten btn-sm mt-3">Démasqué</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        {{ comment.author }} <span class="float-right">{{ comment.createdAt | date('d/m/Y') }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

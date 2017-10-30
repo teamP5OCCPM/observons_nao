@@ -1,4 +1,4 @@
-<div class="card justify-content-around">
+<div data-level="{{ comment.level }}" id="div-comment-{{ comment.id }}" class="card justify-content-around">
     <div class="card-body d-flex flex-wrap">
         <div class="row">
             <div class="col-12">
@@ -14,17 +14,19 @@
     <div class="card-footer">
         <p>
             {{ comment.author }} | {{ comment.createdAt|date('d/m/Y')  }}
-            <a href="#" class="btn btn-secondary btn-sm cta-small pull-right">répondre</a>
-            <a href="#" class="btn btn-secondary btn-sm cta-small pull-right mr-3">signaler</a>
+            {% if comment.level < 3 %}
+            <a href="#" data-id="{{ comment.id }}" id="comment-{{ comment.id }}" class="btn btn-secondary btn-sm cta-small pull-right reply-comment">répondre</a>
+            {% endif %}
+            <a href="{{ path('reportedComment', {'slug': article.slug, 'id': comment.id }) }}" class="btn btn-secondary btn-sm cta-small pull-right mr-3">signaler</a>
         </p>
 
     </div>
 </div>
 
 <div style="margin-left: 50px;">
-{% if comment.children is not null %}
-    {% for comment in comment.children %}
-        {{  include('blog/comment.html.twig') }}
-    {% endfor %}
-{% endif %}
+    {% if comment.children is not null %}
+        {% for comment in comment.children %}
+            {{  include('blog/comment.html.twig') }}
+        {% endfor %}
+    {% endif %}
 </div>
