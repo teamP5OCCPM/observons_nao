@@ -23,7 +23,7 @@
                 <a class="nav-link dropdown-toggle {{ currentPath == "manageArticles" or currentPath == "manageComs" or currentPath == "addArticle" ? "active" }}" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Gestion du blog</span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown02">
                     <a class="dropdown-item" href="{{ path('manageArticles', {'status': 'tous'}) }}" title="Gestion des articles">Les articles</a>
-                    <a class="dropdown-item" href="{{ path('manageComs') }}" title="Gestion des commentaires">Les commentaires</a>
+                    <a class="dropdown-item" href="{{ path('manageComs',{'status': 'tous'}) }}" title="Gestion des commentaires">Les commentaires</a>
                     <a class="dropdown-item" href="{{ path('addArticle') }}" title="Ajouter un article">Ajouter un article</a>
                 </div>
             </li>

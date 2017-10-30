@@ -86,10 +86,15 @@ class Comment
 
 
     /**
+     * @var integer
+     */
+    private $parentId;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="parent")
      */
     private $children;
-
 
 
 
@@ -315,7 +320,7 @@ class Comment
     {
         $this->children[] = $child;
 
-        return $this;
+       // return $this;
     }
 
     /**
@@ -361,4 +366,18 @@ class Comment
     {
         return $this->level;
     }
+
+
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    public function setParentId($id)
+    {
+        $this->parentId = $id;
+    }
+
+
+
 }
