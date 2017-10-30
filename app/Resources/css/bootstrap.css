@@ -6718,7 +6718,6 @@ h2 {
 .tt-menu {
   /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
   width: 100%;
-  margin-top: 12px;
   padding: 8px 0;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -6824,13 +6823,15 @@ h2 {
   height: 50px;
   padding: 0;
   font-size: 1.2rem;
-  line-height: 1.2rem;
+  line-height: 3.7rem;
   border: none;
   border-radius: 50%;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   cursor: pointer; }
   .btn-floating:focus, .btn-floating:active {
     outline: 0; }
+  .btn-floating:hover {
+    color: white; }
 
 .btn {
   font-family: Roboto, sans-serif;
@@ -6941,6 +6942,15 @@ h2 {
   border: 0; }
   .filter-search:focus, .filter-search:hover, .filter-search:visited, .filter-search:link {
     border: 0; }
+
+.vich-image {
+  margin-bottom: .4rem; }
+
+.geoloc p {
+  margin-bottom: .4rem; }
+.geoloc button {
+  margin-bottom: .4rem;
+  width: 100%; }
 
 .share-box {
   background-color: #85b800;

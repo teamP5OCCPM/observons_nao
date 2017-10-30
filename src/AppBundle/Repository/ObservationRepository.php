@@ -59,6 +59,27 @@ class ObservationRepository extends EntityRepository
     }
 
     /**
+     * @param $species
+     *
+     * @return array
+     */
+    public function getSameSpecies($species, $limit) : array
+    {
+        $query = $this->createQueryBuilder('o')
+                ->leftJoin('o.bird', 'bir')
+                ->addSelect('bir')
+                ->where('bir.species = :species')
+                ->setParameter('species', $species)
+                ->leftJoin('o.user', 'usr')
+                ->addSelect('usr')
+                ->orderBy('o.createdAt', 'DESC')
+                ->setMaxResults($limit)
+                ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * @return array
      */
     public function findMarkers() : array

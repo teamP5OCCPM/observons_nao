@@ -232,7 +232,7 @@ h2
   height:           50px;
   padding:          0;
   font-size:        1.2rem;
-  line-height:      1.2rem;
+  line-height:      3.7rem;
   border:           none;
   border-radius:    50%;
   box-shadow:       0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -240,6 +240,9 @@ h2
   &:focus, &:active
   {
     outline: 0;
+  }
+  &:hover {
+    color: white;
   }
 }
 
@@ -428,6 +431,24 @@ h2
   &:focus, &:hover, &:visited, &:link
   {
     border: 0;
+  }
+}
+//
+// ADD PAGE
+//-----------------------------------------------
+// Observation
+.vich-image {
+  margin-bottom: .4rem;
+}
+
+.geoloc {
+  p {
+    margin-bottom: .4rem;
+  }
+
+  button {
+    margin-bottom: .4rem;
+    width: 100%;
   }
 }
 

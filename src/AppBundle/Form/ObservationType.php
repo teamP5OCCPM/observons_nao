@@ -23,7 +23,7 @@ class ObservationType extends AbstractType
         $builder->add('title', textType::class, ['label' => 'Nom de l\'observations'])
             ->add('bird', EntityType::class, ['class' => 'AppBundle:Bird', 'label' => 'Espèce'])
             ->add('imageFile', VichImageType::class, ['label' => 'Photo de l\'oiseau', 'required' => false, 'label_attr' => ['class' => 'mt-3']])
-            ->add('description', TextareaType::class, ['label' => 'Description de l\'observation', 'attr' => ['rows' => 5]])
+            ->add('description', TextareaType::class, ['label' => 'Description de l\'observation', 'attr' => ['rows' => 8]])
             ->add('observedAt', DateType::class, ['label' => 'Date de l\'observation'])
             ->add('lng', textType::class, ['label' => 'Longitude'])
             ->add('lat', textType::class, ['label' => 'Latitude'])

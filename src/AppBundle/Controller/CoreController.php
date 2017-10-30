@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Observation;
+use AppBundle\Form\ContactType;
 use AppBundle\Form\ObservationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,8 +36,9 @@ class CoreController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $observation = $em->getRepository('AppBundle:Observation')->findOneBySlug($slug);
+        $sameSpecies = $em->getRepository('AppBundle:Observation')->getSameSpecies($observation->getBird()->getSpecies(), 4);
 
-        return $this->render('core/showObservation.html.twig', ['observation' => $observation]);
+        return $this->render('core/showObservation.html.twig', ['observation' => $observation, 'sameSpecies' => $sameSpecies]);
     }
 
     /**
@@ -128,7 +130,14 @@ class CoreController extends Controller
      */
     public function contactAction(Request $request) : Response
     {
-        return $this->render('core/contact.html.twig');
+        $form = $this->createForm(ContactType::class, null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('core/contact.html.twig', ['form' => $form->createView()]);
     }
 
     /**

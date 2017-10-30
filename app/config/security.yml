@@ -11,5 +11,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/ajouter-observation, role: ROLE_USER }
         - { path: ^/admin/ajouter-article, role: ROLE_EDITOR }
         - { path: ^/admin, role: ROLE_USER }

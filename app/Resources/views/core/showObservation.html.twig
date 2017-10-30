@@ -44,58 +44,21 @@
             <a href="{{ path('observations', {'page': 1}) }}" class="btn btn-secondary btn-sm cta-small">Consulter plus d'observations</a>
         </div>
         <div class="row">
+            {% for same in sameSpecies %}
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="card hoverable">
                     <div class="img-card-box">
-                        <img class="card-img-top" src="{{ asset('img/birds-eagle-animal.jpg') }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset("img/observations/" ~ same.imageName) }}" alt="{{ same.bird.species }}">
                     </div>
                     <div class="card-body">
-                        <a href="#">
-                            <h4 class="text-center">Titre de l'observation</h4>
+                        <a href="{{ path('showObservation', {'slug': same.slug}) }}">
+                            <h4 class="text-center">{{ same.title }}</h4>
                         </a>
-                        <p class="text-center">Auteur - le xx/xx/xxxx</p>
+                        <p class="text-center">{{ same.user.username }} - {{ same.observedAt | date('d/m/Y') }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card hoverable">
-                    <div class="img-card-box">
-                        <img class="card-img-top" src="{{ asset('img/birds-eagle-animal.jpg') }}" alt="Card image cap">
-                    </div>
-                    <div class="card-body">
-                        <a href="#">
-                            <h4 class="text-center">Titre de l'observation</h4>
-                        </a>
-                        <p class="text-center">Auteur - le xx/xx/xxxx</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card hoverable">
-                    <div class="img-card-box">
-                        <img class="card-img-top" src="{{ asset('img/birds-eagle-animal.jpg') }}" alt="Card image cap">
-                    </div>
-                    <div class="card-body">
-                        <a href="#">
-                            <h4 class="text-center">Titre de l'observation</h4>
-                        </a>
-                        <p class="text-center">Auteur - le xx/xx/xxxx</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card hoverable">
-                    <div class="img-card-box">
-                        <img class="card-img-top" src="{{ asset('img/birds-eagle-animal.jpg') }}" alt="Card image cap">
-                    </div>
-                    <div class="card-body">
-                        <a href="#">
-                            <h4 class="text-center">Titre de l'observation</h4>
-                        </a>
-                        <p class="text-center">Auteur - le xx/xx/xxxx</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

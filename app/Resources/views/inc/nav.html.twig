@@ -4,7 +4,7 @@
         <img src="{{ asset('img/logo-carre_BD.jpg') }}" alt="" class="d-inline-block align-top">
     </a>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <a class="text-white d-md-none d-block user-icon" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="left" title="Allez à l'administration">
+        <a class="text-white d-md-none d-block user-icon" href="{{ path('board') }}" data-toggle="tooltip" data-placement="left" title="Allez à l'administration">
             <i class="fa fa-user" aria-hidden="true"></i>
         </a>
     {% else %}
@@ -25,19 +25,21 @@
                     <a class="dropdown-item" href="{{ path('addObservation') }}">Ajouter une observation</a>
                 </div>
             </li>
+            {% if is_granted("ROLE_USER") %}
             <li class="nav-item nav-hover"><a class="nav-link" href="#">Activités du mois</a></li>
+            {% endif %}
             <li class="nav-item nav-hover"><a class="nav-link {{ currentPath == "articles" ? "active" }}" href="{{ path('articles', {'page': 1}) }}">Blog</a></li>
             <li class="nav-item nav-hover"><a class="nav-link {{ currentPath == "contact" ? "active" }}" href="{{ path('contact') }}">Contact</a></li>
         </ul>
     </div>
     <div class="navbar-social d-md-block d-none">
-        <span><a href="http://facebook.com"><i class="fa fa-facebook-square fa-2x mr-2" aria-hidden="true"></i></a></span>
-        <span><a href="http://twitter.com"><i class="fa fa-twitter-square fa-2x mr-2" aria-hidden="true"></i></a></span>
-        <span><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i></a></span>
+        <span><a href="http://facebook.com" target="_blank"><i class="fa fa-facebook-square fa-2x mr-2" aria-hidden="true"></i></a></span>
+        <span><a href="http://twitter.com" target="_blank"><i class="fa fa-twitter-square fa-2x mr-2" aria-hidden="true"></i></a></span>
+        <span><a href="http://pinterest.com" target="_blank"><i class="fa fa-pinterest-square fa-2x" aria-hidden="true"></i></a></span>
     </div>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <a id="search-navbar-btn" class="text-white mr-1 d-md-block d-none" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-        <div class="nav-item dropdown user-dropdown">
+        <div class="nav-item dropdown user-dropdown d-md-block d-none">
             <a class="nav-link dropdown-toggle text-white d-md-block d-none align-self-center" href="#" id="dropNav" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropNav">
                 <a class="dropdown-item" href="{{ path('board') }}">Administration</a>
