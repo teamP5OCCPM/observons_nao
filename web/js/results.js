@@ -1,12 +1,12 @@
-var map;
-function initMap(){
-  var paris = {
-      lat: 48.85661400000001,
-      lng: 2.3522219000000177
+
+function initResult(){
+  var france = {
+      lat: 46.227638,
+      lng: 2.213749000000007
   }
-  map = new google.maps.Map(document.getElementById('mapResults'), {
-    zoom: 7,
-    center: paris
+  var map = new google.maps.Map(document.getElementById('mapResults'), {
+    zoom: 6,
+    center: france
   });
 
   var infowindow = new google.maps.InfoWindow();
@@ -40,5 +40,14 @@ function initMap(){
       }
   });
 }
+
+$(document).ready( function() {
+    var btnText = $('#style-button').text();
+   $('#style-button').click( function() {
+       $('.style-results').toggle("slow");
+       $('#style-button').text() === "Afficher la map"? $('#style-button').text("Afficher la liste"): $('#style-button').text("Afficher la map");
+   });
+   console.log(btnText);
+});
 
 

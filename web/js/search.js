@@ -32,12 +32,12 @@
         };
       };
 
-
 function initMap() {
       // retrieving the array of lng and lat from json
       // reversed geocode to get the addresses for each location
       //push each address to local array
-      
+
+
     // Décode lat et lng en adresse
 //Retrieve json file   
 $.getJSON(locationsURL, function(data) {
@@ -101,7 +101,7 @@ $.getJSON(locationsURL, function(data) {
         }       
     });
 
-    //Changing the datasets depending on filter seach selected
+    //Changing the datasets depending on filter search selected
     $('.filter-search').on('change', function() {
         switch(this.value) {
             case "species":

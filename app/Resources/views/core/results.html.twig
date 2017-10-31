@@ -9,14 +9,19 @@
 <style>
 #mapResults {
     width:  100%;
-    height: 400px;
+    height: 70vh;
 }
 </style>
 {% endblock %}
     <div class="container mt70">
         <h1>Résultats de votre recherche</h1>
-        <p><span class="p-2 badge badge-primary">{{ observations|length }}</span> résultats pour votre recherche.</p>
-        <div id="mapResults"></div>
+        
+        <p><span class="p-2 badge badge-primary">{{ observations|length }}</span> résultats pour votre recherche.
+
+        <button id ="style-button" class="btn-secondary pull-right">Afficher la liste</button>
+        </p>
+        <div id="mapResults" class="style-results" ></div>
+        <div id="listResults" class="style-results" style="display:none">
         <div class="row mt-4">
             {% for observation in observations %}
                 <div class="col-md-6 col-lg-4 col-xl-3">
@@ -66,14 +71,15 @@
                 {% endif %}
             </ul>
         </nav>
+        </div>
     </div>
 {% endblock %}
 {% block javascript %}
     {{ parent() }}
+<script async defer
 
-
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initResult">
     </script>
-    <script src="{{ asset('js/results.js') }}"></script>
+<script src="{{ asset('js/results.js') }}">
+    </script>
 {% endblock %}
