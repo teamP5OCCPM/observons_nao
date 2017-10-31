@@ -98,7 +98,6 @@ class Comment
 
 
 
-
     /**
      * Get id
      *
@@ -377,7 +376,5 @@ class Comment
     {
         $this->parentId = $id;
     }
-
-
 
 }

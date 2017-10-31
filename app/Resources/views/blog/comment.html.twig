@@ -26,9 +26,7 @@
 <div style="margin-left: 50px;">
     {% if comment.children is not null %}
         {% for comment in comment.children %}
-            {% if comment.isHidden == false %}
                 {{  include('blog/comment.html.twig') }}
-            {% endif %}
         {% endfor %}
     {% endif %}
 </div>
