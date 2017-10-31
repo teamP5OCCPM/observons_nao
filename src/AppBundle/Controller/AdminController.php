@@ -351,15 +351,12 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository('AppBundle:Comment')->findOneById($id);
-
         $comment->setIsHidden(false);
 
         $em->persist($comment);
-
         $em->flush();
 
         $this->addFlash('warning', "Le commentaire a été démasqué.");
-
         return $this->redirectToRoute('manageComs', ['status' => "tous"]);
     }
 
@@ -378,6 +375,9 @@ class AdminController extends Controller
      */
     public function manageAccountsAction()
     {
-        return $this->render('admin/manageAccounts.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $accounts = $em->getRepository('AppBundle:User')->getUsers();
+
+        return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
     }
 }

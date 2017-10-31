@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getUsers() : array
+    {
+        $qb = $this->createQueryBuilder('u')
+                ->leftJoin('u.observations', 'obs')
+                ->addSelect('obs')
+                ->orderBy('u.id', 'DESC')
+                ->getQuery();
+
+        return $qb->getResult();
+    }
 }

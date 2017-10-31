@@ -16,6 +16,8 @@ class ObservationRepository extends EntityRepository
     /**
      * @param $limit
      *
+     * @param $status
+     *
      * @return array
      */
     public function getIndexObservations($limit, $status) : array

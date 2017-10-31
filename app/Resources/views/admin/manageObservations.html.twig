@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container mt70">
-        <h2>Gestion des observations</h2>
+        <h1>Gestion des observations</h1>
         <div class="btn-group btn-group-sm mb-4 d-sm-inline-flex d-flex flex-wrap flex-sm-row flex-column" role="group" aria-label="Basic example">
             <a href="{{ path('manageObservations', {'status': 'validate'}) }}" type="button" class="btn btn-dark">Valides</a>
             <a href="{{ path('manageObservations', {'status': 'waiting'}) }}" type="button" class="btn btn-dark">En attentes</a>

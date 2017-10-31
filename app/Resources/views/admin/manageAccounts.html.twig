@@ -7,5 +7,74 @@
 {% block body %}
     <div class="container mt70">
         <h1>Gestion des comptes</h1>
+        <div id="accordion" role="tablist">
+            {% for account in accounts %}
+                <div class="card card-accordion">
+                    <div class="card-header
+                    {% if account.roles[0] == "ROLE_USER" %}bg-primary
+                    {% elseif account.roles[0] == "ROLE_NATURALIST" %}bg-secondary
+                    {% elseif account.roles[0] == "ROLE_ADMIN" %}bg-danger
+                    {% else %}bg-nao-green
+                    {% endif %}"
+                         role="tab" id="heading{{ loop.index }}">
+                        <h5 class="mb-0">
+                            <a class="collapsed text-white" data-toggle="collapse" href="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                                {{ account.username }}
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse{{ loop.index }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6">
+                                    <img class="mb-2" src="" alt="Photo de profil">
+                                </div>
+                                <div class="col-lg-8 col-md-6">
+                                    <p>{{ account.email }}</p>
+                                    <p>Observation{{ account.observations | length > 1 ? "s" }} : {{ account.observations | length }}</p>
+                                        {% for obs in account.observations %}
+                                            {% if obs.status == 'waiting' %}
+                                                {{ dump(obs) }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    mettre le nombre des observations et leurs statuts
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row d-flex justify-content-around">
+                                mettre ici les boutons
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        {% if account.lastLogin is not null %}
+                        Dernière connexion : {{ account.lastLogin | date('d/m/Y - H:i') }}
+                        {% else %}
+                            Nouvel utilisateur
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Modal -->
+                {#<div class="modal fade" id="observationModal{{ observation.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Refuser l'observation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Vous êtes sur le point de refusé l'observation {{ observation.title }}, en êtes-vous sûr ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">Annuler</button>
+                                <a href="{{ path('refusedObservation', {'slug': observation.slug}) }}" class="btn btn-danger btn-sm">Refuser</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>#}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
