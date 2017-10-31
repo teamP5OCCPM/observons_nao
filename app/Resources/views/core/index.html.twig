@@ -81,8 +81,8 @@
                         </div>
                         <div class="card-body">
                             <div class="badge badge-primary">Nouveau</div>
-                            <a href="#" class="btn-rounded bg-nao-green float-right" data-toggle="tooltip" data-placement="left" title="Lire la suite">+</a>
-                            <a href="#">
+                            <a href="{{ path('showArticle', {'slug': article.slug}) }}" class="btn-rounded bg-nao-green float-right" data-toggle="tooltip" data-placement="left" title="Lire la suite">+</a>
+                            <a href="{{ path('showArticle', {'slug': article.slug}) }}">
                                 <h4 class="card-title">{{ article.title }}</h4>
                             </a>
                             <p class="card-text">{{ article.content | truncate(160, true, '...') }}</p>
