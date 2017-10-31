@@ -69,16 +69,16 @@ class ObservationRepository extends EntityRepository
     public function getSameSpecies($species, $limit, $id) : array
     {
         $query = $this->createQueryBuilder('o')
-                ->leftJoin('o.bird', 'bir')
-                ->where('bir.species = :species')
-                ->andWhere('o.id NOT LIKE :id')
-                ->setParameter('id', $id)
-                ->setParameter('species', $species)
-                ->leftJoin('o.user', 'usr')
-                ->addSelect('usr')
-                ->orderBy('o.createdAt', 'DESC')
-                ->setMaxResults($limit)
-                ->getQuery();
+            ->leftJoin('o.bird', 'bir')
+            ->where('bir.species = :species')
+            ->andWhere('o.id NOT LIKE :id')
+            ->setParameter('id', $id)
+            ->setParameter('species', $species)
+            ->leftJoin('o.user', 'usr')
+            ->addSelect('usr')
+            ->orderBy('o.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery();
 
         return $query->getResult();
     }
@@ -92,12 +92,12 @@ class ObservationRepository extends EntityRepository
     public function getOtherImgSpecies($species, $id) : array
     {
         $query = $this->createQueryBuilder('o')
-                ->leftJoin('o.bird', 'bir')
-                ->where('bir.species = :species')
-                ->andWhere('o.id NOT LIKE :id')
-                ->setParameter('id', $id)
-                ->setParameter('species', $species)
-                ->getQuery();
+            ->leftJoin('o.bird', 'bir')
+            ->where('bir.species = :species')
+            ->andWhere('o.id NOT LIKE :id')
+            ->setParameter('id', $id)
+            ->setParameter('species', $species)
+            ->getQuery();
 
         return $query->getResult();
     }

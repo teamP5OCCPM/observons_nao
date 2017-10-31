@@ -54,15 +54,15 @@ class AdminController extends Controller
             case "validate":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                    break;
+                        break;
             case "waiting":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                    break;
+                        break;
             case "refused":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                    break;
+                        break;
         }
         $observations = $em->getRepository('AppBundle:Observation')->findAll();
         return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
@@ -166,17 +166,17 @@ class AdminController extends Controller
             case "tous":
                 $articles = $em->getRepository('AppBundle:Article')->findAll();
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles ]);
-                    break;
+                        break;
 
             case "isPublished":
                 $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(1);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
-                    break;
+                        break;
 
             case "waitting":
                 $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(0);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
-                    break;
+                        break;
         }
 
         $articles = $em->getRepository('AppBundle:Article')->findAll();
@@ -224,8 +224,6 @@ class AdminController extends Controller
         return $this->redirectToRoute('manageArticles', ['status' => "tous"]);
     }
 
-
-
     /**
      * @param Request $request
      * @param         $slug
@@ -253,8 +251,6 @@ class AdminController extends Controller
         return $this->render('admin/addArticle.html.twig', ['title' => "Editer un article", 'form_article' => $form->createView(), 'image' => $image]);
     }
 
-
-
     /**
      * @param $slug
      *
@@ -275,9 +271,6 @@ class AdminController extends Controller
         return $this->redirectToRoute('manageArticles', ['status' => "tous"]);
     }
 
-
-
-
     /**
      * @Route("/gestion-commentaires/{status}", name="manageComs")
      * @param $status
@@ -290,25 +283,19 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         switch ($status) {
-
             case "isReported":
                 $comments = $em->getRepository('AppBundle:Comment')->findByIsReported(1);
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
-                break;
+                    break;
             case "isHidden":
                 $comments = $em->getRepository('AppBundle:Comment')->findByIsHidden(1);
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
-                break;
+                    break;
             default:
                 $comments = $em->getRepository('AppBundle:Comment')->findAll();
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
-
-
         }
-
     }
-
-
 
     /**
      * @param $id

@@ -29,7 +29,7 @@ class ObservationFixtures extends Fixture
 
         // Observation 2
         $observation2 = new Observation();
-        $observation2->setUser($this->getReference('user'));
+        $observation2->setUser($this->getReference('user2'));
         $observation2->setBird($this->getReference('bird2'));
         $observation2->setTitle('Faucon royal en montagne');
         $observation2->setImageName('02.jpg');
@@ -44,7 +44,7 @@ class ObservationFixtures extends Fixture
 
         // Observation 3
         $observation3 = new Observation();
-        $observation3->setUser($this->getReference('user'));
+        $observation3->setUser($this->getReference('user3'));
         $observation3->setBird($this->getReference('bird3'));
         $observation3->setTitle('Moineau en montagne');
         $observation3->setImageName('03.jpg');
@@ -59,7 +59,7 @@ class ObservationFixtures extends Fixture
 
         // Observation 4
         $observation4 = new Observation();
-        $observation4->setUser($this->getReference('user'));
+        $observation4->setUser($this->getReference('user4'));
         $observation4->setBird($this->getReference('bird4'));
         $observation4->setTitle('Pigeon en montagne');
         $observation4->setImageName('04.jpg');

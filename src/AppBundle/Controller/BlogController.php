@@ -50,50 +50,29 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
 
-        $parentComments = $article->getComments()->filter(function($entry) {
+        $parentComments = $article->getComments()->filter(function ($entry) {
             return in_array($entry->getParent(), [null]);
         });
 
-
-
-
-       // dump($parentComments);
-        //die();
-
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
-
         $form->handleRequest($request);
 
-
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-
-            //die(var_dump($form->getData()));
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $parentId = $form->getData()->getParentId();
-
             $commentParent = $em->getRepository('AppBundle:Comment')->findOneById($parentId);
-
-
-
             $comment->setParent($commentParent);
-
             $comment->setArticle($article);
-            $em->persist($comment);
 
+            $em->persist($comment);
             $em->flush();
 
             $this->addFlash('success', "Le commentaire a été ajouté avec succès !!!");
 
             return $this->redirectToRoute('showArticle', ['slug' => $slug]);
         }
-
-
         return $this->render('blog/showArticle.html.twig', ['article' => $article, 'parentComments' => $parentComments ,'form' => $form->createView()]);
     }
-
 
     /**
      * @param $id
@@ -103,24 +82,15 @@ class BlogController extends Controller
     public function reportedCommentAction($slug, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
-
         $comment = $em->getRepository('AppBundle:Comment')->findOneById($id);
-
         $comment->setIsReported(true);
 
         $em->persist($comment);
-
         $em->flush();
 
         $this->addFlash('warning', "Le commentaire a été signalé.");
 
         return $this->redirectToRoute('showArticle', ['slug' => $slug]);
     }
-
-
-
-
-
 }

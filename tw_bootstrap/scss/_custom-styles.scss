@@ -119,6 +119,23 @@ h2
   margin: 0;
 }
 
+// Badge notifications
+.badge-notif {
+  position: absolute;
+  left: .3rem;
+  background-color: $naoorange;
+  color: white;
+  box-shadow: $cust-shadow;
+}
+
+@media screen and (max-width: 768px)
+{
+  .badge-notif {
+    left: .5rem;
+    top: -.5rem;
+  }
+}
+
 //
 // MATERIAL DESIGN
 //-----------------------------------------------

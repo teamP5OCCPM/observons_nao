@@ -3,9 +3,6 @@
 namespace AppBundle\Entity;
 
 use AppBundle\AppBundle;
-use AppBundle\Entity\Article;
-use AppBundle\Entity\Observation;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -153,18 +150,18 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->observations = new ArrayCollection();
-        $this->articles = new ArrayCollection();
+        $this->observations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Add observation
      *
-     * @param Observation $observation
+     * @param \AppBundle\Entity\Observation $observation
      *
      * @return User
      */
-    public function addObservation(Observation $observation)
+    public function addObservation(\AppBundle\Entity\Observation $observation)
     {
         $this->observations[] = $observation;
 
@@ -174,9 +171,9 @@ class User extends BaseUser
     /**
      * Remove observation
      *
-     * @param Observation $observation
+     * @param \AppBundle\Entity\Observation $observation
      */
-    public function removeObservation(Observation $observation)
+    public function removeObservation(\AppBundle\Entity\Observation $observation)
     {
         $this->observations->removeElement($observation);
     }
@@ -194,11 +191,11 @@ class User extends BaseUser
     /**
      * Add article
      *
-     * @param Article $article
+     * @param \AppBundle\Entity\Article $article
      *
      * @return User
      */
-    public function addArticle(Article $article)
+    public function addArticle(\AppBundle\Entity\Article $article)
     {
         $this->articles[] = $article;
 
@@ -208,9 +205,9 @@ class User extends BaseUser
     /**
      * Remove article
      *
-     * @param Article $article
+     * @param \AppBundle\Entity\Article $article
      */
-    public function removeArticle(Article $article)
+    public function removeArticle(\AppBundle\Entity\Article $article)
     {
         $this->articles->removeElement($article);
     }
@@ -223,29 +220,5 @@ class User extends BaseUser
     public function getArticles()
     {
         return $this->articles;
-    }
-
-    /**
-     * Set notif
-     *
-     * @param integer $notif
-     *
-     * @return User
-     */
-    public function setNotif($notif)
-    {
-        $this->notif = $notif;
-
-        return $this;
-    }
-
-    /**
-     * Get notif
-     *
-     * @return integer
-     */
-    public function getNotif()
-    {
-        return $this->notif;
     }
 }

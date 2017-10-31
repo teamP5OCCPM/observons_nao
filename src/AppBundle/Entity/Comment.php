@@ -319,7 +319,7 @@ class Comment
     {
         $this->children[] = $child;
 
-       // return $this;
+        // return $this;
     }
 
     /**
@@ -376,5 +376,4 @@ class Comment
     {
         $this->parentId = $id;
     }
-
 }
