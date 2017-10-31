@@ -100,4 +100,15 @@ class ObservationRepository extends EntityRepository
 
         return $results;
     }
+
+    /**
+     * @return array
+     */
+    public function findAllTitles() : array
+    {
+        $qb = $this->_em->createQuery('SELECT o.title FROM AppBundle:Observation o');
+        $results = $qb->getArrayResult();
+
+        return $results;
+    }
 }

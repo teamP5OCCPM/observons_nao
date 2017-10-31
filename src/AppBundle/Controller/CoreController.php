@@ -211,7 +211,7 @@ class CoreController extends Controller
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bird');
 
-        $listBirds = $repository->findArray();
+        $listBirds = $repository->findAllSpecies();
     
         return new JsonResponse($listBirds);
     }
@@ -229,5 +229,20 @@ class CoreController extends Controller
         $listLocations = $repository->findAllLocations();
     
         return new JsonResponse($listLocations);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     * @Route("/titles.json", name="titlesJson")
+     */
+    public function findTitlesAction(Request $request) : JsonResponse
+    {
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+
+        $listTitles = $repository->findAllTitles();
+
+        return new JsonResponse($listTitles);
     }
 }

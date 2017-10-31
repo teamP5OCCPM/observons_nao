@@ -10,7 +10,7 @@
     var observations = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: 'resultsJson'
+        prefetch: 'titles.json'
       });
     
     
@@ -30,7 +30,8 @@
           });     
           cb(matches);
         };
-      };   
+      };
+
 
 function initMap() {
       // retrieving the array of lng and lat from json
@@ -39,7 +40,7 @@ function initMap() {
       
     // Décode lat et lng en adresse
 //Retrieve json file   
-$.getJSON("locations.json", function(data) {
+$.getJSON(locationsURL, function(data) {
     //preparing the json for use
     var loc = JSON.stringify(data);
     var locations = JSON.parse(loc); 
