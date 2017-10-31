@@ -50,6 +50,16 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
 
+        $parentComments = $article->getComments()->filter(function($entry) {
+            return in_array($entry->getParent(), [null]);
+        });
+
+
+
+
+       // dump($parentComments);
+        //die();
+
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
 
@@ -81,7 +91,7 @@ class BlogController extends Controller
         }
 
 
-        return $this->render('blog/showArticle.html.twig', ['article' => $article, 'form' => $form->createView()]);
+        return $this->render('blog/showArticle.html.twig', ['article' => $article, 'parentComments' => $parentComments ,'form' => $form->createView()]);
     }
 
 

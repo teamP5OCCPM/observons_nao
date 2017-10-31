@@ -36,9 +36,12 @@ class CoreController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $observation = $em->getRepository('AppBundle:Observation')->findOneBySlug($slug);
-        $sameSpecies = $em->getRepository('AppBundle:Observation')->getSameSpecies($observation->getBird()->getSpecies(), 4);
+        $id = $observation->getId();
+        $species = $observation->getBird()->getSpecies();
+        $sameSpecies = $em->getRepository('AppBundle:Observation')->getSameSpecies($species, 4, $id);
+        $otherImgSpecies = $em->getRepository('AppBundle:Observation')->getOtherImgSpecies($species, $id);
 
-        return $this->render('core/showObservation.html.twig', ['observation' => $observation, 'sameSpecies' => $sameSpecies]);
+        return $this->render('core/showObservation.html.twig', ['observation' => $observation, 'sameSpecies' => $sameSpecies, 'otherImgSpecies' => $otherImgSpecies]);
     }
 
     /**

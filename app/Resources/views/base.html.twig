@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700|Roboto:100, 300,400,500,700,900"
           rel="stylesheet">
     <script src="https://use.fontawesome.com/70c9a54198.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    {% block lightbox %}{% endblock %}
 
     <title>{% block title %}Nos amis les oiseaux{% endblock %}</title>
 </head>

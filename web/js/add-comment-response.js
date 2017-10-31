@@ -14,10 +14,11 @@ jQuery(document).ready(function($) {
 
             let $dataLevel = parseInt($comment.attr('data-level'));
 
+            console.log($dataLevel);
 
-            let level = $('#appbundle_comment_level');
+            let $level = $('#appbundle_comment_level');
 
-            let $test = $dataLevel + 1;
+            $level.val($dataLevel + 1);
 
             $('#appbundle_comment_parentId').val(parentId);
 

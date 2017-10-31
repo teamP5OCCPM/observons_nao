@@ -50,15 +50,12 @@
             </div>
         </div>
         <h3>Commentaires</h3>
-        {% for comment in article.comments %}
-            {% if comment.level == 1 and comment.isHidden == false %}
-                {{  include('blog/comment.html.twig') }}
-            {% endif %}
+        {% for comment in parentComments %}
+            {{  include('blog/comment.html.twig') }}
         {% endfor %}
 
     </div>
 {% endblock %}
-
 
 
 {% block javascript %}

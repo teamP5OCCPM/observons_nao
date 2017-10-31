@@ -27,7 +27,7 @@ class ObservationType extends AbstractType
             ->add('observedAt', DateType::class, ['label' => 'Date de l\'observation'])
             ->add('lng', textType::class, ['label' => 'Longitude'])
             ->add('lat', textType::class, ['label' => 'Latitude'])
-            ->add('save', SubmitType::class, ['label' => 'Envoyer', 'attr' => ['class' => 'btn btn-success']]);
+            ->add('save', SubmitType::class, ['label' => 'Envoyer', 'attr' => ['class' => 'btn btn-nao-green']]);
     }
     
     /**
