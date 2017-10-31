@@ -69,7 +69,7 @@
     </div>
     {# Other images for gallery #}
     {% for otherImg in otherImgSpecies %}
-        <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="{{ asset("img/observations/" ~ otherImg.imageName) }}" data-title="{{ otherImg.title }}"></div>
+        <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="{{ asset("img/observations/" ~ otherImg.imageName) }}" data-title="<a href='{{ path('showObservation', {'slug': otherImg.slug}) }}'>{{ otherImg.title }}</a>"></div>
     {% endfor %}
 {% endblock %}
 
@@ -108,7 +108,6 @@
                     const locationBox = document.querySelector('#location');
                     const town = results[2].address_components[1].long_name // récupère la ville
                     locationBox.append(town);
-                    console.log(town);
                 } else {
                     window.alert('La ville n\'a pas été récupérée : ' + status);
                 }
