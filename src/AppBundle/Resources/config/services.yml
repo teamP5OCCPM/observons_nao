@@ -1,1 +1,7 @@
 # src/AppBundle/Resources/config/services.yml
+
+
+
+services:
+   parse_file_csv:
+          class: AppBundle\Service\ParseFileCSV

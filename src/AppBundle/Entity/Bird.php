@@ -24,7 +24,7 @@ class Bird
     /**
      * @var string
      *
-     * @ORM\Column(name="species", type="string", length=255, unique=true)
+     * @ORM\Column(name="species", type="string", length=255)
      */
     private $species;
 
@@ -59,7 +59,7 @@ class Bird
     /**
      * @var string
      *
-     * @ORM\Column(name="lb_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lb_name", type="string", length=255)
      */
     private $lbName;
 

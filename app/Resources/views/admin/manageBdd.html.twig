@@ -7,5 +7,33 @@
 {% block body %}
     <div class="container mt70">
         <h1>Gestion de la base de données</h1>
+        <div class="row">
+            <h3>
+                {% if data.updateAt is not defined %}
+                    La base de données n'est pas à jour
+                {% else %}
+                Dernière mise à jour le {{ data.updateAt|date('d/m/Y') }}
+                {% endif %}
+            </h3>
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            {{ form_start(form) }}
+                            <div class="col-md-6 col-12">
+                                {{ form_errors(form.csvFile) }}
+                                {{ form_widget(form.csvFile) }}
+                                {{ form_row(form.save) }}
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+
+                    <a class="btn btn-primary btn-sm mt-3" href="{{ path('updateBdd') }}">Mettre à jour</a>
+
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

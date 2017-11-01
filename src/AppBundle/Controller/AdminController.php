@@ -3,12 +3,16 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Bird;
+use AppBundle\Entity\Taxref;
 use AppBundle\Form\ArticleType;
+use AppBundle\Form\TaxrefType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * Class AdminController
@@ -381,10 +385,113 @@ class AdminController extends Controller
     /**
      * @Route("/mise-a-jour-bdd", name="manageBdd")
      */
-    public function manageBddAction()
+    public function manageBddAction(Request $request)
     {
-        return $this->render('admin/manageBdd.html.twig');
+
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('AppBundle:Taxref')->getLast();
+
+
+        $taxref = new Taxref();
+        $form = $this->createForm(TaxrefType::class, $taxref);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Upload et enregistrement des informations en Bdd
+            $em->persist($taxref);
+            $em->flush();
+
+
+
+
+            $this->addFlash('success', "Le fichier a été uploadé sur le serveur!!");
+
+            return $this->redirectToRoute('manageBdd');
+
+
+        }
+
+
+
+
+
+        return $this->render('admin/manageBdd.html.twig', ['form' => $form->createView(), 'data' => $data]);
     }
+
+
+    /**
+     *
+     * @Route("updateBdd", name="updateBdd")
+     */
+    public function updateBddAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('AppBundle:Taxref')->getLast();
+
+
+        // 1) On parse le fichier CSV pour récupérer toutes les lignes
+        // Utiliation d'un service pour parser le fichier
+        $parseFile = $this->container->get('parse_file_csv');
+
+        $contentCSV = $parseFile->parsefile($this->get('kernel')->getRootDir() . '/../web/taxref/' . $data->getCsvName());
+
+        //die(var_dump($contentCSV));
+
+
+        // 2) On vérifie pour chaque ligne si l'espèce existe
+        // Si oui, on update la ligne
+        // Si non, on la créée
+
+
+        foreach ($contentCSV as $row) {
+
+            $bird = new Bird();
+
+            $birdExist = $em->getRepository('AppBundle:Bird')->findOneBySpecies($row['lb_name']);
+
+            if($row['species'] !== ''){
+                if($birdExist) {
+
+                    $birdExist->setReign($row['reign']);
+                    $birdExist->setPhYlum($row['phylum']);
+                    $birdExist->setRanking($row['ranking']);
+                    $birdExist->setFamily($row['family']);
+                    $birdExist->setLbName($row['lb_name']);
+                    $birdExist->setLbAuthor($row['lb_author']);
+                } else {
+                    $bird->setSpecies($row['species']);
+                    $bird->setReign($row['reign']);
+                    $bird->setPhYlum($row['phylum']);
+                    $bird->setRanking($row['ranking']);
+                    $bird->setFamily($row['family']);
+                    $bird->setLbName($row['lb_name']);
+                    $bird->setLbAuthor($row['lb_author']);
+                    $em->persist($bird);
+                }
+            }
+
+
+
+
+        }
+
+
+        $em->flush();
+
+        $this->addFlash('success', "La base de données a été mise à jour!!");
+
+        return $this->redirectToRoute('manageBdd');
+
+
+    }
+
+
+
+
+
+
 
     /**
      * @Route("/gestion-comptes", name="manageAccounts")
