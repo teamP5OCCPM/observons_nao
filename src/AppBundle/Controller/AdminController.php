@@ -371,11 +371,34 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/gestion-comptes", name="manageAccounts")
+     * @Route("/gestion-comptes/{roles}", name="manageAccounts")
+     * @param $roles
+     *
+     * @return Response
      */
-    public function manageAccountsAction()
+    public function manageAccountsAction($roles) : Response
     {
         $em = $this->getDoctrine()->getManager();
+
+        switch ($roles) {
+            case "user":
+                $accounts = $em->getRepository('AppBundle:User')->getUser();
+                return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+                break;
+            case "naturalist":
+                $accounts = $em->getRepository('AppBundle:User')->getOtherUser('ROLE_NATURALIST');
+                return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+                break;
+            case "editor":
+                $accounts = $em->getRepository('AppBundle:User')->getOtherUser('ROLE_EDITOR');
+                return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+                break;
+            case "admin":
+                $accounts = $em->getRepository('AppBundle:User')->getOtherUser('ROLE_ADMIN');
+                return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+                break;
+        }
+
         $accounts = $em->getRepository('AppBundle:User')->getUsers();
 
         return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
