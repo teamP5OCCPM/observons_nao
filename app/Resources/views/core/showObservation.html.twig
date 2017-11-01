@@ -86,7 +86,8 @@
 
     {# Geocodage #}
     <script>
-        function initMap() {
+        var pageObservation = true;
+        function initObservation() {
             const position = {lat: {{ observation.lat }}, lng: {{ observation.lng }} };
             const map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 11,

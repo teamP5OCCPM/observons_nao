@@ -15,7 +15,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-/.idea
+/.idea/
 /node_modules
 /.sass-cache
 /bower_components/

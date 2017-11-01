@@ -58,7 +58,7 @@
 <!--  autocompletion -->
 <script src="{{ asset('js/typeahead/dist/typeahead.bundle.min.js') }}"></script>
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initAutocomplete">
     </script>
     <script type="text/javascript"> var locationsURL = "{{ path('locationsJson') }}"</script>
 <script src="{{ asset('js/search.js') }}"></script>
@@ -69,6 +69,8 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+    var pageObservation = false;
+    var pageResults = false
 </script>
 
 {% endblock %}

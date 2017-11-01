@@ -18,7 +18,7 @@
         
         <p><span class="p-2 badge badge-primary">{{ observations|length }}</span> résultats pour votre recherche.
 
-        <button id ="style-button" class="btn-secondary pull-right">Afficher la liste</button>
+        <button id ="style-button" class="btn btn-sm btn-secondary text-white pull-right">Afficher la liste</button>
         </p>
         <div id="mapResults" class="style-results" ></div>
         <div id="listResults" class="style-results" style="display:none">
@@ -76,10 +76,7 @@
 {% endblock %}
 {% block javascript %}
     {{ parent() }}
-<script async defer
 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initResult">
-    </script>
 <script src="{{ asset('js/results.js') }}">
     </script>
 {% endblock %}

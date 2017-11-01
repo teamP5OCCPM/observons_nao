@@ -1,5 +1,6 @@
+var pageResults = true;
 
-function initResult(){
+function initResults(){
   var france = {
       lat: 46.227638,
       lng: 2.213749000000007
