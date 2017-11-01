@@ -74,7 +74,7 @@
     </script>
 
     {# Notifications #}
-    {% if is_granted("ROLE_NATURALIST") or is_granted("ROLE_EDITOR") %}
+    {% if app.user.roles[0] == "ROLE_NATURALIST" or app.user.roles[0] == "ROLE_EDITOR" %}
         {% if app.user.roles[0] == "ROLE_NATURALIST" %}
         <script>
             let notifsObs = "{{ path('notifsObs', {'status': 'waiting', 'role': 'naturalist'}) }}";

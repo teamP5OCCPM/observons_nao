@@ -6689,7 +6689,7 @@ h2 {
     font-size: 4rem; }
 
   h1 {
-    font-size: 2.4rem; } }
+    font-size: 1.8rem; } }
 .message-flash {
   display: flex;
   position: absolute;
@@ -6819,7 +6819,7 @@ h2 {
   .searchbar-mobile .search-action {
     position: fixed;
     width: 100%;
-    bottom: 0;
+    top: 0;
     left: 0;
     padding: 1rem;
     background-color: #f90; }
@@ -7040,11 +7040,15 @@ footer a {
       font-size: .9rem !important; } }
 @media screen and (max-width: 992px) {
   .sidenav {
-    width: 3rem; } }
+    width: 3rem;
+    z-index: 2; } }
 .card-accordion {
   background-color: #fff; }
   .card-accordion img {
     width: 100%; }
+
+.form-control-file {
+  width: 100%; }
 
 .mt70 {
   margin-top: 70px; }

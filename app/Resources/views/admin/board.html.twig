@@ -7,5 +7,61 @@
 {% block body %}
     <div class="container mt70">
         <h1>Tableau de bord</h1>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card hoverable">
+                    <div class="card-body">
+                        <div class="img-card-box">
+                            <h2 class="text-nao-green text-center">Mon compte</h2>
+                        <a href="{{ path('fos_user_profile_edit') }}">
+                            <img src="{{ asset('img/adefault.jpg') }}" alt="Mon profil" class="card-img-top">
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card hoverable">
+                    <div class="card-body">
+                        <div class="img-card-box">
+                            <h2 class="text-nao-green text-center">Mes observations</h2>
+                        <a href="{{ path('myObservations') }}">
+                            <img src="{{ asset('img/observations/default.jpg') }}" alt="Mes observations" class="card-img-top">
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% if is_granted('ROLE_EDITOR') %}
+            <div class="col-md-6">
+                <div class="card hoverable">
+                    <div class="card-body">
+                        <div class="img-card-box">
+                            <h2 class="text-nao-green text-center">Gestion blog</h2>
+                            <a href="{{ path('manageArticles', {'status': "tous"}) }}">
+                                <img src="{{ asset('img/adefault.jpg') }}" alt="Gestion du blog" class="card-img-top">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if is_granted('ROLE_NATURALIST') %}
+            <div class="col-md-6">
+                <div class="card hoverable">
+                    <div class="card-body">
+                        <div class="img-card-box">
+                            <h2 class="text-nao-green text-center">Gestion observations</h2>
+                            <a href="{{ path('manageObservations', {'status': "tous"}) }}">
+                                <img src="{{ asset('img/observations/default.jpg') }}" alt="Gestion des observations observations" class="card-img-top">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

@@ -19,7 +19,7 @@ class ContactType extends AbstractType
             ->add('lastName', TextType::class, ['label' => 'Votre nom*', 'attr' => ['placeholder' => 'Dupont']])
             ->add('email', EmailType::class, ['label' => 'Votre e-mail*', 'attr' => ['placeholder' => 'jeandupont@email.com']])
             ->add('businessName', TextType::class, ['label' => 'Votre raison sociale', 'required' => false])
-            ->add('subject', TextType::class, ['label' => 'Sujet*', 'attr' => ['placeholder' => 'Votre sujet...']])
+            ->add('subject', TextType::class, ['label' => 'Sujet*', 'attr' => ['placeholder' => 'Je propose une idée d\'article...']])
             ->add('message', TextAreaType::class, ['label' => 'Message*', 'attr' => ['rows' => 8, 'placeholder' => 'Votre message...']])
             ->add('send', SubmitType::class, ['label' => 'Envoyer', 'attr' => ['class' => 'btn-primary']]);
     }

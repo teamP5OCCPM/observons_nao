@@ -6,7 +6,10 @@
 
 {% block body %}
     <div class="container mt70">
-        <h2>Gestion des articles</h2>
+        <div class="d-flex flex-wrap justify-content-between mb-3">
+            <h1>Gestion des articles</h1>
+            <a href="{{ path('manageComs', {'status': "tous"}) }}" class="btn btn-nao-green btn-sm cta-small mt-2">Gestion des commentaires</a>
+        </div>
         <div class="btn-group btn-group-sm mb-4 d-sm-inline-flex d-flex flex-wrap flex-sm-row flex-column" role="group" aria-label="Basic example">
             <a href="{{ path('manageArticles', {'status': 'tous'}) }}" type="button" class="btn btn-dark">Tous</a>
             <a href="{{ path('manageArticles', {'status': 'isPublished'}) }}" type="button" class="btn btn-dark">Publié</a>
