@@ -251,27 +251,33 @@ class CoreController extends Controller
 
     /**
      * @param Request $request
+     * @param         $status
+     * @param         $role
+     *
      * @return JsonResponse
-     * @Route("notifs_obs/{status}", name="notifsObs")
+     * @Route("notifs_obs/{status}/{role}", name="notifsObs")
      */
-    public function notifsObsWaitingAction(Request $request, $status)
+    public function notifsObsAction(Request $request, $status, $role)
     {
         if ($request->isXmlHttpRequest()) {
-
-
             $em = $this->getDoctrine()->getManager();
 
-            $nbObsWait = $em->getRepository('AppBundle:Observation')
-                ->findByStatus($status);
+            $nbObs = [];
+            if ($role == "naturalist") {
+                $nbObs = $em->getRepository('AppBundle:Observation')->findByStatus($status);
+            }
 
-            $count = count($nbObsWait);
+            if ($role == "editor") {
+                $nbObs = $em->getRepository('AppBundle:Comment')->findByIsReported($status);
+            }
 
-            if($nbObsWait)
+            $count = count($nbObs);
+
+            if($nbObs)
             {
                 return new JsonResponse(array('message' => $count, 200));
             }
         }
         return new JsonResponse(array('message' => false, 400));
     }
-
 }

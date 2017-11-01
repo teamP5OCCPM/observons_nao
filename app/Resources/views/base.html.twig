@@ -43,42 +43,52 @@
 </footer>
 
 {% block javascript %}
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>-->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script>window.jQuery || document.write('<script src="{{ asset('js/bootstrap/jquery-slim.min.js') }}"><\/script>')</script>
-<script src="{{ asset('js/bootstrap/popper.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ asset('js/bootstrap/jquery-slim.min.js') }}"><\/script>')</script>
+    <script src="{{ asset('js/bootstrap/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
 
-<!--  autocompletion -->
-<script src="{{ asset('js/typeahead/dist/typeahead.bundle.min.js') }}"></script>
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initAutocomplete">
+    <!--  autocompletion -->
+    <script src="{{ asset('js/typeahead/dist/typeahead.bundle.min.js') }}"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initAutocomplete">
     </script>
-    <script type="text/javascript"> var locationsURL = "{{ path('locationsJson') }}"</script>
-<script src="{{ asset('js/search.js') }}"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="{{ asset('js/bootstrap/ie10-viewport-bug-workaround.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-    var pageObservation = false;
-    var pageResults = false
-</script>
-
-    <script>
-        var notifsObsWaiting = "{{ path('notifsObs', {'status': 'waiting'}) }}";
+    <script type="text/javascript"> let locationsURL = "{{ path('locationsJson') }}"</script>
+    <script src="{{ asset('js/search.js') }}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ asset('js/bootstrap/ie10-viewport-bug-workaround.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        let pageObservation = false;
+        let pageResults = false
     </script>
 
-    <script src="{{ asset('js/notifs.js') }}"></script>
+    {# Notifications #}
+    {% if is_granted("ROLE_NATURALIST") or is_granted("ROLE_EDITOR") %}
+        {% if app.user.roles[0] == "ROLE_NATURALIST" %}
+        <script>
+            let notifsObs = "{{ path('notifsObs', {'status': 'waiting', 'role': 'naturalist'}) }}";
+        </script>
+        {% endif %}
 
+        {% if app.user.roles[0] == "ROLE_EDITOR" %}
+        <script>
+            let notifsObs = "{{ path('notifsObs', {'status': '1', 'role': 'editor'}) }}";
+        </script>
+        {% endif %}
+
+        <script src="{{ asset('js/notifs.js') }}"></script>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

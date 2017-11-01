@@ -5,7 +5,7 @@
     </a>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <div class="user-icon d-md-none d-block">
-            {% if is_granted('ROLE_NATURALIST') %}
+            {% if app.user.roles[0] == "ROLE_NATURALIST" or app.user.roles[0] == "ROLE_EDITOR" %}
                 <div class="badge badge-notif"></div>
             {% endif %}
         <a class="text-white" href="{{ path('board') }}" data-toggle="tooltip" data-placement="left" title="Allez à l'administration">
@@ -45,7 +45,7 @@
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <a id="search-navbar-btn" class="text-white mr-1 d-md-block d-none" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
         <div class="nav-item dropdown user-dropdown d-md-block d-none">
-            {% if is_granted('ROLE_NATURALIST') %}
+            {% if app.user.roles[0] == "ROLE_NATURALIST" or app.user.roles[0] == "ROLE_EDITOR" %}
                 <div class="badge badge-notif"></div>
             {% endif %}
             <a class="nav-link dropdown-toggle text-white d-md-block d-none align-self-center" href="#" id="dropNav" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></a>

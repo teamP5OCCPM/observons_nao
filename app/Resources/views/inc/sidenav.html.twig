@@ -15,12 +15,19 @@
             {% endif %}
             {% if is_granted("ROLE_NATURALIST") %}
             <li class="nav-item" title="Gestion des observations">
-
+                {# Notifications #}
+                {% if app.user.roles[0] == "ROLE_NATURALIST" %}
+                    <div class="badge badge-notif"></div>
+                {% endif %}
                 <a class="nav-link {{ currentPath == "manageObservations" ? "active" }}" href="{{ path('manageObservations', {'status': 'tous'}) }}"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Gestion des Observations</span></a>
             </li>
             {% endif %}
             {% if is_granted("ROLE_EDITOR") %}
             <li class="nav-item dropdown" title="Gestion du blog">
+                {# Notifications #}
+                {% if app.user.roles[0] == "ROLE_EDITOR" %}
+                    <div class="badge badge-notif"></div>
+                {% endif %}
                 <a class="nav-link dropdown-toggle {{ currentPath == "manageArticles" or currentPath == "manageComs" or currentPath == "addArticle" ? "active" }}" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="d-lg-inline-block d-none sidenav-items">Gestion du blog</span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown02">
                     <a class="dropdown-item" href="{{ path('manageArticles', {'status': 'tous'}) }}" title="Gestion des articles">Les articles</a>
