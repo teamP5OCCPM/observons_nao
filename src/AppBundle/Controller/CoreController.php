@@ -248,4 +248,30 @@ class CoreController extends Controller
 
         return new JsonResponse($listTitles);
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route("notifs_obs/{status}", name="notifsObs")
+     */
+    public function notifsObsWaitingAction(Request $request, $status)
+    {
+        if ($request->isXmlHttpRequest()) {
+
+
+            $em = $this->getDoctrine()->getManager();
+
+            $nbObsWait = $em->getRepository('AppBundle:Observation')
+                ->findByStatus($status);
+
+            $count = count($nbObsWait);
+
+            if($nbObsWait)
+            {
+                return new JsonResponse(array('message' => $count, 200));
+            }
+        }
+        return new JsonResponse(array('message' => false, 400));
+    }
+
 }

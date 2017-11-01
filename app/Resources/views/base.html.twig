@@ -73,6 +73,12 @@
     var pageResults = false
 </script>
 
+    <script>
+        var notifsObsWaiting = "{{ path('notifsObs', {'status': 'waiting'}) }}";
+    </script>
+
+    <script src="{{ asset('js/notifs.js') }}"></script>
+
 {% endblock %}
 </body>
 </html>

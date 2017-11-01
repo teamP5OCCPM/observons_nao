@@ -60,11 +60,6 @@ class User extends BaseUser
      */
     private $articles;
 
-    /**
-     * @var integer
-     * @ORM\Column(name="notifs", type="integer")
-     */
-    private $notif = 0;
 
     /**
      * Get id
@@ -223,29 +218,5 @@ class User extends BaseUser
     public function getArticles()
     {
         return $this->articles;
-    }
-
-    /**
-     * Set notif
-     *
-     * @param integer $notif
-     *
-     * @return User
-     */
-    public function setNotif($notif)
-    {
-        $this->notif = $notif;
-
-        return $this;
-    }
-
-    /**
-     * Get notif
-     *
-     * @return integer
-     */
-    public function getNotif()
-    {
-        return $this->notif;
     }
 }
