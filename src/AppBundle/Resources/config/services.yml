@@ -3,5 +3,8 @@
 
 
 services:
-   parse_file_csv:
-          class: AppBundle\Service\ParseFileCSV
+    parse_file_csv:
+        class: AppBundle\Service\ParseFileCSV
+
+    check_file:
+        class: AppBundle\Service\CheckFileUpload

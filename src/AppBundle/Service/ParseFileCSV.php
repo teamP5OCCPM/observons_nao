@@ -17,6 +17,9 @@ class ParseFileCSV
             while(($data = fgetcsv($handle, 2048, ";")) !== false) // Éléments séparés par ,
             {
                 $num = count($data); // Nombre d'éléments sur la ligne traitée
+                if ($num < 10) {
+                    return false;
+                }
 
                 // Vérification au niveau de la première ligne à effectuer avec exception dans le cas
                 // ou il y aurait une erreur

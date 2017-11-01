@@ -21,8 +21,8 @@
                     <div class="card-body">
                         <div class="row">
                             {{ form_start(form) }}
+                            {{ form_errors(form) }}
                             <div class="col-md-6 col-12">
-                                {{ form_errors(form.csvFile) }}
                                 {{ form_widget(form.csvFile) }}
                                 {{ form_row(form.save) }}
                             </div>

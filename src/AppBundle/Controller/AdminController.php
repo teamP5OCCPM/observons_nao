@@ -325,6 +325,11 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository('AppBundle:Comment')->findOneById($id);
 
+        if ($comment->getIsReported() === true)
+        {
+            $comment->setIsReported(false);
+        }
+
         $comment->setIsHidden(true);
 
         $em->persist($comment);
@@ -437,14 +442,28 @@ class AdminController extends Controller
 
         $contentCSV = $parseFile->parsefile($this->get('kernel')->getRootDir() . '/../web/taxref/' . $data->getCsvName());
 
-        //die(var_dump($contentCSV));
+        if($contentCSV === false) {
+            $this->addFlash('danger', "Le fichier n'est pas valide !!");
 
+            return $this->redirectToRoute('manageBdd');
+        }
+
+        //die(var_dump($contentCSV));
+        $checkFile = $this->container->get('check_file');
+
+
+        // Vérification des colonnes
+        if($checkFile->checkFileCol($contentCSV) === false) {
+            $this->addFlash('danger', "Le fichier n'est pas valide !!");
+
+            return $this->redirectToRoute('manageBdd');
+        }
 
         // 2) On vérifie pour chaque ligne si l'espèce existe
         // Si oui, on update la ligne
         // Si non, on la créée
 
-
+        /*
         foreach ($contentCSV as $row) {
 
             $bird = new Bird();
@@ -472,26 +491,16 @@ class AdminController extends Controller
                 }
             }
 
-
-
-
         }
-
 
         $em->flush();
 
         $this->addFlash('success', "La base de données a été mise à jour!!");
 
         return $this->redirectToRoute('manageBdd');
-
+        */
 
     }
-
-
-
-
-
-
 
     /**
      * @Route("/gestion-comptes", name="manageAccounts")
