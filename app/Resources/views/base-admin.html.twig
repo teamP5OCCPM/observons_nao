@@ -60,6 +60,7 @@
     </script>
 
     {# Notifications #}
+    {% if app.user %}
     {% if app.user.roles[0] == "ROLE_NATURALIST" or app.user.roles[0] == "ROLE_EDITOR" %}
     {% if app.user.roles[0] == "ROLE_NATURALIST" %}
     <script>
@@ -74,6 +75,7 @@
     {% endif %}
 
     <script src="{{ asset('js/notifs.js') }}"></script>
+    {% endif %}
     {% endif %}
 {% endblock %}
 </body>
