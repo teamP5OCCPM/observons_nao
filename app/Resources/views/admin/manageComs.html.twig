@@ -46,6 +46,7 @@
                                 {% endif %}
                                 {% if comment.isReported == true %}
                                     <a href="{{ path('validateComment', {'id': comment.id }) }}" class="btn btn-success btn-sm mt-3">Valider</a>
+                                    <a class="btn btn-primary btn-sm mt-3" href="{{ path('hiddenComment', {'id': comment.id }) }}">Masquer</a>
                                 {% endif %}
                                 {% if comment.isHidden == true %}
                                     <a href="{{ path('noHiddenComment', {'id': comment.id }) }}" class="btn btn-nao-blue-lighten btn-sm mt-3">Démasqué</a>

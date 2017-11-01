@@ -1,0 +1,114 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+
+/**
+ * Taxref
+ *
+ * @ORM\Table(name="taxref")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxrefRepository")
+ * @Vich\Uploadable
+ */
+class Taxref
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_at", type="datetime")
+     */
+    private $updateAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="version", type="date", unique=true)
+     */
+    private $version;
+
+    /**
+     * @Vich\UploadableField(mapping="taxref_csv", fileNameProperty="csvName")
+     *
+     * @var File
+     */
+    private $csvFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="csv_name", type="string", length=255)
+     */
+    private $csvName;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     *
+     * @return Taxref
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
+    }
+
+    /**
+     * Set version
+     *
+     * @param \DateTime $version
+     *
+     * @return Taxref
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return \DateTime
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+}
+

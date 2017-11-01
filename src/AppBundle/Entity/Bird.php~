@@ -260,28 +260,4 @@ class Bird
     {
         return $this->lbAuthor;
     }
-
-    /**
-     * Set cdRef
-     *
-     * @param integer $cdRef
-     *
-     * @return Bird
-     */
-    public function setCdRef($cdRef)
-    {
-        $this->cdRef = $cdRef;
-
-        return $this;
-    }
-
-    /**
-     * Get cdRef
-     *
-     * @return integer
-     */
-    public function getCdRef()
-    {
-        return $this->cdRef;
-    }
 }

@@ -21,6 +21,7 @@ class BirdFixtures extends Fixture
         $bird->setFamily('Family');
         $bird->setLbName('lb_name');
         $bird->setLbAuthor('Donald');
+        $bird->setCdRef(1234);
 
         // Bird2
         $bird2 = new Bird();
@@ -31,6 +32,7 @@ class BirdFixtures extends Fixture
         $bird2->setFamily('Family');
         $bird2->setLbName('lb_name');
         $bird2->setLbAuthor('Donald');
+        $bird2->setCdRef(1235);
 
         // Bird3
         $bird3 = new Bird();
@@ -41,6 +43,7 @@ class BirdFixtures extends Fixture
         $bird3->setFamily('Family');
         $bird3->setLbName('lb_name');
         $bird3->setLbAuthor('Donald');
+        $bird3->setCdRef(1236);
 
         // Bird4
         $bird4 = new Bird();
@@ -51,6 +54,7 @@ class BirdFixtures extends Fixture
         $bird4->setFamily('Family');
         $bird4->setLbName('lb_name');
         $bird4->setLbAuthor('Donald');
+        $bird4->setCdRef(1237);
 
         // On persiste
         $manager->persist($bird);

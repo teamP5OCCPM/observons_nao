@@ -83,6 +83,11 @@ fos_user:
 vich_uploader:
     db_driver: orm
     mappings:
+        taxref_csv:
+                upload_destination: '%kernel.root_dir%/../web/taxref'
+                namer:
+                    service: vich_uploader.namer_property
+                    options: { property: 'csvFile', transliterate: true}
         observation_image:
             upload_destination: '%kernel.root_dir%/../web/img/observations'
             namer:

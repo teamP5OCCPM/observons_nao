@@ -20,3 +20,7 @@
 /.sass-cache
 /bower_components/
 *.lock
+*.csv
+*.txt
+*.png
+*.jpg
