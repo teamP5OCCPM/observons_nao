@@ -10,9 +10,50 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return array
+     */
     public function getUsers() : array
     {
         $qb = $this->createQueryBuilder('u')
+                ->leftJoin('u.observations', 'obs')
+                ->addSelect('obs')
+                ->orderBy('u.id', 'DESC')
+                ->getQuery();
+
+        return $qb->getResult();
+    }
+
+    /**
+     * @return array
+     */
+    public function getUser() : array
+    {
+        $qb = $this->createQueryBuilder('u')
+                ->where('u.roles NOT LIKE :naturalist')
+                ->andWhere('u.roles NOT LIKE :editor')
+                ->andWhere('u.roles NOT LIKE :admin')
+                ->setParameter('naturalist', '%ROLE_NATURALIST%')
+                ->setParameter('editor', '%ROLE_EDITOR%')
+                ->setParameter('admin', '%ROLE_ADMIN%')
+                ->leftJoin('u.observations', 'obs')
+                ->addSelect('obs')
+                ->orderBy('u.id', 'DESC')
+                ->getQuery();
+
+        return $qb->getResult();
+    }
+
+    /**
+     * @param $role
+     *
+     * @return array
+     */
+    public function getOtherUser($role) : array
+    {
+        $qb = $this->createQueryBuilder('u')
+                ->where('u.roles LIKE :roles')
+                ->setParameter('roles', '%"'.$role.'"%')
                 ->leftJoin('u.observations', 'obs')
                 ->addSelect('obs')
                 ->orderBy('u.id', 'DESC')
