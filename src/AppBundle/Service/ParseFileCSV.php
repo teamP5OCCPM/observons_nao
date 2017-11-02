@@ -25,16 +25,10 @@ class ParseFileCSV
                 // ou il y aurait une erreur
 
                 $row++;
-
-
-                $species = explode(',', $data[13]);
-                $species = $species[0];
-
+                $species = $data[13];
                 if (strlen($species) > 30 ) {
                     $species = substr($species, 0, 30) . '...';
                 }
-
-
 
                 // On récupère toutes les informations dans un tableau $tabResults
                 for($c = 0; $c < $num; $c++)

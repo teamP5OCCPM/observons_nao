@@ -382,7 +382,6 @@ class AdminController extends Controller
 
         $lastUpdate = $em->getRepository('AppBundle:Taxref')->getLastUpdate();
 
-
         $taxref = new Taxref();
         $form = $this->createForm(TaxrefType::class, $taxref);
         $form->handleRequest($request);
@@ -392,24 +391,12 @@ class AdminController extends Controller
             // Upload et enregistrement des informations en Bdd
             $em->persist($taxref);
             $em->flush();
-
-
-
-
             $this->addFlash('success', "Le fichier a été uploadé sur le serveur!!");
 
             return $this->redirectToRoute('manageBdd');
-
-
         }
-
-
-
-
-
         return $this->render('admin/manageBdd.html.twig', ['form' => $form->createView(), 'fileBdd' => $fileBdd, 'lastUpdate' => $lastUpdate]);
     }
-
 
     /**
      *
@@ -461,7 +448,7 @@ class AdminController extends Controller
 
             $birdExist = $em->getRepository('AppBundle:Bird')->findOneByCdRef($row['cd_ref']);
 
-            if($row['species'] !== ''){
+            if ($row['species'] !== '') {
                 if($birdExist === null) {
                     $bird->setSpecies($row['species']);
                     $bird->setReign($row['reign']);
@@ -472,16 +459,15 @@ class AdminController extends Controller
                     $bird->setLbAuthor($row['lb_author']);
                     $bird->setCdRef(($row['cd_ref']));
                     $em->persist($bird);
+                } else {
+                    $birdExist->setSpecies($row['species']);
+                    $birdExist->setReign($row['reign']);
+                    $birdExist->setPhYlum($row['phylum']);
+                    $birdExist->setRanking($row['ranking']);
+                    $birdExist->setFamily($row['family']);
+                    $birdExist->setLbName($row['lb_name']);
+                    $birdExist->setLbAuthor($row['lb_author']);
                 }
-            } else
-            {
-                $birdExist->setSpecies($row['species']);
-                $birdExist->setReign($row['reign']);
-                $birdExist->setPhYlum($row['phylum']);
-                $birdExist->setRanking($row['ranking']);
-                $birdExist->setFamily($row['family']);
-                $birdExist->setLbName($row['lb_name']);
-                $birdExist->setLbAuthor($row['lb_author']);
             }
 
         }

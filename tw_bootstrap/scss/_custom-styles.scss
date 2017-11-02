@@ -61,11 +61,19 @@ h2
   width: 100%;
 }
 
-#search_search, #search-navbar-input {
+#search_search, #search-navbar-input, #search_filter {
   width: 100%;
 }
 .typeahead.tt-hint {
   width: 100%;
+}
+
+.typeahead.indexForm {
+  height: 3rem;
+}
+
+.btn-tah {
+  height: 2.8rem;
 }
 
 .tt-input { /* UPDATE: newer versions use tt-input instead of tt-query */
@@ -375,6 +383,12 @@ h2
   {
     width: 100%;
   }
+  & .input-group-addon {
+    padding: .3rem 0 0 0;
+  }
+  & .btn {
+    height: 2.9rem;
+  }
 }
 
 #search-navbar-btn
@@ -444,10 +458,11 @@ h2
 .filter-search
 {
   background-color: transparent;
-  border:           0;
+  border:           none;
+  box-shadow: none;
   &:focus, &:hover, &:visited, &:link
   {
-    border: 0;
+    border: none;
   }
 }
 //

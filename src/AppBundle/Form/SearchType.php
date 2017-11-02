@@ -13,7 +13,7 @@ class SearchType extends AbstractType
     {
         $builder
                 ->add('search', \Symfony\Component\Form\Extension\Core\Type\SearchType::class, ['attr' =>
-                        ['id' => 'search-navbar-input', 'class' => 'typeahead', "placeholder" => "recherche une observation"]
+                        ['id' => 'search-navbar-input', "placeholder" => "recherche une observation"]
                 ])
                 ->add('filter', ChoiceType::class, [
                         'choices' => [
@@ -23,7 +23,6 @@ class SearchType extends AbstractType
                         ],
                         'label' => 'filter',
                         'attr' => ['class' => 'filter-search', 'title' => 'Filtre de recherche']
-                        ])
-                ->add('send', SubmitType::class, ['label' => 'Rechercher', 'attr' => ['class' => 'btn-nao-green']]);
+                ]);
     }
 }

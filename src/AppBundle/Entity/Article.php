@@ -58,7 +58,7 @@ class Article
      *
      * @ORM\Column(name="image_name", type="string", length=255)
      */
-    private $imageName;
+    private $imageName = "adefault.jpg";
 
     /**
      * @var bool
