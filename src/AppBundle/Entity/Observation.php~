@@ -33,7 +33,7 @@ class Observation
     private $title;
 
     /**
-     *  @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="observation_image", fileNameProperty="imageName")
      *
      * @var File
      */
@@ -49,7 +49,7 @@ class Observation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
@@ -88,6 +88,13 @@ class Observation
      * @ORM\Column(name="lat", type="float")
      */
     private $lat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string")
+     */
+    private $city;
 
     /**
      * @var string

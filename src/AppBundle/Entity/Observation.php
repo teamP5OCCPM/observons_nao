@@ -92,6 +92,13 @@ class Observation
     /**
      * @var string
      *
+     * @ORM\Column(name="city", type="string")
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
@@ -445,5 +452,29 @@ class Observation
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Observation
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }

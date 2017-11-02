@@ -13,7 +13,7 @@
         <div class="d-flex flex-wrap justify-content-between mb-3">
             <div>
                 <h2>{{ observation.title }}</h2>
-                <p class="text-muted">{{ observation.user.username }} | {{ observation.observedAt | date("d/m/Y") }} | <span id="location"></span></p>
+                <p class="text-muted">{{ observation.user.username }} | {{ observation.observedAt | date("d/m/Y") }} | {{ observation.city }}</p>
             </div>
             <a href="{{ path('addObservation') }}" class="btn btn-secondary btn-sm cta-small">Proposer une observation</a>
         </div>
@@ -77,6 +77,9 @@
 {{ parent() }}
     {# Lightbox #}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
+    </script>
     <script>
         $(document).on('click', '[data-toggle="lightbox"]', function(event) {
             event.preventDefault();
@@ -86,8 +89,8 @@
 
     {# Geocodage #}
     <script>
-        var pageObservation = true;
-        function initObservation() {
+
+        function initMap() {
             const position = {lat: {{ observation.lat }}, lng: {{ observation.lng }} };
             const map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 11,
@@ -96,22 +99,6 @@
             const marker = new google.maps.Marker({
                 position: position,
                 map: map
-            });
-
-            const geocoder = new google.maps.Geocoder;
-            geocodeLatLng(geocoder);
-        }
-
-        // Décode lat et lng en adresse
-        function geocodeLatLng(geocoder) {
-            geocoder.geocode({'location': {lat: {{ observation.lat }}, lng: {{ observation.lng }} }}, function(results, status) {
-                if (status === "OK") {
-                    const locationBox = document.querySelector('#location');
-                    const town = results[2].address_components[1].long_name // récupère la ville
-                    locationBox.append(town);
-                } else {
-                    window.alert('La ville n\'a pas été récupérée : ' + status);
-                }
             });
         }
     </script>

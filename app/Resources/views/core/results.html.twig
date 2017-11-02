@@ -76,7 +76,9 @@
 {% endblock %}
 {% block javascript %}
     {{ parent() }}
-
-<script src="{{ asset('js/results.js') }}">
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
+    </script>
+    <script src="{{ asset('js/results.js') }}">
     </script>
 {% endblock %}

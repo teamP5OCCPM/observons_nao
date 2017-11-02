@@ -24,6 +24,7 @@ class ObservationFixtures extends Fixture
         $observation->setUpdatedAt(new \DateTime("2017/10/26"));
         $observation->setLng('1.085325');
         $observation->setLat('42.800503');
+        $observation->setCity('Bethmale');
         $observation->setStatus('validate');
         $observation->setSlug('aigle-royal-en-montagne');
 
@@ -35,10 +36,11 @@ class ObservationFixtures extends Fixture
         $observation2->setImageName('02.jpg');
         $observation2->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation2->setCreatedAt(new \DateTime());
-        $observation->setObservedAt(new \DateTime());
-        $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+        $observation2->setObservedAt(new \DateTime());
+        $observation2->setUpdatedAt(new \DateTime("2017/10/26"));
         $observation2->setLng('1.085325');
         $observation2->setLat('42.800503');
+        $observation2->setCity('Bethmale');
         $observation2->setStatus('waiting');
         $observation2->setSlug('faucon-royal-en-montagne');
 
@@ -50,10 +52,11 @@ class ObservationFixtures extends Fixture
         $observation3->setImageName('03.jpg');
         $observation3->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation3->setCreatedAt(new \DateTime());
-        $observation->setObservedAt(new \DateTime());
-        $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+        $observation3->setObservedAt(new \DateTime());
+        $observation3->setUpdatedAt(new \DateTime("2017/10/26"));
         $observation3->setLng('1.085325');
         $observation3->setLat('42.800503');
+        $observation3->setCity('Bethmale');
         $observation3->setStatus('refused');
         $observation3->setSlug('moineau-royal-en-montagne');
 
@@ -65,10 +68,11 @@ class ObservationFixtures extends Fixture
         $observation4->setImageName('04.jpg');
         $observation4->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation4->setCreatedAt(new \DateTime());
-        $observation->setObservedAt(new \DateTime());
-        $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+        $observation4->setObservedAt(new \DateTime());
+        $observation4->setUpdatedAt(new \DateTime("2017/10/26"));
         $observation4->setLng('1.085325');
         $observation4->setLat('42.800503');
+        $observation4->setCity('Bethmale');
         $observation4->setStatus('validate');
         $observation4->setSlug('pigeon-royal-en-montagne');
 
@@ -86,10 +90,11 @@ class ObservationFixtures extends Fixture
             $observationD->setImageName('default.jpg');
             $observationD->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
             $observationD->setCreatedAt(new \DateTime());
-            $observation->setObservedAt(new \DateTime());
-            $observation->setUpdatedAt(new \DateTime("2017/10/26"));
+            $observationD->setObservedAt(new \DateTime());
+            $observationD->setUpdatedAt(new \DateTime("2017/10/26"));
             $observationD->setLng('1.085325');
             $observationD->setLat('42.800503');
+            $observationD->setCity('Bethmale');
             $observationD->setStatus('validate');
             $observationD->setSlug('oiseau-en-montagne-' . $i);
 

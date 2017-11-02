@@ -38,6 +38,7 @@
                                         </button>
                                     </div>
                                 </div>
+                                {{ form_row(form_observation.city) }}
                                 {{ form_row(form_observation.observedAt) }}
                                 {{ form_row(form_observation.description) }}
                                 {{ form_row(form_observation.save) }}
@@ -54,4 +55,36 @@
 {% block javascript %}
     {{ parent() }}
     <script src="{{ asset('js/add-observation-img.js') }}"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
+    </script>
+    <script>
+
+    function initMap() {
+        let geocoder = new google.maps.Geocoder;
+
+        $('input').focusout( function() {
+            let town;
+            let lngField = parseFloat($('#appbundle_observation_lng').val());
+
+            let latField = parseFloat($('#appbundle_observation_lat').val());
+
+            geocoder.geocode(
+                {'location': {lat: latField, lng: lngField} },
+                function(results, status) {
+                    if (status === 'OK') {
+                        town = results[2].address_components[1].long_name;
+
+                        $('#appbundle_observation_city').val(town);
+
+                    } else {
+                        window.alert('La ville n\'a pas été récupérée : ' + status);
+
+                    }
+                }
+            );
+        });
+    }
+
+    </script>
 {% endblock %}

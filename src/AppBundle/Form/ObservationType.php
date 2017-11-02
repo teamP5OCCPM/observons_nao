@@ -6,6 +6,7 @@ use AppBundle\Entity\Bird;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,8 +26,9 @@ class ObservationType extends AbstractType
             ->add('imageFile', VichImageType::class, ['label' => 'Photo de l\'oiseau', 'required' => false, 'label_attr' => ['class' => 'mt-3']])
             ->add('description', TextareaType::class, ['label' => 'Description de l\'observation', 'attr' => ['rows' => 8]])
             ->add('observedAt', DateType::class, ['label' => 'Date de l\'observation'])
-            ->add('lng', textType::class, ['label' => 'Longitude'])
-            ->add('lat', textType::class, ['label' => 'Latitude'])
+            ->add('lng', textType::class, ['label' => 'Longitude', 'attr' => ['class' => 'loc-input']])
+            ->add('lat', textType::class, ['label' => 'Latitude', 'attr' => ['class' => 'loc-input']])
+            ->add('city', HiddenType::class, ['attr' => ['class' => 'city-input']])
             ->add('save', SubmitType::class, ['label' => 'Envoyer', 'attr' => ['class' => 'btn btn-nao-green']]);
     }
     
