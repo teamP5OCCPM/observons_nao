@@ -18,13 +18,9 @@
 
 {# searchbar desktop #}
 <div class="input-group input-group-sm">
-    {{ form_start(searchForm, {'attr': {'class': "d-md-flex d-none", 'action': path('results', {'page': 1})} }) }}
+    {{ form_start(searchForm, {'attr': {'class': "d-md-flex d-none", 'action': path('results', {'page': 1}) }}) }}
     <div class="input-group-addon d-sm-block d-none">
-        <select name="search-filter" id="search-filter" class="filter-search" title="Filtre de recherche">
-            <option value="name">Tous</option>
-            <option value="species">Nom</option>
-            <option value="place">Lieu</option>
-        </select>
+        {{ form_widget(searchForm.filter) }}
     </div>
     {{ form_widget(searchForm.search) }}
     <span class="input-group-btn">
