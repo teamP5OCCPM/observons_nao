@@ -14,12 +14,24 @@ class TaxrefRepository extends \Doctrine\ORM\EntityRepository
     public function getLast()
     {
         $qb = $this->createQueryBuilder('t')
+            ->where('t.isUpdate = 0')
             ->orderBy('t.updateAt','DESC')
             ->setMaxResults(1)
             ;
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
 
+
+    public function getLastUpdate()
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.isUpdate = 1')
+            ->orderBy('t.updateAt','DESC')
+            ->setMaxResults(1)
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
 

@@ -378,7 +378,9 @@ class AdminController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('AppBundle:Taxref')->getLast();
+        $fileBdd = $em->getRepository('AppBundle:Taxref')->getLast();
+
+        $lastUpdate = $em->getRepository('AppBundle:Taxref')->getLastUpdate();
 
 
         $taxref = new Taxref();
@@ -405,7 +407,7 @@ class AdminController extends Controller
 
 
 
-        return $this->render('admin/manageBdd.html.twig', ['form' => $form->createView(), 'data' => $data]);
+        return $this->render('admin/manageBdd.html.twig', ['form' => $form->createView(), 'fileBdd' => $fileBdd, 'lastUpdate' => $lastUpdate]);
     }
 
 
@@ -417,14 +419,14 @@ class AdminController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('AppBundle:Taxref')->getLast();
+        $fileBdd = $em->getRepository('AppBundle:Taxref')->getLast();
 
 
         // 1) On parse le fichier CSV pour récupérer toutes les lignes
         // Utiliation d'un service pour parser le fichier
         $parseFile = $this->container->get('parse_file_csv');
 
-        $contentCSV = $parseFile->parsefile($this->get('kernel')->getRootDir() . '/../web/taxref/' . $data->getCsvName());
+        $contentCSV = $parseFile->parsefile($this->get('kernel')->getRootDir() . '/../web/taxref/' . $fileBdd->getCsvName());
 
         if($contentCSV === false) {
             $this->addFlash('danger', "Le fichier n'est pas valide !!");
@@ -432,7 +434,7 @@ class AdminController extends Controller
             return $this->redirectToRoute('manageBdd');
         }
 
-        //die(var_dump($contentCSV));
+        // On récupère le service pour les vérifications sur le fichier
         $checkFile = $this->container->get('check_file');
 
 
@@ -443,27 +445,22 @@ class AdminController extends Controller
             return $this->redirectToRoute('manageBdd');
         }
 
+
+        // On retire la première ligne du tableau de données (REGNE, PHYLUM, ORDRE...)
+        $first_row = array_shift($contentCSV);
+
         // 2) On vérifie pour chaque ligne si l'espèce existe
         // Si oui, on update la ligne
         // Si non, on la créée
 
-        /*
         foreach ($contentCSV as $row) {
 
             $bird = new Bird();
 
-            $birdExist = $em->getRepository('AppBundle:Bird')->findOneBySpecies($row['lb_name']);
+            $birdExist = $em->getRepository('AppBundle:Bird')->findOneByCdRef($row['cd_ref']);
 
             if($row['species'] !== ''){
-                if($birdExist) {
-
-                    $birdExist->setReign($row['reign']);
-                    $birdExist->setPhYlum($row['phylum']);
-                    $birdExist->setRanking($row['ranking']);
-                    $birdExist->setFamily($row['family']);
-                    $birdExist->setLbName($row['lb_name']);
-                    $birdExist->setLbAuthor($row['lb_author']);
-                } else {
+                if($birdExist === null) {
                     $bird->setSpecies($row['species']);
                     $bird->setReign($row['reign']);
                     $bird->setPhYlum($row['phylum']);
@@ -471,18 +468,24 @@ class AdminController extends Controller
                     $bird->setFamily($row['family']);
                     $bird->setLbName($row['lb_name']);
                     $bird->setLbAuthor($row['lb_author']);
+                    $bird->setCdRef(($row['cd_ref']));
                     $em->persist($bird);
                 }
             }
 
         }
 
+        $fileBdd->setIsUpdate(true);
+
         $em->flush();
+
+
+
 
         $this->addFlash('success', "La base de données a été mise à jour!!");
 
         return $this->redirectToRoute('manageBdd');
-        */
+
 
     }
 

@@ -6,11 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Taxref
  *
- * @ORM\Table(name="taxref")
+ * @ORM\Table(name="nao_taxref")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxrefRepository")
  * @Vich\Uploadable
  */
@@ -32,17 +33,16 @@ class Taxref
      */
     private $updateAt;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="version", type="date", unique=true)
-     */
-    private $version;
 
     /**
      * @Vich\UploadableField(mapping="taxref_csv", fileNameProperty="csvName")
      *
      * @var File
+     * @Assert\File(
+     *     maxSize = "2048k",
+     *     mimeTypes = {"text/plain"},
+     *     mimeTypesMessage = "Veuillez ajouter un fichier valide !!"
+     * )
      */
     private $csvFile;
 
@@ -52,6 +52,23 @@ class Taxref
      * @ORM\Column(name="csv_name", type="string", length=255)
      */
     private $csvName;
+
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="isUpdate", type="boolean")
+     */
+    private $isUpdate = false;
+
+
+
+    public function __construct()
+    {
+        $this->updateAt = new \DateTime();
+    }
+
+
+
 
     /**
      * Get id
@@ -87,28 +104,54 @@ class Taxref
         return $this->updateAt;
     }
 
+
+
     /**
-     * Set version
+     * @param File|null $csv
      *
-     * @param \DateTime $version
-     *
-     * @return Taxref
+     * @return $this
      */
-    public function setVersion($version)
+    public function setCsvFile(File $csv = null)
     {
-        $this->version = $version;
+        $this->csvFile = $csv;
+
+        if ($csv) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
 
         return $this;
     }
 
     /**
-     * Get version
-     *
-     * @return \DateTime
+     * @return File|null
      */
-    public function getVersion()
+    public function getCsvFile()
     {
-        return $this->version;
+        return $this->csvFile;
+    }
+
+
+    /**
+     * Set csvName
+     *
+     * @param string $csvName
+     *
+     * @return Taxref
+     */
+    public function setCsvName($csvName)
+    {
+        $this->csvName = $csvName;
+
+        return $this;
+    }
+
+    /**
+     * Get csvName
+     *
+     * @return string
+     */
+    public function getCsvName()
+    {
+        return $this->csvName;
     }
 }
-
