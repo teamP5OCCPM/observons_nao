@@ -453,6 +453,8 @@ class AdminController extends Controller
         // Si oui, on update la ligne
         // Si non, on la créée
 
+        //die(var_dump($contentCSV));
+
         foreach ($contentCSV as $row) {
 
             $bird = new Bird();
@@ -471,6 +473,15 @@ class AdminController extends Controller
                     $bird->setCdRef(($row['cd_ref']));
                     $em->persist($bird);
                 }
+            } else
+            {
+                $birdExist->setSpecies($row['species']);
+                $birdExist->setReign($row['reign']);
+                $birdExist->setPhYlum($row['phylum']);
+                $birdExist->setRanking($row['ranking']);
+                $birdExist->setFamily($row['family']);
+                $birdExist->setLbName($row['lb_name']);
+                $birdExist->setLbAuthor($row['lb_author']);
             }
 
         }

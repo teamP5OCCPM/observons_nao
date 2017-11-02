@@ -26,6 +26,16 @@ class ParseFileCSV
 
                 $row++;
 
+
+                $species = explode(',', $data[13]);
+                $species = $species[0];
+
+                if (strlen($species) > 30 ) {
+                    $species = substr($species, 0, 30) . '...';
+                }
+
+
+
                 // On récupère toutes les informations dans un tableau $tabResults
                 for($c = 0; $c < $num; $c++)
                 {
@@ -36,7 +46,7 @@ class ParseFileCSV
                         'family' => utf8_encode($data[4]),
                         'lb_name' => utf8_encode($data[9]),
                         'lb_author' => utf8_encode($data[10]),
-                        'species' => utf8_encode($data[13]),
+                        'species' => utf8_encode($species),
                         'cd_ref' => $data[7]
                     ];
                 }
