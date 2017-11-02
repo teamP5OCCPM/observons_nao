@@ -33,12 +33,6 @@ class Taxref
      */
     private $updateAt;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="version", type="date", unique=true, nullable=true)
-     */
-    private $version;
 
     /**
      * @Vich\UploadableField(mapping="taxref_csv", fileNameProperty="csvName")
@@ -60,10 +54,20 @@ class Taxref
     private $csvName;
 
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="isUpdate", type="boolean")
+     */
+    private $isUpdate = false;
+
+
+
     public function __construct()
     {
         $this->updateAt = new \DateTime();
     }
+
+
 
 
     /**
@@ -100,29 +104,6 @@ class Taxref
         return $this->updateAt;
     }
 
-    /**
-     * Set version
-     *
-     * @param \DateTime $version
-     *
-     * @return Taxref
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return \DateTime
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
 
 
     /**
@@ -172,5 +153,29 @@ class Taxref
     public function getCsvName()
     {
         return $this->csvName;
+    }
+
+    /**
+     * Set isUpdate
+     *
+     * @param boolean $isUpdate
+     *
+     * @return Taxref
+     */
+    public function setIsUpdate($isUpdate)
+    {
+        $this->isUpdate = $isUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get isUpdate
+     *
+     * @return boolean
+     */
+    public function getIsUpdate()
+    {
+        return $this->isUpdate;
     }
 }

@@ -27,6 +27,23 @@ class CoreController extends Controller
     }
 
     /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function searchFieldAction(Request $request) : Response
+    {
+        $searchForm = $this->createForm('AppBundle\Form\SearchType');
+        $searchForm->handleRequest($request);
+
+        if ($searchForm->isValid() && $searchForm->isSubmitted()) {
+            return $this->redirectToRoute('results');
+        }
+
+        return $this->render(':inc:searchField.html.twig', ['searchForm' => $searchForm->createView()]);
+    }
+
+    /**
      * @param $slug
      *
      * @return Response
@@ -166,21 +183,26 @@ class CoreController extends Controller
     }
 
     /**
-     * @param $page
+     * @param Request $request
+     * @param         $page
+     *
      * @return Response
      * @Route("/resultats/{page}", name="results")
      */
-    public function resultsAction($page) : Response
+    public function resultsAction(Request $request, $page) : Response
     {
+        /*dump($request->request->get('search')['search']);
+        die();*/
+        $em = $this->getDoctrine()->getManager();
+        $req = $request->request->get('search')['search'];
+        $resultList = $em->getRepository('AppBundle:Observation')->findBy(['city' => $req], ['createdAt' => 'DESC']);
+
         if ($page < 1) {
             throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
         }
 
-        $em = $this->getDoctrine()->getManager();
-
         $nbPerPage = 12;
-        $listObservations = $em->getRepository('AppBundle:Observation')->getObservations($page, $nbPerPage, "validate");
-        $nbOfResults = count($listObservations);
+        $nbOfResults = count($resultList);
 
         $nbPages = ceil($nbOfResults / $nbPerPage);
 
@@ -188,7 +210,7 @@ class CoreController extends Controller
             throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
         }
 
-        return $this->render('core/results.html.twig', ['observations' => $listObservations, 'nbPages' => $nbPages, 'page' => $page,]);
+        return $this->render('core/results.html.twig', ['observations' => $resultList, 'nbPages' => $nbPages, 'page' => $page,]);
     }
 
     /**

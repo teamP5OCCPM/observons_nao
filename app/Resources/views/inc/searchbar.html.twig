@@ -1,35 +1,16 @@
-<div class="searchbar-mobile d-md-none d-block">
+{#<div class="searchbar-mobile d-md-none d-block">
     <button id="btn-search" class="btn-floating">
         <i class="fa fa-search" aria-hidden="true"></i>
     </button>
-    <form id="search-box" class="search-action d-none">
-        <input type="search" class="form-control typeahead tt-input" placeholder="recherche une observation">
-        <div class="row m-0">
-            <select class="col-6 form-control" name="" id="">
-                <option value="">Nom</option>
-                <option value="">Espèce</option>
-                <option value="">Lieu</option>
-            </select>
-            <button type="submit" class="col-6 btn btn-sm btn-success">Rechercher</button>
-        </div>
-    </form>
+    {{ render(controller('AppBundle:Core:searchField')) }}
 </div>
-<div class="overlay invisible"></div>
+<div class="overlay invisible"></div>#}
 
 <!-- Desktop
 -------------------------------------------------------------------------------->
 <div id="searchbar-navbar" class="searchbar-desktop-navbar">
-    <form class="d-md-flex d-none">
-        <div class="input-group">
-            <div class="input-group-addon d-sm-block d-none">
-                <select name="search-filter" id="search-filter" class="filter-search">
-                    <option value="name">Tous</option>
-                    <option value="species">Nom</option>
-                    <option value="place">Lieu</option>
-                </select>
-            </div>          
-            <input id="search-navbar-input" class="form-control typeahead" type="text" placeholder="Rechercher..." aria-label="Rechercher">            
-        </div>
-    </form>
+    <div class="d-md-flex d-none w-100">
+        {{ render(controller('AppBundle:Core:searchField')) }}
+    </div>
 </div>
 <div class="overlay-search-navbar invisible"></div>
