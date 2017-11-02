@@ -14,16 +14,24 @@ use Symfony\Component\HttpFoundation\Request;
 class CoreController extends Controller
 {
     /**
+     * @param Request $request
+     *
      * @return Response
      * @Route("/", name="homepage")
      */
-    public function indexAction() : Response
+    public function indexAction(Request $request) : Response
     {
         $em = $this->getDoctrine()->getManager();
         $observations = $em->getRepository('AppBundle:Observation')->getIndexObservations(4, "validate");
         $articles = $em->getRepository('AppBundle:Article')->getIndexArticles(4);
+        $searchForm = $this->createForm('AppBundle\Form\SearchType');
+        $searchForm->handleRequest($request);
 
-        return $this->render('core/index.html.twig', ['observations' => $observations, 'articles' => $articles]);
+        if ($searchForm->isValid() && $searchForm->isSubmitted()) {
+            return $this->redirectToRoute('results');
+        }
+
+        return $this->render('core/index.html.twig', ['observations' => $observations, 'articles' => $articles, 'searchForm' => $searchForm->createView()]);
     }
 
     /**
@@ -41,6 +49,23 @@ class CoreController extends Controller
         }
 
         return $this->render(':inc:searchField.html.twig', ['searchForm' => $searchForm->createView()]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function searchFieldMobileAction(Request $request) : Response
+    {
+        $searchForm = $this->createForm('AppBundle\Form\SearchType');
+        $searchForm->handleRequest($request);
+
+        if ($searchForm->isValid() && $searchForm->isSubmitted()) {
+            return $this->redirectToRoute('results');
+        }
+
+        return $this->render(':inc:searchFieldMobile.html.twig', ['searchForm' => $searchForm->createView()]);
     }
 
     /**
@@ -191,11 +216,25 @@ class CoreController extends Controller
      */
     public function resultsAction(Request $request, $page) : Response
     {
-        /*dump($request->request->get('search')['search']);
-        die();*/
+
+        $filter = $request->request->get('search')['filter'];
+        $keyword = $request->request->get('search')['search'];
         $em = $this->getDoctrine()->getManager();
-        $req = $request->request->get('search')['search'];
-        $resultList = $em->getRepository('AppBundle:Observation')->findBy(['city' => $req], ['createdAt' => 'DESC']);
+        switch($filter) {
+            case("place"):
+                $resultList = $em->getRepository('AppBundle:Observation')->findBy(['city' => $keyword], ['createdAt' => 'DESC']);
+                break;
+
+            case("species"):
+                $resultList = $em->getRepository('AppBundle:Observation')->findBySpecies($keyword);
+                break;
+
+            case("name"):
+                $resultList = $em->getRepository('AppBundle:Observation')->findKeyword($keyword);
+                break;
+
+        }
+
 
         if ($page < 1) {
             throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
@@ -214,16 +253,35 @@ class CoreController extends Controller
     }
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
-     * @Route("/resultsJson", name="resultsJson")
+     * @Route("/results.json", name="resultsJson")
      */
-    public function searchAction() : JsonResponse
+    public function searchAction(Request $request) : JsonResponse
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
 
-        $listMarkers = $repository->findMarkers();
+        $filter = $request->request->get('search')['filter'];
+        $keyword = $request->request->get('search')['search'];
+        $em = $this->getDoctrine()->getManager();
+        switch($filter) {
+            case("place"):
+                $resultList = $em->getRepository('AppBundle:Observation')->findBy(['city' => $keyword], ['createdAt' => 'DESC']);
+                break;
+
+            case("species"):
+                $resultList = $em->getRepository('AppBundle:Observation')->findBySpecies($keyword);
+                break;
+
+            case("name"):
+                $resultList = $em->getRepository('AppBundle:Observation')->findKeyword($keyword);
+                break;
+            default:
+                $resultList = [];
+
+        }
     
-        return new JsonResponse($listMarkers);
+        return new JsonResponse($resultList);
     }
 
      /**

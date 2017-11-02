@@ -136,4 +136,37 @@ class ObservationRepository extends EntityRepository
 
         return $results;
     }
+
+    public function findBySpecies($keyword) : array
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb -> leftJoin('o.bird', 'bird')
+            -> addSelect('bird')
+            ->leftJoin('o.user', 'u')
+            ->addSelect('u')
+            -> where('bird.species = :species')
+            -> setParameter('species', $keyword);
+
+
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findKeyword($keyword) : array
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb -> leftJoin('o.bird', 'b')
+            -> addSelect('b')
+            ->leftJoin('o.user', 'u')
+            ->addSelect('u')
+            -> where('o.title = :title')
+              -> setParameter('title', '%'.$keyword.'%')
+            -> orWhere('o.city = :city')
+              -> setParameter('city', $keyword)
+            -> orWhere('b.species = :species')
+              -> setParameter('species', $keyword);
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
 }

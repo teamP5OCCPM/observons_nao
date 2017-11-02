@@ -39,7 +39,7 @@
                             <p class="card-text">{{ observation.description | truncate(100, true, '...') }}</p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">{{ observation.user.lastname }}</small>
+                            <small class="text-muted">{{ observation.user.lastName }}</small>
                             <small class="text-muted float-right">{{ observation.createdAt | date("d F Y") }}</small>
                         </div>
                     </div>
@@ -81,4 +81,36 @@
     </script>
     <script src="{{ asset('js/results.js') }}">
     </script>
+
+    {#<script>
+        function initMap() {
+
+            const map = new google.maps.Map(document.getElementById('mapResults'), {
+                zoom: 6,
+                center: {
+                    lat: 46.227638,
+                    lng: 2.213749000000007
+                }
+            });
+            let marker = {};
+            let contentString = "";
+
+            {% for observation in observations %}
+
+            marker = new google.maps.Marker({
+                position: {lat: {{ observation.lat }}, lng: {{ observation.lng }} },
+                map: map
+            });
+
+            contentString = "<a \"{{ path('showObservation', {'slug': observation.slug}) }}\">{{ observation.title }}</a>";
+            let infowindow = new google.maps.InfoWindow({
+                content : contentString
+            });
+
+            marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+            });
+            {% endfor %}
+        }
+    </script>#}
 {% endblock %}

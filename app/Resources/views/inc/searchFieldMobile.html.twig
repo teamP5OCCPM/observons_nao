@@ -1,0 +1,30 @@
+{#{{ form_start(searchForm) }}
+{{ form_widget(searchForm.search) }}
+{{ form_end(searchForm) }}#}
+{# searchbar mobile #}
+{#<div id="search-box" class="search-action d-none">
+    {{ form_start(searchForm) }}
+    {{ form_widget(searchForm.search) }}
+    <div class="row m-0">
+        <select class="col-6 form-control search-filter" name="" id="">
+            <option value="name">Tous</option>
+            <option value="species">Nom</option>
+            <option value="place">Lieu</option>
+        </select>
+        <button type="submit" class="col-6 btn btn-sm btn-success">Rechercher</button>
+    </div>
+    {{ form_end(searchForm) }}
+</div>#}
+
+<div id="search-box" class="search-action d-none">
+    {{ form_start(searchForm, {'attr': {'action': path('results', {'page': 1}) }} ) }}
+    {{ form_widget(searchForm.search) }}
+    <div class="row m-0">
+        {{ form_widget(searchForm.filter, {'attr': { 'class': 'col-6 search-filter'}}) }}
+
+        {{ form_widget(searchForm.send, {'attr': {'class': 'col-6 btn btn-sm btn-success'}}) }}
+
+    </div>
+    {{ form_end(searchForm) }}
+</div>
+

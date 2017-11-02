@@ -22,7 +22,7 @@
             <button id="btn-search-cover" class="btn-floating d-md-none d-block">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
-            <form action="" class="w-100 d-none d-md-block">
+            {#<form action="" class="w-100 d-none d-md-block">
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon bg-transparent-7 d-sm-block d-none">
@@ -31,12 +31,24 @@
                                 <option value="species">Nom</option>
                                 <option value="place">Lieu</option>
                             </select>
-                        </div> 
+                        </div>
                         <input type="text" class="form-control typeahead bg-transparent-5" id="home-search">
                         <button type="search" class="btn btn-sm btn-primary">Go</button>
                     </div>
                 </div>
-            </form>
+            </form>#}
+
+                {{ form_start(searchForm, {'attr': {'class': "w-100 d-none d-md-block", 'action': path('results', {'page': 1}) }}) }}
+            <div class="input-group">
+                <div class="input-group-addon bg-transparent-7 d-sm-block d-none">
+                    {{ form_widget(searchForm.filter) }}
+                </div>
+                {{ form_widget(searchForm.search, { 'attr': { 'class': 'bg-transparent-5 typeahead'}}) }}
+
+                {{ form_widget(searchForm.send, { 'attr': { 'class': 'btn btn-sm btn-primary'}}) }}
+
+                {{ form_end(searchForm) }}
+            </div>
             <p class="lead text-center text-light mt-3 mt-md-5">Nous lançons un programme de recherche visant à étudier les effets du climat, de l'urbanisation et de l'agriculture.</p>
         </div>
     </div>
