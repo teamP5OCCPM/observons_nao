@@ -14,16 +14,24 @@ use Symfony\Component\HttpFoundation\Request;
 class CoreController extends Controller
 {
     /**
+     * @param Request $request
+     *
      * @return Response
      * @Route("/", name="homepage")
      */
-    public function indexAction() : Response
+    public function indexAction(Request $request) : Response
     {
         $em = $this->getDoctrine()->getManager();
         $observations = $em->getRepository('AppBundle:Observation')->getIndexObservations(4, "validate");
         $articles = $em->getRepository('AppBundle:Article')->getIndexArticles(4);
+        $searchForm = $this->createForm('AppBundle\Form\SearchType');
+        $searchForm->handleRequest($request);
 
-        return $this->render('core/index.html.twig', ['observations' => $observations, 'articles' => $articles]);
+        if ($searchForm->isValid() && $searchForm->isSubmitted()) {
+            return $this->redirectToRoute('results');
+        }
+
+        return $this->render('core/index.html.twig', ['observations' => $observations, 'articles' => $articles, 'searchForm' => $searchForm->createView()]);
     }
 
     /**
@@ -41,6 +49,23 @@ class CoreController extends Controller
         }
 
         return $this->render(':inc:searchField.html.twig', ['searchForm' => $searchForm->createView()]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function searchFieldMobileAction(Request $request) : Response
+    {
+        $searchForm = $this->createForm('AppBundle\Form\SearchType');
+        $searchForm->handleRequest($request);
+
+        if ($searchForm->isValid() && $searchForm->isSubmitted()) {
+            return $this->redirectToRoute('results');
+        }
+
+        return $this->render(':inc:searchFieldMobile.html.twig', ['searchForm' => $searchForm->createView()]);
     }
 
     /**
@@ -215,7 +240,7 @@ class CoreController extends Controller
 
     /**
      * @return JsonResponse
-     * @Route("/resultsJson", name="resultsJson")
+     * @Route("/results.json", name="resultsJson")
      */
     public function searchAction() : JsonResponse
     {
