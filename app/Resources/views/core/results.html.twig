@@ -14,7 +14,7 @@
 </style>
 {% endblock %}
     <div class="container mt70">
-        <h1>Résultats de votre recherche</h1>
+        <h1>{{ title }}</h1>
         
         <p><span class="p-2 badge badge-primary">{{ observations|length }}</span> résultats pour votre recherche.
 
@@ -79,8 +79,7 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
     </script>
-    <script src="{{ asset('js/results.js') }}">
-    </script>
+    <script src="{{ asset('js/results.js') }}"></script>
 
     {#<script>
         function initMap() {

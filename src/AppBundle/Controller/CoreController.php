@@ -216,7 +216,6 @@ class CoreController extends Controller
      */
     public function resultsAction(Request $request, $page) : Response
     {
-
         $filter = $request->request->get('search')['filter'];
         $keyword = $request->request->get('search')['search'];
         $em = $this->getDoctrine()->getManager();
@@ -232,9 +231,7 @@ class CoreController extends Controller
             case("name"):
                 $resultList = $em->getRepository('AppBundle:Observation')->findKeyword($keyword);
                 break;
-
         }
-
 
         if ($page < 1) {
             throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
@@ -245,11 +242,16 @@ class CoreController extends Controller
 
         $nbPages = ceil($nbOfResults / $nbPerPage);
 
-        if ($page > $nbPages) {
-            throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
+        if ($nbPages == 0) {
+            $this->addFlash('warning', 'Aucun résultats n\'a pu être trouvés avec le mot "'. $keyword .'"');
+            $this->redirectToRoute('results', ['page' => 1]);
+        } else {
+            if ($page > $nbPages) {
+                throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
+            }
         }
 
-        return $this->render('core/results.html.twig', ['observations' => $resultList, 'nbPages' => $nbPages, 'page' => $page,]);
+        return $this->render('core/results.html.twig', ['observations' => $resultList, 'nbPages' => $nbPages, 'page' => $page, 'title' => 'Résultats de votre recherche']);
     }
 
     /**
@@ -260,7 +262,6 @@ class CoreController extends Controller
      */
     public function searchAction(Request $request) : JsonResponse
     {
-
         $filter = $request->request->get('search')['filter'];
         $keyword = $request->request->get('search')['search'];
         $em = $this->getDoctrine()->getManager();
@@ -278,9 +279,7 @@ class CoreController extends Controller
                 break;
             default:
                 $resultList = [];
-
         }
-    
         return new JsonResponse($resultList);
     }
 
@@ -293,7 +292,6 @@ class CoreController extends Controller
     public function findBirdsAction(Request $request) : JsonResponse
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bird');
-
         $listBirds = $repository->findAllSpecies();
     
         return new JsonResponse($listBirds);
@@ -308,7 +306,6 @@ class CoreController extends Controller
     public function findLocationsAction(Request $request) : JsonResponse
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-
         $listLocations = $repository->findAllLocations();
     
         return new JsonResponse($listLocations);
@@ -323,7 +320,6 @@ class CoreController extends Controller
     public function findTitlesAction(Request $request) : JsonResponse
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-
         $listTitles = $repository->findAllTitles();
 
         return new JsonResponse($listTitles);

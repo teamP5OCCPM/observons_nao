@@ -24,8 +24,8 @@ class ObservationRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('o')
             ->where('o.status = :status')
-            ->setParameter('status', $status);
-        $qb->leftJoin('o.bird', 'bird')
+            ->setParameter('status', $status)
+            ->leftJoin('o.bird', 'bird')
             ->addSelect('bird')
             ->leftJoin('o.user', 'user')
             ->addSelect('user')
@@ -159,12 +159,12 @@ class ObservationRepository extends EntityRepository
             -> addSelect('b')
             ->leftJoin('o.user', 'u')
             ->addSelect('u')
-            -> where('o.title = :title')
-              -> setParameter('title', '%'.$keyword.'%')
-            -> orWhere('o.city = :city')
-              -> setParameter('city', $keyword)
-            -> orWhere('b.species = :species')
-              -> setParameter('species', $keyword);
+            -> where('REGEXP(o.title, :regexp) = true')
+                ->setParameter('regexp', $keyword)
+            ->orWhere('REGEXP(o.city, :regexp) = true')
+                ->setParameter('regexp', $keyword)
+            ->orWhere('REGEXP(b.species, :regexp) = true')
+                ->setParameter('regexp', $keyword);
 
         return $qb->getQuery()->getArrayResult();
     }
