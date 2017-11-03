@@ -471,6 +471,9 @@ h2
 // Observation
 .vich-image {
   margin-bottom: .4rem;
+  a, .form-check {
+    display: none;
+  }
 }
 
 .geoloc {
