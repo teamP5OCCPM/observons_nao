@@ -6965,11 +6965,12 @@ h2 {
   .filter-search:focus, .filter-search:hover, .filter-search:visited, .filter-search:link {
     border: none; }
 
-.vich-image {
-  margin-bottom: .4rem; }
-  .vich-image a, .vich-image .form-check {
-    display: none; }
-
+/*.vich-image {
+  margin-bottom: .4rem;
+  a, .form-check {
+    display: none;
+  }
+}*/
 .geoloc p {
   margin-bottom: .4rem; }
 .geoloc button {

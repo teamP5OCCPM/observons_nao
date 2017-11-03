@@ -44,7 +44,7 @@ class Observation
      *
      * @ORM\Column(name="image_name", type="string", length=255)
      */
-    private $imageName = "default.jpg";
+    private $imageName;
 
     /**
      * @var \DateTime

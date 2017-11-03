@@ -128,6 +128,9 @@ class CoreController extends Controller
         $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->getData()->getImageName() === null) {
+                $observation->setImageName($image);
+            }
             $observation->setUser($user);
             $em->persist($observation);
             $em->flush();
