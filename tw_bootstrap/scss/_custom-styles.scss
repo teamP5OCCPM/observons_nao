@@ -568,6 +568,10 @@ footer
   {
     margin:  0;
     padding: 0;
+    & .dropdown-menu {
+      top: -12rem !important;
+      left: .4rem !important;
+    }
     & li:hover
     {
       background-color: $naogreen-darken;

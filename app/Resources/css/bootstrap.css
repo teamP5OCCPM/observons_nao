@@ -7021,6 +7021,9 @@ footer a {
   .sidenav .sidenav-body {
     margin: 0;
     padding: 0; }
+    .sidenav .sidenav-body .dropdown-menu {
+      top: -12rem !important;
+      left: .4rem !important; }
     .sidenav .sidenav-body li:hover {
       background-color: #689100; }
     .sidenav .sidenav-body a.nav-link {

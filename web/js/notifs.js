@@ -6,7 +6,9 @@ function countNotif($containerId, jsonUrl)
         type: "GET",
         url: jsonUrl,
         success: function (reponse) {
-            $container.text(reponse.message);
+            if (reponse.message !== false) {
+                $container.text(reponse.message);
+            }
         }
     });
 }

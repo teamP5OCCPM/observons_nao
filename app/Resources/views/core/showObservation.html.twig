@@ -44,7 +44,8 @@
             </div>
         </div>
         <h2>Géolocalisation</h2>
-        <div id="map" class="google-map"></div>
+        <div id="map" class="google-map mb-3"></div>
+        {% if sameSpecies is not empty%}
         <div class="d-flex justify-content-between flex-wrap mt-5 mb-3">
             <h2>De la même espèce</h2>
             <a href="{{ path('observations', {'page': 1}) }}" class="btn btn-secondary btn-sm cta-small">Consulter plus d'observations</a>
@@ -66,6 +67,7 @@
             </div>
             {% endfor %}
         </div>
+        {% endif %}
     </div>
     {# Other images for gallery #}
     {% for otherImg in otherImgSpecies %}
