@@ -44,7 +44,7 @@ class CoreController extends Controller
         $searchForm = $this->createForm('AppBundle\Form\SearchType');
         $searchForm->handleRequest($request);
 
-        if ($searchForm->isValid() && $searchForm->isSubmitted()) {
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             return $this->redirectToRoute('results');
         }
 
@@ -61,7 +61,7 @@ class CoreController extends Controller
         $searchForm = $this->createForm('AppBundle\Form\SearchType');
         $searchForm->handleRequest($request);
 
-        if ($searchForm->isValid() && $searchForm->isSubmitted()) {
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             return $this->redirectToRoute('results');
         }
 

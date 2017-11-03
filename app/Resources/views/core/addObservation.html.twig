@@ -5,6 +5,23 @@
 {% block title %}
     Ajouter une observation - {{ parent() }}
 {% endblock %}
+{% block chosen %}
+    <link href="{{ asset('js/chosen/chosen.min.css') }}" rel="stylesheet">
+    <style>
+        .chosen-container-single .chosen-single {
+            padding: .5rem .75rem;
+            background: none;
+            background-color: white !important;
+            height: 2.3rem;
+            line-height: 1.25;
+            color: #495057;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.25);
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: .2rem;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
     <div class="container mt70">
@@ -25,7 +42,7 @@
                                         {{ form_row(form_observation.title) }}
                                     </div>
                                     <div class="col-lg-6">
-                                        {{ form_row(form_observation.bird) }}
+                                        {{ form_row(form_observation.bird, {'attr': {'class': 'chosen-bird'}}) }}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -55,6 +72,10 @@
 {% block javascript %}
     {{ parent() }}
     <script src="{{ asset('js/add-observation-img.js') }}"></script>
+    <script src="{{ asset('js/chosen/chosen.jquery.min.js') }}"></script>
+    <script>
+        $('.chosen-bird').chosen();
+    </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
     </script>
@@ -85,6 +106,5 @@
             );
         });
     }
-
     </script>
 {% endblock %}
