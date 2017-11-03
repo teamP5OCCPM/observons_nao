@@ -84,7 +84,7 @@
         $(document).ready( function() {
             var btnText = $('#style-button').text();
             $('#style-button').click( function() {
-                $('.style-results').toggle("slow");
+                $('.style-results').fadeToggle(300, "swing");
                 $('#style-button').text() === "Afficher la map"? $('#style-button').text("Afficher la liste"): $('#style-button').text("Afficher la map");
             });
             console.log(btnText);
@@ -113,12 +113,12 @@
             marker = new google.maps.Circle({
                 center: {lat: {{ observation.lat }}, lng: {{ observation.lng }} },
                 map: map,
-                strokeColor: '#FF0000',
+                strokeColor: '#00a9c0',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35,
-                radius: 3000,
+                fillColor: '#00a9c0',
+                fillOpacity: 0.3,
+                radius: 10000,
                 clickable: true
             });
 

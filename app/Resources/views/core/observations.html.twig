@@ -5,11 +5,20 @@
 {% endblock %}
 
 {% block body %}
+    {% block styles %}
+        <style>
+            #mapResults {
+                width:  100%;
+                height: 70vh;
+            }
+        </style>
+    {% endblock %}
     <div class="container mt70">
         <div class="d-flex flex-wrap justify-content-between mt-5 mb-3">
             <h1>Les observations</h1>
             <a href="{{ path('addObservation') }}" class="btn btn-nao-green btn-sm cta-small">Ajouter une observation</a>
-        </div>
+           </div>
+
         <div class="row mt-4">
             {% for observation in observations %}
                 <div class="col-md-6 col-lg-4 col-xl-3">
@@ -61,3 +70,4 @@
         </nav>
     </div>
 {% endblock %}
+
