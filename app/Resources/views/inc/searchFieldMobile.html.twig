@@ -2,7 +2,7 @@
     {{ form_start(searchForm, {'attr': {'action': path('results', {'page': 1}) }} ) }}
     {{ form_widget(searchForm.search, {'attr': {'class': 'typeahead'}}) }}
     <div class="row m-0">
-        {{ form_widget(searchForm.filter, {'attr': { 'class': 'col-6 search-filter'}}) }}
+        {{ form_widget(searchForm.filter, {'attr': { 'class': 'col-6 filter-search bg-white'}}) }}
         <button type="submit" class="col-6 btn btn-nao-green">Rechercher</button>
     </div>
     {{ form_end(searchForm) }}
