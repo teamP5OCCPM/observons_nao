@@ -79,9 +79,18 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
     </script>
-    <script src="{{ asset('js/results.js') }}"></script>
+    <script>
+        $(document).ready( function() {
+            var btnText = $('#style-button').text();
+            $('#style-button').click( function() {
+                $('.style-results').toggle("slow");
+                $('#style-button').text() === "Afficher la map"? $('#style-button').text("Afficher la liste"): $('#style-button').text("Afficher la map");
+            });
+            console.log(btnText);
+        });
+    </script>
 
-    {#<script>
+    <script>
         function initMap() {
 
             const map = new google.maps.Map(document.getElementById('mapResults'), {
@@ -92,7 +101,11 @@
                 }
             });
             let marker = {};
-            let contentString = "";
+
+            let infowindow = {};
+            let markers = [];
+
+
 
             {% for observation in observations %}
 
@@ -101,15 +114,21 @@
                 map: map
             });
 
-            contentString = "<a \"{{ path('showObservation', {'slug': observation.slug}) }}\">{{ observation.title }}</a>";
-            let infowindow = new google.maps.InfoWindow({
-                content : contentString
-            });
 
-            marker.addListener('click', function() {
+
+            infowindow = new google.maps.InfoWindow();
+
+
+            google.maps.event.addListener(marker, 'click', (function(marker) {
+                return function() {
+                    infowindow.setContent("<a href='{{ path("showObservation", {"slug": observation.slug}) }}'>{{ observation.title }}</a>");
                     infowindow.open(map, marker);
-            });
+                }
+            })(marker));
+
+            markers.push(marker);
             {% endfor %}
+            console.log(markers);
         }
-    </script>#}
+    </script>
 {% endblock %}

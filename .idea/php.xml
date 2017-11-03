@@ -51,6 +51,7 @@
       <path value="$PROJECT_DIR$/vendor/leaphub/phpcs-symfony2-standard" />
       <path value="$PROJECT_DIR$/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/vendor/twig/extensions" />
+      <path value="$PROJECT_DIR$/vendor/beberlei/DoctrineExtensions" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
