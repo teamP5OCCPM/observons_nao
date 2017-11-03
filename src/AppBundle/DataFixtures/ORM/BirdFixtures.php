@@ -25,7 +25,7 @@ class BirdFixtures extends Fixture
 
         // Bird2
         $bird2 = new Bird();
-        $bird2->setSpecies('Faucon');
+        $bird2->setSpecies('Pigeon');
         $bird2->setReign('Animalia');
         $bird2->setPhylum('Phylum');
         $bird2->setRanking('Ranking');
@@ -36,7 +36,7 @@ class BirdFixtures extends Fixture
 
         // Bird3
         $bird3 = new Bird();
-        $bird3->setSpecies('Moineau');
+        $bird3->setSpecies('Colibri');
         $bird3->setReign('Animalia');
         $bird3->setPhylum('Phylum');
         $bird3->setRanking('Ranking');
@@ -47,7 +47,7 @@ class BirdFixtures extends Fixture
 
         // Bird4
         $bird4 = new Bird();
-        $bird4->setSpecies('Pigeon');
+        $bird4->setSpecies('Canard');
         $bird4->setReign('Animalia');
         $bird4->setPhylum('Phylum');
         $bird4->setRanking('Ranking');

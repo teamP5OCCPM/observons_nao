@@ -6967,6 +6967,8 @@ h2 {
 
 .vich-image {
   margin-bottom: .4rem; }
+  .vich-image a, .vich-image .form-check {
+    display: none; }
 
 .geoloc p {
   margin-bottom: .4rem; }
