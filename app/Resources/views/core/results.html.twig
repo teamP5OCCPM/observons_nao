@@ -14,14 +14,15 @@
 </style>
 {% endblock %}
     <div class="container mt70">
-        <h1>{{ title }}</h1>
-        
-        <p><span class="p-2 badge badge-primary">{{ observations|length }}</span> résultats pour votre recherche.
+        <div class="d-flex flex-wrap justify-content-between mt-5 mb-3">
+            <h1>{{ title }}</h1>
+            <button id ="style-button" class="btn btn-sm btn-secondary text-white pull-right">Afficher la liste</button>
+        </div>
+        <p><span class="p-2 badge badge-primary">{{ observations|length }}</span> résultats pour votre recherche.</p>
 
-        <button id ="style-button" class="btn btn-sm btn-secondary text-white pull-right">Afficher la liste</button>
-        </p>
         <div id="mapResults" class="style-results" ></div>
         <div id="listResults" class="style-results" style="display:none">
+
         <div class="row mt-4">
             {% for observation in observations %}
                 <div class="col-md-6 col-lg-4 col-xl-3">
