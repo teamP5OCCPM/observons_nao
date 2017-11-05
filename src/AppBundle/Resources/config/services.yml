@@ -21,3 +21,17 @@ services:
             - "@observation_mailer"
         tags:
             - { name: doctrine.event_listener, event: postPersist }
+
+
+    user_mailer:
+        class: AppBundle\Service\UserMailer
+        arguments:
+            - "@mailer"
+            - "@templating"
+
+    doctrine_listener.userAdd:
+        class: AppBundle\DoctrineListener\UserAddListener
+        arguments:
+            - "@user_mailer"
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
