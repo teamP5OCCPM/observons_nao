@@ -257,45 +257,16 @@ class CoreController extends Controller
         return $this->render('core/results.html.twig', ['observations' => $resultList, 'nbPages' => $nbPages, 'page' => $page, 'title' => 'Résultats de votre recherche']);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     * @Route("/results.json", name="resultsJson")
-     */
-    public function searchAction(Request $request) : JsonResponse
-    {
-        $filter = $request->request->get('search')['filter'];
-        $keyword = $request->request->get('search')['search'];
-        $em = $this->getDoctrine()->getManager();
-        switch($filter) {
-            case("place"):
-                $resultList = $em->getRepository('AppBundle:Observation')->findBy(['city' => $keyword], ['createdAt' => 'DESC']);
-                break;
-
-            case("species"):
-                $resultList = $em->getRepository('AppBundle:Observation')->findBySpecies($keyword);
-                break;
-
-            case("name"):
-                $resultList = $em->getRepository('AppBundle:Observation')->findKeyword($keyword);
-                break;
-            default:
-                $resultList = [];
-        }
-        return new JsonResponse($resultList);
-    }
-
      /**
       * @param Request $request
       *
       * @return JsonResponse
-      * @Route("/birds.json", name="birdsJson")
+      * @Route("birds.json", name="birdsJson")
       */
     public function findBirdsAction(Request $request) : JsonResponse
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bird');
-        $listBirds = $repository->findAllSpecies();
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+        $listBirds = $repository->findAllBirds();
     
         return new JsonResponse($listBirds);
     }
@@ -304,7 +275,7 @@ class CoreController extends Controller
       * @param Request $request
       *
       * @return JsonResponse
-      * @Route("/locations.json", name="locationsJson")
+      * @Route("locations.json", name="locationsJson")
       */
     public function findLocationsAction(Request $request) : JsonResponse
     {
@@ -318,7 +289,7 @@ class CoreController extends Controller
      * @param Request $request
      *
      * @return JsonResponse
-     * @Route("/titles.json", name="titlesJson")
+     * @Route("titles.json", name="titlesJson")
      */
     public function findTitlesAction(Request $request) : JsonResponse
     {

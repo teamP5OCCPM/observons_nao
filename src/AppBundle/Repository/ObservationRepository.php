@@ -118,6 +118,19 @@ class ObservationRepository extends EntityRepository
     /**
      * @return array
      */
+    public function findAllBirds() : array
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb->leftJoin('o.bird', 'b')
+            ->addSelect('b.species')
+            ->groupBy('b.species');
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+     * @return array
+     */
     public function findAllLocations() : array
     {
         $qb = $this->_em->createQuery('SELECT DISTINCT o.city FROM AppBundle:Observation o');

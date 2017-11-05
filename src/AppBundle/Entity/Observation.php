@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Observation
@@ -29,6 +30,8 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=50, unique=true)
+     * @Assert\Type("string")
+     * @Assert\Length(min=5, minMessage="Le titre doit faire au moins {{ limit }} caracteres")
      */
     private $title;
 
@@ -43,6 +46,8 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="image_name", type="string", length=255)
+     * @Assert\Type("string")
+     * @Assert\Length(max=255)
      */
     private $imageName;
 
@@ -50,6 +55,7 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $updatedAt;
 
@@ -57,6 +63,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\Length(min=10)
      */
     private $description;
 
@@ -64,6 +71,7 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $createdAt;
 
@@ -71,6 +79,7 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="observed_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $observedAt;
 
@@ -79,6 +88,7 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="lng", type="float")
+     * @Assert\Type("float")
      */
     private $lng;
 
@@ -86,6 +96,7 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="lat", type="float")
+     * @Assert\Type("float")
      */
     private $lat;
 
@@ -93,6 +104,8 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="city", type="string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $city;
 
@@ -100,6 +113,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255)
+     * @Assert\Type("string")
      */
     private $status;
 
@@ -108,18 +122,22 @@ class Observation
      *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     * @Assert\NotNull()
+     * @Assert\Type("string")
      */
     private $slug;
 
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="User", inversedBy="observations")
+     * @Assert\NotNull()
      */
     private $user;
 
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="Bird")
+     * @Assert\NotNull()
      */
     private $bird;
 

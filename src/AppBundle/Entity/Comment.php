@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -25,6 +26,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="message", type="text")
+     * @Assert\NotBlank()
      */
     private $message;
 
@@ -32,6 +34,10 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\Email(
+     *     message="The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -39,6 +45,10 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=50)
+     * @Assert\NotNull()
+     * @Assert\Type("string")
+     * @Assert\NotBlank()
+     * @Assert\Length(max=50)
      */
     private $author;
 
@@ -46,6 +56,7 @@ class Comment
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $createdAt;
 
@@ -53,6 +64,7 @@ class Comment
      * @var bool
      *
      * @ORM\Column(name="is_reported", type="boolean")
+     * @Assert\NotNull()
      */
     private $isReported = false;
 
@@ -60,6 +72,7 @@ class Comment
      * @var bool
      *
      * @ORM\Column(name="is_hidden", type="boolean")
+     * @Assert\NotNull()
      */
     private $isHidden = false;
 
@@ -67,6 +80,7 @@ class Comment
     /**
      * @var integer
      * @ORM\Column(name="level", type="integer")
+     * @Assert\Type("integer")
      */
     private $level = 1;
 
@@ -74,6 +88,7 @@ class Comment
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="Article", inversedBy="comments", cascade={"remove"})
+     * @Assert\NotNull()
      */
     private $article;
 

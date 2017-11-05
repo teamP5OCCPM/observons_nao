@@ -30,6 +30,7 @@ class Taxref
      * @var \DateTime
      *
      * @ORM\Column(name="update_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $updateAt;
 
@@ -50,6 +51,7 @@ class Taxref
      * @var string
      *
      * @ORM\Column(name="csv_name", type="string", length=255)
+     * @Assert\Type("string")
      */
     private $csvName;
 
@@ -57,6 +59,7 @@ class Taxref
     /**
      * @var boolean
      * @ORM\Column(name="isUpdate", type="boolean")
+     * @Assert\NotNull()
      */
     private $isUpdate = false;
 

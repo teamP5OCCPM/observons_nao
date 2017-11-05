@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Article
@@ -29,6 +30,9 @@ class Article
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=50, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
+     * @Assert\Length(max=50, maxMessage="Le titre ne peut pas depasser 50 caracteres")
      */
     private $title;
 
@@ -36,6 +40,8 @@ class Article
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(min=10, minMessage="Le contenu de l'article doit contenir plus de 10 caracteres")
      */
     private $content;
 
@@ -43,6 +49,7 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $createdAt;
 
@@ -57,6 +64,9 @@ class Article
      * @var string
      *
      * @ORM\Column(name="image_name", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
+     * @Assert\Length(min=5)
      */
     private $imageName = "adefault.jpg";
 
@@ -64,6 +74,7 @@ class Article
      * @var bool
      *
      * @ORM\Column(name="is_published", type="boolean")
+     * @Assert\NotNull()
      */
     private $isPublished;
 
@@ -72,12 +83,15 @@ class Article
      *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
      */
     private $slug;
 
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
+     * @Assert\NotNull()
      */
     private $user;
 

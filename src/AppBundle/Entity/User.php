@@ -8,6 +8,7 @@ use AppBundle\Entity\Observation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -30,6 +31,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255)
+     * @Assert\NotNull()
+     * @Assert\Type("string")
+     * @Assert\NotBlank()
      */
     private $firstName;
 
@@ -37,6 +41,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255)
+     * @Assert\NotNull()
+     * @Assert\Type("string")
+     * @Assert\NotBlank()
      */
     private $lastName;
 
@@ -44,6 +51,7 @@ class User extends BaseUser
      * @var bool
      *
      * @ORM\Column(name="newsletter", type="boolean")
+     * @Assert\NotNull()
      */
     private $newsletter = false;
 

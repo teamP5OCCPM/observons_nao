@@ -1,23 +1,25 @@
 
-$(document).ready( function () {
+$(document).ready( function(){ getAutocomplete(birdsJson, titlesJson, locationsJson)});
+
+function getAutocomplete (birdsJson, titlesJson, locationsJson) {
     // Defining the remote json dataset
 
     let birds = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('species'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: 'birds.json'
+        prefetch: birdsJson
     });
 
     let observations = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: 'titles.json'
+        prefetch: titlesJson
     });
 
     let locations = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('city'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: 'locations.json'
+        prefetch: locationsJson
     });
 
 
@@ -125,7 +127,8 @@ $(document).ready( function () {
                 break;
         }
     });
-});
+}
+
 
 
 

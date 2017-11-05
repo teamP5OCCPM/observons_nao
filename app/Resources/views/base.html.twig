@@ -58,8 +58,12 @@
 
     <!--  autocompletion -->
     <script src="{{ asset('js/typeahead/dist/typeahead.bundle.min.js') }}"></script>
+    <script>
+        const birdsJson = "{{ path('birdsJson') }}";
+        const titlesJson = "{{ path('titlesJson') }}";
+        const locationsJson = "{{ path('locationsJson') }}";
+    </script>
 
-    <script type="text/javascript"> let locationsURL = "{{ path('locationsJson') }}"</script>
     <script src="{{ asset('js/search.js') }}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ asset('js/bootstrap/ie10-viewport-bug-workaround.js') }}"></script>

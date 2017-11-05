@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Bird
@@ -25,6 +26,9 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="species", type="string", length=255)
+     * @Assert\NotNull()
+     * @Assert\Type("string")
+     * @Assert\NotBlank()
      */
     private $species;
 
@@ -32,6 +36,7 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="reign", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
      */
     private $reign;
 
@@ -39,6 +44,7 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="phylum", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
      */
     private $phylum;
 
@@ -46,6 +52,7 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="ranking", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
      */
     private $ranking;
 
@@ -53,6 +60,7 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="family", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
      */
     private $family;
 
@@ -60,6 +68,7 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="lb_name", type="string", length=255)
+     * @Assert\Type("string")
      */
     private $lbName;
 
@@ -67,6 +76,7 @@ class Bird
     /**
      * @var integer
      * @ORM\Column(name="cd_ref", type="integer", unique=true)
+     * @Assert\Type("integer")
      */
     private $cdRef;
 
@@ -74,6 +84,7 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="lb_author", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
      */
     private $lbAuthor;
 
