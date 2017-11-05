@@ -59,7 +59,7 @@
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">{{ observation.user.username }}</small>
-                            <small class="text-muted float-right">{{ observation.observedAt | date("d F Y") }}</small>
+                            <small class="text-muted float-right">{{ observation.observedAt | localizeddate('none', 'none', '%locale%', 'Europe/Paris', 'dd MMMM YYYY') }}</small>
                         </div>
                     </div>
                 </div>
@@ -85,8 +85,8 @@
                             <p class="card-text">{{ article.content | truncate(160, true, '...') }}</p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">{{ article.user.lastName }}</small>
-                            <small class="text-muted float-right">{{ article.createdAt | date("d F Y") }}</small>
+                            <small class="text-muted">{{ article.user.username }}</small>
+                            <small class="text-muted float-right">{{ article.createdAt | localizeddate('none', 'none', '%locale%', 'Europe/Paris', 'dd MMMM YYYY') }}</small>
                         </div>
                     </div>
                 </div>

@@ -86,8 +86,8 @@ fos_user:
         confirmation:
             enabled: true
             from_email:
-                address:        gebs.dev@gmail.com
-                sender_name:    Test registration
+                address:        '%mailer_user%'
+                sender_name:    NAO-observons.net
     resetting:
         email:
             from_email:

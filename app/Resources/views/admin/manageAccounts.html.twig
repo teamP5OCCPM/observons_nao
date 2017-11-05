@@ -70,7 +70,7 @@
                     </div>
                     <div class="card-footer">
                         {% if account.lastLogin is not null %}
-                        Dernière connexion : {{ account.lastLogin | date('d/m/Y - H:i') }}
+                        Dernière connexion : {{ account.lastLogin | localizeddate('medium', 'medium', '%locale%', 'Europe/Paris', 'E dd/M/Y - k:mm') }}
                         {% else %}
                             Nouvel utilisateur
                         {% endif %}

@@ -39,6 +39,10 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.extension.date:
+            class: Twig_Extensions_Extension_Intl
+            tags:
+                - { name: twig.extension }
 
     app.form.registration:
         class: AppBundle\Form\RegistrationType
