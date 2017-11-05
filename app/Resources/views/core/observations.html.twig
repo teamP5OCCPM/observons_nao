@@ -37,7 +37,7 @@
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">{{ observation.user.username }}</small>
-                            <small class="text-muted float-right">{{ observation.observedAt | date("d F Y") }}</small>
+                            <small class="text-muted float-right">{{ observation.observedAt | localizeddate('none', 'none', '%locale%', 'Europe/Paris', 'dd MMMM YYYY') }}</small>
                         </div>
                     </div>
                 </div>

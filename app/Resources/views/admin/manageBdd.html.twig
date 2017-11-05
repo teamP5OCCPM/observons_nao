@@ -13,7 +13,7 @@
                 {% if lastUpdate.updateAt is not defined %}
                     La base de données n'est pas à jour
                 {% else %}
-                Dernière mise à jour le {{ lastUpdate.updateAt|date('d/m/Y G:i') }}
+                Dernière mise à jour le {{ lastUpdate.updateAt | localizeddate('medium', 'medium', '%locale%', 'Europe/Paris', 'd/M/Y - k:mm') }}
                 {% endif %}
             </h3>
                 <div class="col-12">
@@ -29,7 +29,7 @@
                         <div class="row">
                             {{ form_start(form) }}
                             {{ form_errors(form) }}
-                            <div class="col-md-6 col-12">
+                            <div class="col-12">
                                 {{ form_widget(form.csvFile) }}
                                 {{ form_row(form.save) }}
                             </div>
