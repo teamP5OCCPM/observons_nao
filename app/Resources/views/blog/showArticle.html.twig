@@ -35,11 +35,12 @@
             </div>
         </div>
 
+        <div id="form_add_comment">
         <h3>Laisser un commentaire</h3>
         <div class="card justify-content-around">
             <div class="card-body d-flex flex-wrap">
                 <div class="col-md-12">
-                    {{ form_start(form, {'attr': {'id': 'form_add_comment'}}) }}
+                    {{ form_start(form) }}
                     {{ form_row(form.author) }}
                     {{ form_row(form.email) }}
                     {{ form_row(form.message) }}
@@ -48,6 +49,7 @@
                     {{ form_end(form) }}
                 </div>
             </div>
+        </div>
         </div>
         <h3>Commentaires</h3>
         {% for comment in parentComments %}

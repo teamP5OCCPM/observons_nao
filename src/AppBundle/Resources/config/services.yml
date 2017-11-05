@@ -8,3 +8,16 @@ services:
 
     check_file:
         class: AppBundle\Service\CheckFileUpload
+
+    observation_mailer:
+        class: AppBundle\Service\ObservationMailer
+        arguments:
+            - "@mailer"
+            - "@templating"
+
+    doctrine_listener.observationAdd:
+        class: AppBundle\DoctrineListener\ObservationAddListener
+        arguments:
+            - "@observation_mailer"
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
