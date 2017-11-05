@@ -64,12 +64,19 @@ class BlogController extends Controller
             $comment->setParent($commentParent);
             $comment->setArticle($article);
 
-            $em->persist($comment);
-            $em->flush();
+            $validator = $this->get('validator');
+            $errors = $validator->validate($comment);
 
-            $this->addFlash('success', "Le commentaire a été ajouté avec succès !!!");
+            if (count($errors) > 0) {
+                return new Response((string) $errors);
+            } else {
+                $em->persist($comment);
+                $em->flush();
 
-            return $this->redirectToRoute('showArticle', ['slug' => $slug]);
+                $this->addFlash('success', "Le commentaire a été ajouté avec succès !!!");
+
+                return $this->redirectToRoute('showArticle', ['slug' => $slug]);
+            }
         }
         return $this->render('blog/showArticle.html.twig', ['article' => $article, 'parentComments' => $parentComments ,'form' => $form->createView()]);
     }
@@ -86,11 +93,18 @@ class BlogController extends Controller
         $comment = $em->getRepository('AppBundle:Comment')->findOneById($id);
         $comment->setIsReported(true);
 
-        $em->persist($comment);
-        $em->flush();
+        $validator = $this->get('validator');
+        $errors = $validator->validate($comment);
 
-        $this->addFlash('warning', "Le commentaire a été signalé.");
+        if (count($errors) > 0) {
+            return new Response((string) $errors);
+        }else {
+            $em->persist($comment);
+            $em->flush();
 
-        return $this->redirectToRoute('showArticle', ['slug' => $slug]);
+            $this->addFlash('warning', "Le commentaire a été signalé.");
+
+            return $this->redirectToRoute('showArticle', ['slug' => $slug]);
+        }
     }
 }

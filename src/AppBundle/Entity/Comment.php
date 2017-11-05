@@ -45,7 +45,6 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=50)
-     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Assert\NotBlank()
      * @Assert\Length(max=50)
@@ -88,7 +87,7 @@ class Comment
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="Article", inversedBy="comments", cascade={"remove"})
-     * @Assert\NotNull()
+     * @Assert\Valid()
      */
     private $article;
 
@@ -96,18 +95,21 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children", cascade={"remove"})
+     * @Assert\Valid()
      */
     private $parent;
 
 
     /**
      * @var integer
+     * @Assert\Type("integer")
      */
     private $parentId;
 
 
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="parent")
+     * @Assert\Valid()
      */
     private $children;
 

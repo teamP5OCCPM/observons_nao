@@ -132,14 +132,20 @@ class CoreController extends Controller
                 $observation->setImageName($image);
             }
             $observation->setUser($user);
-            $em->persist($observation);
-            $em->flush();
+            $validator = $this->get('validator');
+            $errors = $validator->validate($observation);
+            if (count($errors) > 0)
+            {
+                return new Response( (string) $errors);
+            }else {
+                $em->persist($observation);
+                $em->flush();
 
-            $this->addFlash('success', "L'observation est bien enregistrée et sera soumise à validation");
+                $this->addFlash('success', "L'observation est bien enregistrée et sera soumise à validation");
 
-            return $this->redirectToRoute('homepage');
+                return $this->redirectToRoute('homepage');
+            }
         }
-
         return $this->render('core/addObservation.html.twig', ['title' => "Ajouter une observation", 'form_observation' => $form->createView(), 'image' => $image]);
     }
 
@@ -265,10 +271,13 @@ class CoreController extends Controller
       */
     public function findBirdsAction(Request $request) : JsonResponse
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-        $listBirds = $repository->findAllBirds();
-    
-        return new JsonResponse($listBirds);
+        if ($request->isXmlHttpRequest()) {
+            $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+            $listBirds = $repository->findAllBirds();
+
+            return new JsonResponse($listBirds);
+        }
+
     }
 
      /**
@@ -279,10 +288,13 @@ class CoreController extends Controller
       */
     public function findLocationsAction(Request $request) : JsonResponse
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-        $listLocations = $repository->findAllLocations();
-    
-        return new JsonResponse($listLocations);
+        if ($request->isXmlHttpRequest()) {
+            $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+            $listLocations = $repository->findAllLocations();
+
+            return new JsonResponse($listLocations);
+        }
+
     }
 
     /**
@@ -293,10 +305,13 @@ class CoreController extends Controller
      */
     public function findTitlesAction(Request $request) : JsonResponse
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-        $listTitles = $repository->findAllTitles();
+        if ($request->isXmlHttpRequest()) {
+            $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+            $listTitles = $repository->findAllTitles();
 
-        return new JsonResponse($listTitles);
+            return new JsonResponse($listTitles);
+        }
+
     }
 
     /**

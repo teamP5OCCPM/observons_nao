@@ -148,12 +148,20 @@ class AdminController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setUser($user);
-            $em->persist($article);
-            $em->flush();
 
-            $this->addFlash('success', "L'article est bien enregistrée et sera soumis à validation");
+            $validator = $this->get('validator');
+            $errors = $validator->validate($article);
+            if (count($errors) > 0) {
+                return new Response((string) $errors);
+            }else {
+                $em->persist($article);
+                $em->flush();
 
-            return $this->redirectToRoute('addArticle');
+                $this->addFlash('success', "L'article est bien enregistrée et sera soumis à validation");
+
+                return $this->redirectToRoute('addArticle');
+            }
+
         }
 
         return $this->render('admin/addArticle.html.twig', ['title' => "Ajouter un article", 'form_article' => $form->createView(), 'image' => $image]);
@@ -298,6 +306,7 @@ class AdminController extends Controller
             default:
                 $comments = $em->getRepository('AppBundle:Comment')->findAll();
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
+                    break;
         }
     }
 

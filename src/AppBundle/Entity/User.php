@@ -41,7 +41,6 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255)
-     * @Assert\NotNull()
      * @Assert\Type("string")
      * @Assert\NotBlank()
      */
@@ -59,12 +58,14 @@ class User extends BaseUser
     /**
      * @var Observation
      * @ORM\OneToMany(targetEntity="Observation", mappedBy="user", cascade={"persist"})
+     * @Assert\Valid()
      */
     private $observations;
 
     /**
      * @var Article
      * @ORM\OneToMany(targetEntity="Article", mappedBy="user", cascade={"persist"})
+     * @Assert\Valid()
      */
     private $articles;
 

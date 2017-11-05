@@ -41,7 +41,6 @@ class Article
      *
      * @ORM\Column(name="content", type="text")
      * @Assert\NotBlank()
-     * @Assert\Length(min=10, minMessage="Le contenu de l'article doit contenir plus de 10 caracteres")
      */
     private $content;
 
@@ -91,7 +90,7 @@ class Article
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
-     * @Assert\NotNull()
+     * @Assert\Valid()
      */
     private $user;
 
@@ -99,6 +98,7 @@ class Article
     /**
      * @var
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
+     * @Assert\Valid()
      */
     private $comments;
 

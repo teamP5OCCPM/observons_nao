@@ -31,7 +31,7 @@ class Observation
      *
      * @ORM\Column(name="title", type="string", length=50, unique=true)
      * @Assert\Type("string")
-     * @Assert\Length(min=5, minMessage="Le titre doit faire au moins {{ limit }} caracteres")
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -63,7 +63,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-     * @Assert\Length(min=10)
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -88,7 +88,7 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="lng", type="float")
-     * @Assert\Type("float")
+     * @Assert\NotNull()
      */
     private $lng;
 
@@ -96,7 +96,7 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="lat", type="float")
-     * @Assert\Type("float")
+     * @Assert\NotNull()
      */
     private $lat;
 
@@ -104,7 +104,6 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="city", type="string")
-     * @Assert\NotNull()
      * @Assert\NotBlank()
      */
     private $city;
@@ -122,7 +121,6 @@ class Observation
      *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
-     * @Assert\NotNull()
      * @Assert\Type("string")
      */
     private $slug;
@@ -130,14 +128,14 @@ class Observation
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="User", inversedBy="observations")
-     * @Assert\NotNull()
+     * @Assert\Valid()
      */
     private $user;
 
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="Bird")
-     * @Assert\NotNull()
+     * @Assert\Valid()
      */
     private $bird;
 
