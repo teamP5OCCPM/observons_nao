@@ -61,4 +61,31 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getResult();
     }
+
+
+    public function getUserEditor() : array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->where('u.roles NOT LIKE :editor')
+            ->setParameter('editor', '%ROLE_EDITOR%')
+            ->getQuery()
+            ;
+
+        return $qb->getResult();
+
+    }
+
+    public function getUserAdmin() : array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->where('u.roles NOT LIKE :admin')
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->getQuery()
+        ;
+
+        return $qb->getResult();
+
+    }
+
+
 }
