@@ -86,6 +86,21 @@ class AdminController extends Controller
 
         $em->flush();
 
+
+
+        // On envoi un mail au proprietaire de l'observation pour lui indiquer que l'observation a été validé
+        // Récupération du service d'envoi de mail
+        $mailer = $this->container->get('send_mail');
+
+        // Récupération du paramètre mail de destination "from"
+        $from = $this->getParameter('mailer_user');
+
+        $mailer->sendMessage($observation->getUser()->getEmail(),'Validation de l\'observation', 'mail/validate-model.html.twig',
+            $from, $observation);
+
+
+
+
         $this->addFlash('warning', "L'observation, " . $observation->getTitle() . " a bien été validé");
 
         return $this->redirectToRoute('manageObservations', ['status' => "tous"]);
@@ -353,6 +368,7 @@ class AdminController extends Controller
         $em->persist($comment);
 
         $em->flush();
+
 
         $this->addFlash('warning', "Le commentaire a été validé.");
 

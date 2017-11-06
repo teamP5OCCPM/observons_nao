@@ -26,6 +26,7 @@ jQuery(document).ready(function($) {
 
             $('#appbundle_comment_parentId').val(parentId);
 
+            $form.find('h3').text('Répondre au commentaire');
 
 
             $comment.after($form);
