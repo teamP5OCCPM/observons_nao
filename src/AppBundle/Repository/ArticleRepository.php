@@ -20,8 +20,10 @@ class ArticleRepository extends EntityRepository
      */
     public function getIndexArticles($limit) : array
     {
-        $qb = $this->createQueryBuilder('a');
-        $qb->leftJoin('a.user', 'user')
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.isPublished = :status')
+            ->setParameter('status', true)
+            ->leftJoin('a.user', 'user')
             ->addSelect('user')
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults($limit);
@@ -38,6 +40,8 @@ class ArticleRepository extends EntityRepository
     public function getArticles($page, $nbPerPage) : Paginator
     {
         $query = $this->createQueryBuilder('a')
+            ->where('a.isPublished = :status')
+            ->setParameter('status', true)
             ->leftJoin('a.user', 'usr')
             ->addSelect('usr')
             ->orderBy('a.createdAt', 'DESC')

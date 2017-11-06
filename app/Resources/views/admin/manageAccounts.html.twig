@@ -12,6 +12,7 @@
             <a href="{{ path('manageAccounts', {'roles': 'naturalist'}) }}" type="button" class="btn btn-dark">Naturalistes</a>
             <a href="{{ path('manageAccounts', {'roles': 'editor'}) }}" type="button" class="btn btn-dark">Editeurs</a>
             <a href="{{ path('manageAccounts', {'roles': 'admin'}) }}" type="button" class="btn btn-dark">Administrateurs</a>
+            <a href="{{ path('manageAccounts', {'roles': 'block'}) }}" type="button" class="btn btn-dark">Bloqués</a>
         </div>
         <div id="accordion" role="tablist">
             {% for account in accounts %}

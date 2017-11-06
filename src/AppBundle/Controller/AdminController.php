@@ -55,20 +55,25 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         switch ($status) {
+            case "tous":
+                $observations = $em->getRepository('AppBundle:Observation')->findAll();
+                return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
+                break;
             case "validate":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                        break;
+                break;
             case "waiting":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                        break;
+                break;
             case "refused":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                        break;
+                break;
+            default:
+                throw $this->createNotFoundException('Cette page n\'existe pas');
         }
-        $observations = $em->getRepository('AppBundle:Observation')->findAll();
         return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
     }
 
@@ -86,8 +91,6 @@ class AdminController extends Controller
 
         $em->flush();
 
-
-
         // On envoi un mail au proprietaire de l'observation pour lui indiquer que l'observation a été validé
         // Récupération du service d'envoi de mail
         $mailer = $this->container->get('send_mail');
@@ -97,9 +100,6 @@ class AdminController extends Controller
 
         $mailer->sendMessage($observation->getUser()->getEmail(),'Validation de l\'observation', 'mail/validate-model.html.twig',
             $from, $observation);
-
-
-
 
         $this->addFlash('warning', "L'observation, " . $observation->getTitle() . " a bien été validé");
 
@@ -162,23 +162,28 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->getData()->getImageName() === null) {
+                $article->setImageName($image);
+            }
             $article->setUser($user);
 
             $validator = $this->get('validator');
             $errors = $validator->validate($article);
             if (count($errors) > 0) {
                 return new Response((string) $errors);
-            }else {
+            } else {
                 $em->persist($article);
                 $em->flush();
 
-                $this->addFlash('success', "L'article est bien enregistrée et sera soumis à validation");
+                if ($form->getData()->getIsPublished()) {
+                    $this->addFlash('success', "L'article est bien publié");
+                } else {
+                    $this->addFlash('success', "L'article est bien enregistrée dans les brouillons");
+                }
 
                 return $this->redirectToRoute('addArticle');
             }
-
         }
-
         return $this->render('admin/addArticle.html.twig', ['title' => "Ajouter un article", 'form_article' => $form->createView(), 'image' => $image]);
     }
 
@@ -191,22 +196,22 @@ class AdminController extends Controller
 
         switch ($status) {
             case "tous":
-                $articles = $em->getRepository('AppBundle:Article')->findAll();
+                $articles = $em->getRepository('AppBundle:Article')->findBy([], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles ]);
                         break;
 
             case "isPublished":
-                $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(1);
+                $articles = $em->getRepository('AppBundle:Article')->findBy(['isPublished' => true], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
                         break;
 
             case "waitting":
-                $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(0);
+                $articles = $em->getRepository('AppBundle:Article')->findBy(['isPublished' => false], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
                         break;
+            default:
+                throw $this->createNotFoundException('Cette page n\'existe pas');
         }
-
-        $articles = $em->getRepository('AppBundle:Article')->findAll();
 
         return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
     }

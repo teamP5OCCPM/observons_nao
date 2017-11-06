@@ -6,7 +6,7 @@ $(document).ready(function () {
         overlayNavbar = $('.overlay-search-navbar'),
         searchNavbarBtn = $('#search-navbar-btn'),
         searchNavbar = $('#searchbar-navbar'),
-        searchNavbarInput = $('#search-navbar-input'),
+        searchNavbarInput = $('#search_search'),
         sidenav = $('.sidenav'),
         sidenavItems = $('.sidenav-items'),
         reduceIco = $('.reduce-ico'),

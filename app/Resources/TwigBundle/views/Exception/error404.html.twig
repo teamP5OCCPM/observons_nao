@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Cette adresse n'existe pas : {{ status_text }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container mt70 mb-5">
+        <div class="d-flex justify-content-center flex-wrap">
+            <h1 class="text-center">Vous vous trompez de route !!</h1>
+            <h2 class="text-center">Une erreur est survenue : "{{ status_code }} {{ status_text }}".</h2>
+
+            <p class="text-center">Votre demande ne peut aboutir, vérifiez bien que l'adresse URL est correct.</p>
+            <p class="text-center">Pour revenir à la page d'acceuil, cliquez <a href="{{ path('homepage') }}">ici</a></p>
+            <p class="text-center">Si le problème persiste, faites nous-en part en nous contactant <a href="{{ path('contact') }}">ici</a></p>
+        </div>
+    </div>
+{% endblock %}

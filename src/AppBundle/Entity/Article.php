@@ -63,17 +63,13 @@ class Article
      * @var string
      *
      * @ORM\Column(name="image_name", type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\Type("string")
-     * @Assert\Length(min=5)
      */
-    private $imageName = "adefault.jpg";
+    private $imageName;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="is_published", type="boolean")
-     * @Assert\NotNull()
      */
     private $isPublished;
 
@@ -82,7 +78,6 @@ class Article
      *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
      * @Assert\Type("string")
      */
     private $slug;
