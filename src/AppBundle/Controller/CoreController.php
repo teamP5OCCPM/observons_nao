@@ -230,15 +230,15 @@ class CoreController extends Controller
         $em = $this->getDoctrine()->getManager();
         switch($filter) {
             case("place"):
-                $resultList = $em->getRepository('AppBundle:Observation')->findBy(['city' => $keyword], ['createdAt' => 'DESC']);
+                $resultList = $em->getRepository('AppBundle:Observation')->findBy(['city' => $keyword],['status' => 'validate'], ['createdAt' => 'DESC']);
                 break;
 
             case("species"):
-                $resultList = $em->getRepository('AppBundle:Observation')->findBySpecies($keyword);
+                $resultList = $em->getRepository('AppBundle:Observation')->findBySpecies('validate', $keyword);
                 break;
 
             case("name"):
-                $resultList = $em->getRepository('AppBundle:Observation')->findKeyword($keyword);
+                $resultList = $em->getRepository('AppBundle:Observation')->findKeyword('validate', $keyword);
                 break;
         }
 
@@ -273,7 +273,7 @@ class CoreController extends Controller
     {
         if ($request->isXmlHttpRequest()) {
             $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-            $listBirds = $repository->findAllBirds();
+            $listBirds = $repository->findAllBirds('validate');
 
             return new JsonResponse($listBirds);
         }
@@ -290,7 +290,7 @@ class CoreController extends Controller
     {
         if ($request->isXmlHttpRequest()) {
             $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-            $listLocations = $repository->findAllLocations();
+            $listLocations = $repository->findAllLocations('validate');
 
             return new JsonResponse($listLocations);
         }
@@ -307,7 +307,7 @@ class CoreController extends Controller
     {
         if ($request->isXmlHttpRequest()) {
             $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-            $listTitles = $repository->findAllTitles();
+            $listTitles = $repository->findAllTitles('validate');
 
             return new JsonResponse($listTitles);
         }

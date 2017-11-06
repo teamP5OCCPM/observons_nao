@@ -97,6 +97,7 @@
                         town = results[2].address_components[1].long_name;
 
                         $('#appbundle_observation_city').val(town);
+                        console.log(town);
 
                     } else {
                         console.log('La ville n\'a pas été récupérée : ' + status);

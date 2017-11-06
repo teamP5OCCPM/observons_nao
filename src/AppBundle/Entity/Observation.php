@@ -88,7 +88,11 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="lng", type="float")
-     * @Assert\NotNull()
+     * @Assert\Regex(
+     *     pattern="/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/",
+     *     match=false,
+     *     message="Ceci n'est pas une longitude correcte"
+     * )
      */
     private $lng;
 
@@ -96,7 +100,11 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="lat", type="float")
-     * @Assert\NotNull()
+     * @Assert\Regex(
+     *     pattern="/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/",
+     *     match=false,
+     *     message="Ceci n'est pas une latitude correcte"
+     * )
      */
     private $lat;
 

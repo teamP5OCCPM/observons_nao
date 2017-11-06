@@ -105,23 +105,16 @@ class ObservationRepository extends EntityRepository
     }
 
     /**
+     * @param $status
+     *
      * @return array
      */
-    public function findMarkers() : array
-    {
-        $query = $this->_em->createQuery('SELECT o.title, o.lat, o.lng FROM AppBundle:Observation o');
-        $results = $query->getArrayResult();
-    
-        return $results;
-    }
-
-    /**
-     * @return array
-     */
-    public function findAllBirds() : array
+    public function findAllBirds($status) : array
     {
         $qb = $this->createQueryBuilder('o');
-        $qb->leftJoin('o.bird', 'b')
+        $qb->where('o.status = :status')
+            ->setParameter('status', $status)
+            ->leftJoin('o.bird', 'b')
             ->addSelect('b.species')
             ->groupBy('b.species');
 
@@ -129,35 +122,48 @@ class ObservationRepository extends EntityRepository
     }
 
     /**
+     * @param $status
+     *
      * @return array
      */
-    public function findAllLocations() : array
+    public function findAllLocations($status) : array
     {
-        $qb = $this->_em->createQuery('SELECT DISTINCT o.city FROM AppBundle:Observation o');
+        $qb = $this->_em->createQuery('SELECT DISTINCT o.city FROM AppBundle:Observation o WHERE o.status = :status');
+        $qb->setParameter(':status', $status);
         $results = $qb->getArrayResult();
 
         return $results;
     }
 
     /**
+     * @param $status
+     *
      * @return array
      */
-    public function findAllTitles() : array
+    public function findAllTitles($status) : array
     {
-        $qb = $this->_em->createQuery('SELECT o.title FROM AppBundle:Observation o');
+        $qb = $this->_em->createQuery('SELECT o.title FROM AppBundle:Observation o WHERE o.status = :status');
+        $qb->setParameter('status', $status);
         $results = $qb->getArrayResult();
 
         return $results;
     }
 
-    public function findBySpecies($keyword) : array
+    /**
+     * @param $status
+     * @param $keyword
+     * @return array
+     */
+    public function findBySpecies($status, $keyword) : array
     {
         $qb = $this->createQueryBuilder('o');
-        $qb -> leftJoin('o.bird', 'bird')
+        $qb ->where('o.status = :status')
+            ->setParameter('status', $status)
+            -> leftJoin('o.bird', 'bird')
             -> addSelect('bird')
             ->leftJoin('o.user', 'u')
             ->addSelect('u')
-            -> where('bird.species = :species')
+            -> andWhere('bird.species = :species')
             -> setParameter('species', $keyword);
 
 
@@ -165,14 +171,16 @@ class ObservationRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function findKeyword($keyword) : array
+    public function findKeyword($status, $keyword) : array
     {
         $qb = $this->createQueryBuilder('o');
-        $qb -> leftJoin('o.bird', 'b')
+        $qb ->where('o.status = :status')
+            ->setParameter('status', $status)
+            -> leftJoin('o.bird', 'b')
             -> addSelect('b')
             ->leftJoin('o.user', 'u')
             ->addSelect('u')
-            -> where('REGEXP(o.title, :regexp) = true')
+            -> andWhere('REGEXP(o.title, :regexp) = true')
                 ->setParameter('regexp', $keyword)
             ->orWhere('REGEXP(o.city, :regexp) = true')
                 ->setParameter('regexp', $keyword)
