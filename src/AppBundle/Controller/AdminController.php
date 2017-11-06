@@ -553,6 +553,32 @@ class AdminController extends Controller
         $em->persist($user);
         $em->flush();
 
+
+        // envoi d'un mail pour indiquer aux editors qu'un commentaire a été signalé
+        // Récupération du service d'envoi de mail
+        $mailer = $this->container->get('send_mail');
+
+        $objet = [
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName(),
+            'username' => $user->getUsername()
+        ];
+
+
+        $admins = $em->getRepository('AppBundle:User')->getUserAdmin();
+
+        foreach ($admins as $admin)
+        {
+            $mailer->sendMessage($user->getEmail(), 'Promotion de votre compte', 'mail/account-promote-model.html.twig',
+                'teamp5.oc.cpm@gmail.com', $objet);
+        }
+
+
+
+
+
+
+
         $this->addFlash('success', $user->getUsername() . " à bien été promu naturaliste.");
 
         return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
