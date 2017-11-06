@@ -569,17 +569,16 @@ class AdminController extends Controller
 
         $admins = $em->getRepository('AppBundle:User')->getUserAdmin();
 
+        // envoi du mail aux admins
         foreach ($admins as $admin)
         {
-            $mailer->sendMessage($user->getEmail(), 'Promotion de votre compte', 'mail/account-promote-model.html.twig',
+            $mailer->sendMessage($admin->getEmail(), 'Promotion du compte', 'mail/account-promote-model.html.twig',
                 'teamp5.oc.cpm@gmail.com', $objet);
         }
 
-
-
-
-
-
+        // envoi du mail à l'utilisateur
+        $mailer->sendMessage($user->getEmail(), 'Promotion de votre compte', 'mail/account-promote-model.html.twig',
+            'teamp5.oc.cpm@gmail.com', $objet);
 
         $this->addFlash('success', $user->getUsername() . " à bien été promu naturaliste.");
 
@@ -602,6 +601,22 @@ class AdminController extends Controller
         $em->persist($user);
         $em->flush();
 
+        // envoi d'un mail pour indiquer aux editors qu'un commentaire a été signalé
+        // Récupération du service d'envoi de mail
+        $mailer = $this->container->get('send_mail');
+
+        $objet = [
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName(),
+            'username' => $user->getUsername()
+        ];
+
+
+        // envoi du mail à l'utilisateur
+        $mailer->sendMessage($user->getEmail(), 'Compte bloqué', 'mail/account-blocked-model.html.twig',
+            'teamp5.oc.cpm@gmail.com', $objet);
+
+
         $this->addFlash('success', $user->getUsername() . " à bien été bloqué.");
 
         return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
@@ -621,6 +636,21 @@ class AdminController extends Controller
 
         $em->persist($user);
         $em->flush();
+
+        // envoi d'un mail pour indiquer aux editors qu'un commentaire a été signalé
+        // Récupération du service d'envoi de mail
+        $mailer = $this->container->get('send_mail');
+
+        $objet = [
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName(),
+            'username' => $user->getUsername()
+        ];
+
+
+        // envoi du mail à l'utilisateur
+        $mailer->sendMessage($user->getEmail(), 'Compte activé', 'mail/account-activated-model.html.twig',
+            'teamp5.oc.cpm@gmail.com', $objet);
 
         $this->addFlash('success', $user->getUsername() . " à bien été activé.");
 
