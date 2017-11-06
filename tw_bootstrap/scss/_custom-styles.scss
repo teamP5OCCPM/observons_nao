@@ -550,10 +550,23 @@ footer
 //
 // AMDIN
 //-----------------------------------------------
+// Admin page
+.admin-box {
+  padding-left: 19rem;
+  transition: padding .3s ease-in-out;
+}
+
+@media screen and (max-width: 992px)
+{
+  .admin-box {
+    padding-left: 4rem;
+  }
+}
+
 // Sidenav
 .sidenav
 {
-  position:         sticky;
+  position:         fixed;
   top:              0;
   width:            18rem;
   height:           100vh;
@@ -561,6 +574,7 @@ footer
   box-shadow:       $cust-shadow;
   color:            $white;
   transition: width .3s ease-in-out;
+  z-index: 1;
   &.isReduced {
     width: 3rem;
   }
@@ -568,10 +582,6 @@ footer
   {
     margin:  0;
     padding: 0;
-    & .dropdown-menu {
-      top: -12rem !important;
-      left: .4rem !important;
-    }
     & li:hover
     {
       background-color: $naogreen-darken;
@@ -772,3 +782,15 @@ footer
   animation-fill-mode: forwards;
   animation-direction: normal;
 }
+
+//
+// FIREFOX HACK
+//-----------------------------------------------
+@-moz-document url-prefix() {
+  select {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+  }
+}
+

@@ -7008,23 +7008,28 @@ footer a {
   footer a:hover {
     color: #f90; }
 
+.admin-box {
+  padding-left: 19rem;
+  transition: padding .3s ease-in-out; }
+
+@media screen and (max-width: 992px) {
+  .admin-box {
+    padding-left: 4rem; } }
 .sidenav {
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 18rem;
   height: 100vh;
   background-color: #282828;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   color: #fff;
-  transition: width .3s ease-in-out; }
+  transition: width .3s ease-in-out;
+  z-index: 1; }
   .sidenav.isReduced {
     width: 3rem; }
   .sidenav .sidenav-body {
     margin: 0;
     padding: 0; }
-    .sidenav .sidenav-body .dropdown-menu {
-      top: -12rem !important;
-      left: .4rem !important; }
     .sidenav .sidenav-body li:hover {
       background-color: #689100; }
     .sidenav .sidenav-body a.nav-link {
@@ -7138,3 +7143,9 @@ footer a {
   animation: toReply .3s;
   animation-fill-mode: forwards;
   animation-direction: normal; }
+
+@-moz-document url-prefix() {
+  select {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: ''; } }
