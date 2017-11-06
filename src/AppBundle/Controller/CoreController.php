@@ -253,7 +253,7 @@ class CoreController extends Controller
 
         if ($nbPages == 0) {
             $this->addFlash('warning', 'Aucun résultats n\'a pu être trouvés avec le mot "'. $keyword .'"');
-            $this->redirectToRoute('results', ['page' => 1]);
+            return $this->redirectToRoute('homepage');
         } else {
             if ($page > $nbPages) {
                 throw $this->createNotFoundException("La page " .$page. " n'existe pas.");
