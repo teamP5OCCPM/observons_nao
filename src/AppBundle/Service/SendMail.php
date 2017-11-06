@@ -1,39 +1,39 @@
 <?php
-// src/AppBundle/Services/SendMail.php
+// src/AppBundle/Service/SendMail.php
 
-namespace AppBundle\Services;
+namespace AppBundle\Service;
 
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Templating\EngineInterface;
 
 class SendMail {
     protected $mailer;
     protected $templating;
-    private $from = "octicketing@gmail.com";
-    private $reply = "octicketing@gmail.com";
-    private $name = "Billetterie du louvre";
+
 
     public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
+
+
     }
 
-    protected function sendMessage($to, $subject, $template, $object)
+    public function sendMessage($to, $subject, $template,$from, $object = null)
     {
         $mail = \Swift_Message::newInstance();
-        $logo = $mail->embed(\Swift_Image::fromPath('./img/logo-mail.png'));
+        $logo = $mail->embed(\Swift_Image::fromPath('./img/logo-mail.jpg'));
         $mail
-            ->setFrom($this->from,$this->name)
+            ->setFrom($from)
             ->setTo($to)
             ->setSubject($subject)
             ->setBody( $this->templating->render($template,
-                array('image' => $logo, 'objet' => $object)))
-            ->setReplyTo($this->reply,$this->name)
+                array('object' => $object, 'image' => $logo)))
+            ->setReplyTo($from)
             ->setContentType('text/html');
+
         $this->mailer->send($mail);
     }
 
-    public function sendMail() {
-        $this->sendMessage($to, $subject, $template, $object);
-    }
+
 }

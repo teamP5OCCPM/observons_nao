@@ -35,3 +35,12 @@ services:
             - "@user_mailer"
         tags:
             - { name: doctrine.event_listener, event: postPersist }
+
+
+    send_mail:
+        class: AppBundle\Service\SendMail
+        arguments:
+            - "@mailer"
+            - "@templating"
+            - %mailer_user%
+            - %mailer_user%

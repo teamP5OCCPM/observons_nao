@@ -65,7 +65,7 @@ swiftmailer:
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
-    port: '%mailer_port%'
+    port: 2525
     spool: { type: memory }
 
 stof_doctrine_extensions:
@@ -86,13 +86,13 @@ fos_user:
         confirmation:
             enabled: true
             from_email:
-                address:        gebs.dev@gmail.com
-                sender_name:    Test registration
+                address:        teamp5.oc.cpm@gmail.com
+                sender_name:    Nos Amis les oiseaux - Inscription
     resetting:
         email:
             from_email:
-                address:        gebs.dev@gmail.com
-                sender_name:    Demo resetting
+                address:        teamp5.oc.cpm@gmail.com
+                sender_name:    Nos Amis les oiseaux - Ré-initialisation
 
 vich_uploader:
     db_driver: orm

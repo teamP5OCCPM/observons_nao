@@ -188,6 +188,33 @@ class CoreController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            // récupération des données du formulaire
+            $data = $form->getData();
+
+            // Récupération du service d'envoi de mail
+            $mailer = $this->container->get('send_mail');
+
+            $object = [
+                'firstName' => $data['firstName'],
+                'lastName' => $data['lastName'],
+                'email' => $data['email'],
+                'businessName' => $data['businessName'],
+                'subject' => $data['subject'],
+                'message' => $data['message']
+            ];
+
+            // Récupération du paramètre mail de destination "to"
+            $to = $this->getParameter('mailer_user');
+
+            // Envoi du mail
+            $mailer->sendMessage($to, $data['subject'], 'mail/contact-model.html.twig', $data['email'], $object);
+
+
+            // Redirection de l'utilisateur sur la page d'accueil avec un message
+            $this->addFlash('success', "Votre message a été envoyé");
+
             return $this->redirectToRoute('homepage');
         }
 
