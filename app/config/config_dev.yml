@@ -38,4 +38,4 @@ monolog:
         #    level: info
 
 swiftmailer:
-    delivery_addresses: ['gebs.dev@gmail.com']
+    delivery_addresses: ['teamp5.oc.cpm@gmail.com']
