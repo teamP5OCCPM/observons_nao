@@ -532,6 +532,8 @@ class AdminController extends Controller
                 $accounts = $em->getRepository('AppBundle:User')->findByEnabled(false);
                 return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
                 break;
+            default:
+                throw $this->createNotFoundException('Cette page n\'existe pas');
         }
 
         return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
