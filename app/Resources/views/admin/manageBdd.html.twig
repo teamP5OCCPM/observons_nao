@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container mt70">
+    <div class="container-fluid mt70 admin-box">
         <h1>Gestion de la base de données</h1>
         <div class="row">
             <div class="col-12">
@@ -36,11 +36,9 @@
                             {{ form_end(form) }}
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-12">
-                            <div id="img-loading">
-                                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                            </div>
+                    <div class="row d-flex justify-content-center">
+                        <div id="img-loading">
+                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                         </div>
                     </div>
 

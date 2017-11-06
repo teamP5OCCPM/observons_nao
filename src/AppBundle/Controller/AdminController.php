@@ -351,7 +351,6 @@ class AdminController extends Controller
         $comment->setIsReported(false);
 
         $em->persist($comment);
-
         $em->flush();
 
         $this->addFlash('warning', "Le commentaire a été validé.");
@@ -413,10 +412,8 @@ class AdminController extends Controller
      */
     public function updateBddAction()
     {
-
         $em = $this->getDoctrine()->getManager();
         $fileBdd = $em->getRepository('AppBundle:Taxref')->getLast();
-
 
         // 1) On parse le fichier CSV pour récupérer toutes les lignes
         // Utiliation d'un service pour parser le fichier
@@ -433,15 +430,12 @@ class AdminController extends Controller
         // On récupère le service pour les vérifications sur le fichier
         $checkFile = $this->container->get('check_file');
 
-
         // Vérification des colonnes
         if($checkFile->checkFileCol($contentCSV) === false) {
             $this->addFlash('danger', "Le fichier n'est pas valide !!");
 
             return $this->redirectToRoute('manageBdd');
         }
-
-
         // On retire la première ligne du tableau de données (REGNE, PHYLUM, ORDRE...)
         $first_row = array_shift($contentCSV);
 
@@ -452,9 +446,7 @@ class AdminController extends Controller
         //die(var_dump($contentCSV));
 
         foreach ($contentCSV as $row) {
-
             $bird = new Bird();
-
             $birdExist = $em->getRepository('AppBundle:Bird')->findOneByCdRef($row['cd_ref']);
 
             if ($row['species'] !== '') {
@@ -478,21 +470,14 @@ class AdminController extends Controller
                     $birdExist->setLbAuthor($row['lb_author']);
                 }
             }
-
         }
 
         $fileBdd->setIsUpdate(true);
-
         $em->flush();
-
-
-
 
         $this->addFlash('success', "La base de données a été mise à jour!!");
 
         return $this->redirectToRoute('manageBdd');
-
-
     }
 
     /**
@@ -527,5 +512,26 @@ class AdminController extends Controller
         $accounts = $em->getRepository('AppBundle:User')->getUsers();
 
         return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+    }
+
+    /**
+     * @param $id
+     * @Route("/promotion-comptes/{id}", name="promoteAccount")
+     *
+     * @return RedirectResponse
+     */
+    public function promoteAccountAction($id) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneById($id);
+
+        $user->setRoles(["ROLE_NATURALIST"]);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('success', $user->getUsername() . " à bien été promu naturaliste.");
+
+        return $this->redirectToRoute('manageAccounts', ['status' => "tous"]);
     }
 }

@@ -56,5 +56,11 @@ $(document).ready(function () {
         sidenav.toggleClass('isReduced');
         sidenavItems.toggleClass('d-lg-inline-block');
         reduceIco.toggleClass('rotate-90');
+
+        if (sidenav.hasClass('isReduced')) {
+            $('.admin-box').css('padding-left', '4rem');
+        } else {
+            $('.admin-box').css('padding-left', '19rem');
+        }
     })
 });
