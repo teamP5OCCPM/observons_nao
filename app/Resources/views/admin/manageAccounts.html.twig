@@ -17,9 +17,10 @@
             {% for account in accounts %}
                 <div class="card card-accordion">
                     <div class="card-header
-                    {% if account.roles[0] == "ROLE_USER" %}bg-primary
-                    {% elseif account.roles[0] == "ROLE_NATURALIST" %}bg-secondary
-                    {% elseif account.roles[0] == "ROLE_ADMIN" %}bg-danger
+                    {% if account.roles[0] == "ROLE_USER" and account.enabled %}bg-primary
+                    {% elseif account.roles[0] == "ROLE_NATURALIST" and account.enabled %}bg-secondary
+                    {% elseif account.roles[0] == "ROLE_ADMIN" and account.enabled %}bg-dark
+                    {% elseif account.enabled == 0 %}bg-danger
                     {% else %}bg-nao-green
                     {% endif %}"
                          role="tab" id="heading{{ loop.index }}">
@@ -52,14 +53,21 @@
                             <hr>
                             {% endif %}
                             <div class="row d-flex justify-content-around">
-                                {% if account.roles[0] == "ROLE_USER" %}
-                                    <a class="btn btn-nao-green btn-sm mt-3" href="{{ path('promoteAccount', {'id': account.id}) }}">Promouvoir</a>
-                                    <a class="btn btn-secondary btn-sm text-white mt-3" href="#">Bloquer</a>
-                                    <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#accountModal{{ account.id }}">
-                                        Supprimer
-                                    </button>
-                                {% elseif account.roles[0] == "ROLE_NATURALIST" or account.roles[0] == "ROLE_EDITOR" %}
-                                    <a class="btn btn-secondary btn-sm text-white mt-3" href="#">Bloquer</a>
+                                {% if account.enabled == 1 %}
+                                    {% if account.roles[0] == "ROLE_USER" %}
+                                        <a class="btn btn-nao-green btn-sm mt-3" href="{{ path('promoteAccount', {'id': account.id}) }}">Promouvoir</a>
+                                        <a class="btn btn-secondary btn-sm text-white mt-3" href="{{ path('blockAccount', {'id': account.id}) }}">Bloquer</a>
+                                        <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#accountModal{{ account.id }}">
+                                            Supprimer
+                                        </button>
+                                    {% elseif account.roles[0] == "ROLE_NATURALIST" or account.roles[0] == "ROLE_EDITOR" %}
+                                        <a class="btn btn-secondary btn-sm text-white mt-3" href="{{ path('blockAccount', {'id': account.id}) }}">Bloquer</a>
+                                        <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#accountModal{{ account.id }}">
+                                            Supprimer
+                                        </button>
+                                    {% endif %}
+                                {% elseif account.enabled == 0 %}
+                                    <a class="btn btn-nao-green btn-sm text-white mt-3" href="{{ path('activateAccount', {'id': account.id}) }}">Activer</a>
                                     <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#accountModal{{ account.id }}">
                                         Supprimer
                                     </button>

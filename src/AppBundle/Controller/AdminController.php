@@ -490,7 +490,12 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $accounts = [];
         switch ($roles) {
+            case "tous":
+                $accounts = $em->getRepository('AppBundle:User')->getUsers();
+                return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+                break;
             case "user":
                 $accounts = $em->getRepository('AppBundle:User')->getUser();
                 return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
@@ -507,16 +512,18 @@ class AdminController extends Controller
                 $accounts = $em->getRepository('AppBundle:User')->getOtherUser('ROLE_ADMIN');
                 return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
                 break;
+            case "block":
+                $accounts = $em->getRepository('AppBundle:User')->findByEnabled(false);
+                return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+                break;
         }
-
-        $accounts = $em->getRepository('AppBundle:User')->getUsers();
 
         return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
     }
 
     /**
      * @param $id
-     * @Route("/promotion-comptes/{id}", name="promoteAccount")
+     * @Route("/promotion-compte/{id}", name="promoteAccount")
      *
      * @return RedirectResponse
      */
@@ -532,6 +539,48 @@ class AdminController extends Controller
 
         $this->addFlash('success', $user->getUsername() . " à bien été promu naturaliste.");
 
-        return $this->redirectToRoute('manageAccounts', ['status' => "tous"]);
+        return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
     }
+
+    /**
+     * @param $id
+     * @Route("/bloquer-compte/{id}", name="blockAccount")
+     *
+     * @return RedirectResponse
+     */
+    public function blockAccountAction($id) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneById($id);
+
+        $user->setEnabled(false);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('success', $user->getUsername() . " à bien été bloqué.");
+
+        return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
+    }
+    /**
+     * @param $id
+     * @Route("/activer-compte/{id}", name="activateAccount")
+     *
+     * @return RedirectResponse
+     */
+    public function activateAccountAction($id) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneById($id);
+
+        $user->setEnabled(true);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('success', $user->getUsername() . " à bien été activé.");
+
+        return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
+    }
+
 }
