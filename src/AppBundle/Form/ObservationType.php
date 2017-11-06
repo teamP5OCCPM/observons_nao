@@ -22,7 +22,10 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class, ['label' => 'Nom de l\'observations'])
-            ->add('bird', EntityType::class, ['class' => 'AppBundle:Bird', 'label' => 'Espèce'])
+            ->add('bird', EntityType::class, [
+                    'class' => 'AppBundle:Bird',
+                    'label' => 'Espèce'
+            ])
             ->add('imageFile', VichImageType::class, [
                     'label' => 'Photo de l\'oiseau', 'required' => false,
                     'label_attr' => ['class' => 'mt-3'],

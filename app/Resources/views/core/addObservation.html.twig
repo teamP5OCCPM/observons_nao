@@ -5,34 +5,54 @@
 {% block title %}
     Ajouter une observation - {{ parent() }}
 {% endblock %}
-{% block chosen %}
-    <link href="{{ asset('js/chosen/chosen.min.css') }}" rel="stylesheet">
-    <style>
-        .chosen-container-single .chosen-single {
-            padding: .5rem .75rem;
-            background: none;
-            background-color: white !important;
-            height: 2.3rem;
-            line-height: 1.25;
-            color: #495057;
-            font-size: 1rem;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.25);
-            border: 1px solid rgba(0,0,0,.15);
-            border-radius: .2rem;
-        }
-    </style>
-{% endblock %}
 
 {% block body %}
     <div class="container mt70">
-        <h1>{{ title }}</h1>
+        <h1>{{ title }} - <a href="#" class="text-secondary" data-toggle="modal" data-target="#infosModal"><i class="fa fa-info-circle" aria-hidden="true" title="Informations"></i></a></h1>
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg fade" id="infosModal" tabindex="-1" role="dialog" aria-labelledby="infosModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="infosModalLabel">Comment proposer une observation correcte</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>1. Proposer une jolie photo au bon format</h5>
+                        <p>Si possible, la photo doit être au format <strong title="Photo à l'horizontale">paysage</strong>, en <strong title="Pour réduire le poid de l'image">72ppp</strong> de résolution et faire minimum <strong title="Format d'affichage idéal">1920px</strong> de large.</p>
+                        <p class="mb-0">
+                            <a href="https://fr.wikipedia.org/wiki/Mode_paysage" target="_blank">Qu'est ce que le format paysage ?</a>
+                        </p>
+                        <p>
+                            <a href="http://www.linternaute.com/hightech/guide-high-tech/1413176-comment-reduire-la-taille-et-le-poids-d-une-image/" target="_blank">Comment réduire la taille et le poids de son image ?</a>
+                        </p>
+                        <small>La photo est optionnelle, si vous n'en avez pas, une image par défaut remplacera la vôtre.</small>
+                        <hr>
+                        <h5>2. Le titre</h5>
+                        <p class="mb-0">Le titre doit être court et explicite. Il n'est pas recommandé de mettre un titre trop long.</p>
+                        <p><small>Vous êtes limité à 50 caractères.</small></p>
+                        <hr>
+                        <h5>3. Comment trouver les coordonnées de l'endroit où j'ai observé mon oiseau ?</h5>
+                        <p>Il vous suffit de vous rendre sur <a href="https://www.coordonnees-gps.fr/" target="_blank">ce site</a> et d'entrer l'adresse du lieu de l'observation pour obtenir les coordonnées gps. Si vous entrez l'observation sur place, cliquez sur le bouton "Me géolocaliser"</p>
+                        <hr>
+                        <h5>4. Une description, pour quoi faire ?</h5>
+                        <p>Profitez du champ de description pour expliquer l'histoire de cette observation, détailler cette rencontre entre vous et l'oiseau.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form_observation) }}
                         <div class="row">
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-6 col-12 mb-3">
                                 <img id="add-observation-img" class="card-img-top mb-3" src="{{ asset('img/observations/' ~ image) }}" alt="">
                                 {{ form_widget(form_observation.imageFile) }}
                             </div>
@@ -42,7 +62,7 @@
                                         {{ form_row(form_observation.title) }}
                                     </div>
                                     <div class="col-lg-6">
-                                        {{ form_row(form_observation.bird, {'attr': {'class': 'chosen-bird'}}) }}
+                                        {{ form_row(form_observation.bird) }}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -53,6 +73,9 @@
                                         <button id="geoloc-btn" class="btn btn-sm btn-info">
                                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                                         </button>
+                                    </div>
+                                    <div class="col-12 mb-3 mt-0">
+                                        <small class="form-text text-muted mt-0">Pour trouver la latitude et longitude : <a href="https://www.coordonnees-gps.fr/" target="_blank">cliquez ici</a></small>
                                     </div>
                                 </div>
                                 {{ form_row(form_observation.city) }}
@@ -71,12 +94,7 @@
 
 {% block javascript %}
     {{ parent() }}
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('js/add-observation-img.js') }}"></script>
-    <script src="{{ asset('js/chosen/chosen.jquery.min.js') }}"></script>
-    <script>
-        $('.chosen-bird').chosen();
-    </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
     </script>
@@ -88,7 +106,6 @@
         $('input').focusout( function() {
             let town;
             let lngField = parseFloat($('#appbundle_observation_lng').val());
-
             let latField = parseFloat($('#appbundle_observation_lat').val());
 
             geocoder.geocode(
@@ -96,13 +113,9 @@
                 function(results, status) {
                     if (status === 'OK') {
                         town = results[2].address_components[1].long_name;
-
                         $('#appbundle_observation_city').val(town);
-                        console.log(town);
-
                     } else {
                         console.log('La ville n\'a pas été récupérée : ' + status);
-
                     }
                 }
             );

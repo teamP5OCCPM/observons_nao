@@ -53,7 +53,7 @@
                             {% endif %}
                             <div class="row d-flex justify-content-around">
                                 {% if account.roles[0] == "ROLE_USER" %}
-                                    <a class="btn btn-nao-green btn-sm mt-3" href="#">Promouvoir</a>
+                                    <a class="btn btn-nao-green btn-sm mt-3" href="{{ path('promoteAccount', {'id': account.id}) }}">Promouvoir</a>
                                     <a class="btn btn-secondary btn-sm text-white mt-3" href="#">Bloquer</a>
                                     <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#accountModal{{ account.id }}">
                                         Supprimer

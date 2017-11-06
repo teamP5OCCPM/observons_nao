@@ -6783,6 +6783,9 @@ h2 {
     font-family: Roboto, sans-serif;
     text-transform: uppercase; }
 
+.index-img-card-box .img-card-box {
+  max-height: 18.7rem; }
+
 .hoverable:hover {
   box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
   .hoverable:hover img {
