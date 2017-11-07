@@ -86,13 +86,13 @@ fos_user:
             enabled: true
             from_email:
                 address:        '%mailer_user%'
-                sender_name:    NAO-observons.net - Inscription
+                sender_name:    observons-nao.org - Inscription
 
     resetting:
         email:
             from_email:
                 address:        '%mailer_user%'
-                sender_name:    NAO-observons.net - Ré-initialisation
+                sender_name:    observons-nao.org - Ré-initialisation
 
 vich_uploader:
     db_driver: orm
