@@ -40,7 +40,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le contenu ne peut etre vide")
      */
     private $content;
 
@@ -48,7 +48,7 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
-     * @Assert\DateTime()
+     * @Assert\DateTime(message="Cette valeur ne correspond pas a un DateTime")
      */
     private $createdAt;
 
@@ -78,7 +78,8 @@ class Article
      *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
-     * @Assert\Type("string")
+     * @Assert\Type("string", message="Cette valeur doit etre une chaine de caracteres")
+     * @Assert\Length(max=255, message="Le slug ne peut pas depasser les 255 caracteres")
      */
     private $slug;
 

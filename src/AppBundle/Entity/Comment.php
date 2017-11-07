@@ -26,7 +26,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="message", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le contenu de votre commentaire ne peut etre vide")
      */
     private $message;
 
@@ -45,9 +45,9 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=50)
-     * @Assert\Type("string")
-     * @Assert\NotBlank()
-     * @Assert\Length(max=50)
+     * @Assert\Type("string", message="la valeur {{ value.type }} n'est pas un {{ type }} valide.")
+     * @Assert\NotBlank(message="La valeur auteur ne peut pas etre vide")
+     * @Assert\Length(max=50, maxMessage="la valeur auteur ne peut pas depasser les 50 caracteres")
      */
     private $author;
 
@@ -55,7 +55,7 @@ class Comment
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
-     * @Assert\DateTime()
+     * @Assert\DateTime(message="La valeur {{ value.type }} n'est pas un DateTime valide")
      */
     private $createdAt;
 
@@ -63,7 +63,7 @@ class Comment
      * @var bool
      *
      * @ORM\Column(name="is_reported", type="boolean")
-     * @Assert\NotNull()
+     * @Assert\NotNull(message="Cette valeur ne doit pas etre null")
      */
     private $isReported = false;
 
@@ -71,7 +71,7 @@ class Comment
      * @var bool
      *
      * @ORM\Column(name="is_hidden", type="boolean")
-     * @Assert\NotNull()
+     * @Assert\NotNull(message="La valeur {{value.type}} ne peut pas etre null")
      */
     private $isHidden = false;
 
@@ -79,7 +79,7 @@ class Comment
     /**
      * @var integer
      * @ORM\Column(name="level", type="integer")
-     * @Assert\Type("integer")
+     * @Assert\Type("integer", message="La valeur {{ value.type }} doit etre un integer")
      */
     private $level = 1;
 
@@ -102,7 +102,7 @@ class Comment
 
     /**
      * @var integer
-     * @Assert\Type("integer")
+     * @Assert\Type("integer", message="La valeur {{ value.type }} doit etre un {{ type }} valide")
      */
     private $parentId;
 
