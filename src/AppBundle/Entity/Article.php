@@ -79,7 +79,7 @@ class Article
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      * @Assert\Type("string", message="Cette valeur doit etre une chaine de caracteres")
-     * @Assert\Length(max=255, message="Le slug ne peut pas depasser les 255 caracteres")
+     * @Assert\Length(max=255, maxMessage="Le slug ne peut pas depasser les 255 caracteres")
      */
     private $slug;
 

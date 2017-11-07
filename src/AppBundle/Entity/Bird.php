@@ -29,7 +29,7 @@ class Bird
      * @Assert\Type("string",
      *     message="Cet input doit etre une chaine de caracteres")
      * @Assert\NotBlank(message="Cet input ne doit pas etre vide")
-     * @Assert\Length(max=255, message="Cet input ne doit pas depasser 255 caracteres")
+     * @Assert\Length(max=255, maxMessage="Cet input ne doit pas depasser 255 caracteres")
      */
     private $species;
 
@@ -37,8 +37,6 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="reign", type="string", length=255, nullable=true)
-     * @Assert\Type("string", message="la valeur {{ value.type }} n'est pas un {{ type }} valide")
-     * @Assert\Length(max=255, message="le reign ne peut pas depasser 255 caracteres")
      */
     private $reign;
 
@@ -46,8 +44,6 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="phylum", type="string", length=255, nullable=true)
-     * @Assert\Type("string"message="la valeur {{ value.type }} n'est pas un {{ type }} valide")
-     * @Assert\Length(max=255, message="le reign ne peut pas depasser 255 caracteres")
      */
     private $phylum;
 
@@ -55,8 +51,6 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="ranking", type="string", length=255, nullable=true)
-     * @Assert\Type("string"message="la valeur {{ value.type }} n'est pas un {{ type }} valide")
-     * @Assert\Length(max=255, message="le reign ne peut pas depasser 255 caracteres")
      */
     private $ranking;
 
@@ -64,8 +58,6 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="family", type="string", length=255, nullable=true)
-     * @Assert\Type("string"message="la valeur {{ value.type }} n'est pas un {{ type }} valide")
-     * @Assert\Length(max=255, message="le reign ne peut pas depasser 255 caracteres")
      */
     private $family;
 
@@ -73,8 +65,6 @@ class Bird
      * @var string
      *
      * @ORM\Column(name="lb_name", type="string", length=255)
-     * @Assert\Type("string",message="la valeur {{ value.type }} n'est pas un {{ type }} valide")
-     * @Assert\Length(max=255, message="le reign ne peut pas depasser 255 caracteres")
      */
     private $lbName;
 
@@ -91,7 +81,7 @@ class Bird
      *
      * @ORM\Column(name="lb_author", type="string", length=255, nullable=true)
      * @Assert\Type("string", message="la valeur {{ value.type }} n'est pas un {{ type }} valide")
-     * @Assert\Length(max=255, message="le reign ne peut pas depasser 255 caracteres")
+     * @Assert\Length(max=255, maxMessage="le reign ne peut pas depasser 255 caracteres")
      */
     private $lbAuthor;
 
