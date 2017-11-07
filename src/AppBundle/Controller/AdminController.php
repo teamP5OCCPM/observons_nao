@@ -55,20 +55,25 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         switch ($status) {
+            case "tous":
+                $observations = $em->getRepository('AppBundle:Observation')->findAll();
+                return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
+                break;
             case "validate":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                        break;
+                break;
             case "waiting":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                        break;
+                break;
             case "refused":
                 $observations = $em->getRepository('AppBundle:Observation')->findByStatus($status);
                 return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
-                        break;
+                break;
+            default:
+                throw $this->createNotFoundException('Cette page n\'existe pas');
         }
-        $observations = $em->getRepository('AppBundle:Observation')->findAll();
         return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
     }
 
@@ -85,6 +90,16 @@ class AdminController extends Controller
         $observation->setStatus("validate");
 
         $em->flush();
+
+        // On envoi un mail au proprietaire de l'observation pour lui indiquer que l'observation a été validé
+        // Récupération du service d'envoi de mail
+        $mailer = $this->container->get('send_mail');
+
+        // Récupération du paramètre mail de destination "from"
+        $from = $this->getParameter('mailer_user');
+
+        $mailer->sendMessage($observation->getUser()->getEmail(),'Validation de l\'observation', 'mail/validate-model.html.twig',
+            $from, $observation);
 
         $this->addFlash('warning', "L'observation, " . $observation->getTitle() . " a bien été validé");
 
@@ -147,23 +162,28 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->getData()->getImageName() === null) {
+                $article->setImageName($image);
+            }
             $article->setUser($user);
 
             $validator = $this->get('validator');
             $errors = $validator->validate($article);
             if (count($errors) > 0) {
                 return new Response((string) $errors);
-            }else {
+            } else {
                 $em->persist($article);
                 $em->flush();
 
-                $this->addFlash('success', "L'article est bien enregistrée et sera soumis à validation");
+                if ($form->getData()->getIsPublished()) {
+                    $this->addFlash('success', "L'article est bien publié");
+                } else {
+                    $this->addFlash('success', "L'article est bien enregistrée dans les brouillons");
+                }
 
                 return $this->redirectToRoute('addArticle');
             }
-
         }
-
         return $this->render('admin/addArticle.html.twig', ['title' => "Ajouter un article", 'form_article' => $form->createView(), 'image' => $image]);
     }
 
@@ -176,22 +196,22 @@ class AdminController extends Controller
 
         switch ($status) {
             case "tous":
-                $articles = $em->getRepository('AppBundle:Article')->findAll();
+                $articles = $em->getRepository('AppBundle:Article')->findBy([], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles ]);
                         break;
 
             case "isPublished":
-                $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(1);
+                $articles = $em->getRepository('AppBundle:Article')->findBy(['isPublished' => true], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
                         break;
 
             case "waitting":
-                $articles = $em->getRepository('AppBundle:Article')->findByIsPublished(0);
+                $articles = $em->getRepository('AppBundle:Article')->findBy(['isPublished' => false], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
                         break;
+            default:
+                throw $this->createNotFoundException('Cette page n\'existe pas');
         }
-
-        $articles = $em->getRepository('AppBundle:Article')->findAll();
 
         return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
     }
@@ -351,8 +371,8 @@ class AdminController extends Controller
         $comment->setIsReported(false);
 
         $em->persist($comment);
-
         $em->flush();
+
 
         $this->addFlash('warning', "Le commentaire a été validé.");
 
@@ -413,10 +433,8 @@ class AdminController extends Controller
      */
     public function updateBddAction()
     {
-
         $em = $this->getDoctrine()->getManager();
         $fileBdd = $em->getRepository('AppBundle:Taxref')->getLast();
-
 
         // 1) On parse le fichier CSV pour récupérer toutes les lignes
         // Utiliation d'un service pour parser le fichier
@@ -433,15 +451,12 @@ class AdminController extends Controller
         // On récupère le service pour les vérifications sur le fichier
         $checkFile = $this->container->get('check_file');
 
-
         // Vérification des colonnes
         if($checkFile->checkFileCol($contentCSV) === false) {
             $this->addFlash('danger', "Le fichier n'est pas valide !!");
 
             return $this->redirectToRoute('manageBdd');
         }
-
-
         // On retire la première ligne du tableau de données (REGNE, PHYLUM, ORDRE...)
         $first_row = array_shift($contentCSV);
 
@@ -452,9 +467,7 @@ class AdminController extends Controller
         //die(var_dump($contentCSV));
 
         foreach ($contentCSV as $row) {
-
             $bird = new Bird();
-
             $birdExist = $em->getRepository('AppBundle:Bird')->findOneByCdRef($row['cd_ref']);
 
             if ($row['species'] !== '') {
@@ -478,21 +491,14 @@ class AdminController extends Controller
                     $birdExist->setLbAuthor($row['lb_author']);
                 }
             }
-
         }
 
         $fileBdd->setIsUpdate(true);
-
         $em->flush();
-
-
-
 
         $this->addFlash('success', "La base de données a été mise à jour!!");
 
         return $this->redirectToRoute('manageBdd');
-
-
     }
 
     /**
@@ -505,7 +511,12 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $accounts = [];
         switch ($roles) {
+            case "tous":
+                $accounts = $em->getRepository('AppBundle:User')->getUsers();
+                return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+                break;
             case "user":
                 $accounts = $em->getRepository('AppBundle:User')->getUser();
                 return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
@@ -522,10 +533,133 @@ class AdminController extends Controller
                 $accounts = $em->getRepository('AppBundle:User')->getOtherUser('ROLE_ADMIN');
                 return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
                 break;
+            case "block":
+                $accounts = $em->getRepository('AppBundle:User')->findByEnabled(false);
+                return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
+                break;
+            default:
+                throw $this->createNotFoundException('Cette page n\'existe pas');
         }
-
-        $accounts = $em->getRepository('AppBundle:User')->getUsers();
 
         return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
     }
+
+    /**
+     * @param $id
+     * @Route("/promotion-compte/{id}", name="promoteAccount")
+     *
+     * @return RedirectResponse
+     */
+    public function promoteAccountAction($id) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneById($id);
+
+        $user->setRoles(["ROLE_NATURALIST"]);
+
+        $em->persist($user);
+        $em->flush();
+
+
+        // envoi d'un mail pour indiquer aux editors qu'un commentaire a été signalé
+        // Récupération du service d'envoi de mail
+        $mailer = $this->container->get('send_mail');
+
+        $objet = [
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName(),
+            'username' => $user->getUsername()
+        ];
+
+
+        $admins = $em->getRepository('AppBundle:User')->getUserAdmin();
+
+        // envoi du mail aux admins
+        foreach ($admins as $admin)
+        {
+            $mailer->sendMessage($admin->getEmail(), 'Promotion du compte', 'mail/account-promote-model.html.twig',
+                'teamp5.oc.cpm@gmail.com', $objet);
+        }
+
+        // envoi du mail à l'utilisateur
+        $mailer->sendMessage($user->getEmail(), 'Promotion de votre compte', 'mail/account-promote-model.html.twig',
+            'teamp5.oc.cpm@gmail.com', $objet);
+
+        $this->addFlash('success', $user->getUsername() . " à bien été promu naturaliste.");
+
+        return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
+    }
+
+    /**
+     * @param $id
+     * @Route("/bloquer-compte/{id}", name="blockAccount")
+     *
+     * @return RedirectResponse
+     */
+    public function blockAccountAction($id) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneById($id);
+
+        $user->setEnabled(false);
+
+        $em->persist($user);
+        $em->flush();
+
+        // envoi d'un mail pour indiquer aux editors qu'un commentaire a été signalé
+        // Récupération du service d'envoi de mail
+        $mailer = $this->container->get('send_mail');
+
+        $objet = [
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName(),
+            'username' => $user->getUsername()
+        ];
+
+
+        // envoi du mail à l'utilisateur
+        $mailer->sendMessage($user->getEmail(), 'Compte bloqué', 'mail/account-blocked-model.html.twig',
+            'teamp5.oc.cpm@gmail.com', $objet);
+
+
+        $this->addFlash('success', $user->getUsername() . " à bien été bloqué.");
+
+        return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
+    }
+    /**
+     * @param $id
+     * @Route("/activer-compte/{id}", name="activateAccount")
+     *
+     * @return RedirectResponse
+     */
+    public function activateAccountAction($id) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneById($id);
+
+        $user->setEnabled(true);
+
+        $em->persist($user);
+        $em->flush();
+
+        // envoi d'un mail pour indiquer aux editors qu'un commentaire a été signalé
+        // Récupération du service d'envoi de mail
+        $mailer = $this->container->get('send_mail');
+
+        $objet = [
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName(),
+            'username' => $user->getUsername()
+        ];
+
+
+        // envoi du mail à l'utilisateur
+        $mailer->sendMessage($user->getEmail(), 'Compte activé', 'mail/account-activated-model.html.twig',
+            'teamp5.oc.cpm@gmail.com', $objet);
+
+        $this->addFlash('success', $user->getUsername() . " à bien été activé.");
+
+        return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
+    }
+
 }

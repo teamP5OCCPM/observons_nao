@@ -30,8 +30,9 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=50, unique=true)
-     * @Assert\Type("string")
      * @Assert\NotBlank()
+     * @Assert\Type("string")
+     * @Assert\Length(max=50, maxMessage="Le titre ne peut pas depasser 50 caracteres")
      */
     private $title;
 
@@ -46,8 +47,6 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="image_name", type="string", length=255)
-     * @Assert\Type("string")
-     * @Assert\Length(max=255)
      */
     private $imageName;
 
@@ -63,7 +62,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Veuillez entrer une description de votre observation")
      */
     private $description;
 

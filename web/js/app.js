@@ -6,7 +6,7 @@ $(document).ready(function () {
         overlayNavbar = $('.overlay-search-navbar'),
         searchNavbarBtn = $('#search-navbar-btn'),
         searchNavbar = $('#searchbar-navbar'),
-        searchNavbarInput = $('#search-navbar-input'),
+        searchNavbarInput = $('#search_search'),
         sidenav = $('.sidenav'),
         sidenavItems = $('.sidenav-items'),
         reduceIco = $('.reduce-ico'),
@@ -56,5 +56,11 @@ $(document).ready(function () {
         sidenav.toggleClass('isReduced');
         sidenavItems.toggleClass('d-lg-inline-block');
         reduceIco.toggleClass('rotate-90');
+
+        if (sidenav.hasClass('isReduced')) {
+            $('.admin-box').css('padding-left', '4rem');
+        } else {
+            $('.admin-box').css('padding-left', '19rem');
+        }
     })
 });

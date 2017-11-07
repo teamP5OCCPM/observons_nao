@@ -1,4 +1,3 @@
-
 $(document).ready( function(){ getAutocomplete(birdsJson, titlesJson, locationsJson)});
 
 function getAutocomplete (birdsJson, titlesJson, locationsJson) {

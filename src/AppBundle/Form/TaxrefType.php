@@ -17,7 +17,7 @@ class TaxrefType extends AbstractType
     {
         $builder
             ->add('csvFile', VichFileType::class, ['error_bubbling' => true])
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, ['label' => 'Sauvegarder'])
         ;
     }
     
