@@ -98,9 +98,7 @@ class AdminController extends Controller
         // Récupération du paramètre mail de destination "from"
         $from = $this->getParameter('mailer_user');
 
-        $mailer->sendMessage($observation->getUser()->getEmail(),'Validation de l\'observation', 'mail/validate-model.html.twig',
-            $from, $observation);
-
+        $mailer->sendMessage($observation->getUser()->getEmail(),'Validation de l\'observation', 'mail/validate-model.html.twig', $from, $observation);
         $this->addFlash('warning', "L'observation, " . $observation->getTitle() . " a bien été validé");
 
         return $this->redirectToRoute('manageObservations', ['status' => "tous"]);
@@ -398,14 +396,11 @@ class AdminController extends Controller
         return $this->redirectToRoute('manageComs', ['status' => "tous"]);
     }
 
-
-
     /**
      * @Route("/mise-a-jour-bdd", name="manageBdd")
      */
     public function manageBddAction(Request $request)
     {
-
         $em = $this->getDoctrine()->getManager();
         $fileBdd = $em->getRepository('AppBundle:Taxref')->getLast();
 
@@ -560,7 +555,6 @@ class AdminController extends Controller
         $em->persist($user);
         $em->flush();
 
-
         // envoi d'un mail pour indiquer aux editors qu'un commentaire a été signalé
         // Récupération du service d'envoi de mail
         $mailer = $this->container->get('send_mail');
@@ -570,7 +564,6 @@ class AdminController extends Controller
             'lastName' => $user->getLastName(),
             'username' => $user->getUsername()
         ];
-
 
         $admins = $em->getRepository('AppBundle:User')->getUserAdmin();
 
@@ -616,11 +609,9 @@ class AdminController extends Controller
             'username' => $user->getUsername()
         ];
 
-
         // envoi du mail à l'utilisateur
         $mailer->sendMessage($user->getEmail(), 'Compte bloqué', 'mail/account-blocked-model.html.twig',
             'teamp5.oc.cpm@gmail.com', $objet);
-
 
         $this->addFlash('success', $user->getUsername() . " à bien été bloqué.");
 
@@ -652,14 +643,29 @@ class AdminController extends Controller
             'username' => $user->getUsername()
         ];
 
-
         // envoi du mail à l'utilisateur
         $mailer->sendMessage($user->getEmail(), 'Compte activé', 'mail/account-activated-model.html.twig',
             'teamp5.oc.cpm@gmail.com', $objet);
 
         $this->addFlash('success', $user->getUsername() . " à bien été activé.");
-
         return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
     }
 
+    /**
+     * @param $id
+     * @Route("/supprimer-compte/{id}", name="removeAccount")
+     *
+     * @return RedirectResponse
+     */
+    public function removeAccountAction($id) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneById($id);
+
+        $em->remove($user);
+        $em->flush();
+
+        $this->addFlash('success', $user->getUsername() . " à bien été supprimé.");
+        return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);
+    }
 }

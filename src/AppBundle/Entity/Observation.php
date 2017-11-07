@@ -54,7 +54,6 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
-     * @Assert\DateTime(message="La valeur {{ value.type }} doit etre un DateTime valide")
      */
     private $updatedAt;
 
@@ -70,7 +69,6 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
-     * @Assert\DateTime(message="La valeur {{ value.type }} doit etre un DateTime valide")
      */
     private $createdAt;
 
@@ -78,7 +76,7 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="observed_at", type="datetime")
-     * @Assert\DateTime(message="La valeur {{ value.type }} doit etre un DateTime valide")
+     * @Assert\DateTime(message="{{ value.type }} n'est pas une date valide")
      */
     private $observedAt;
 
@@ -111,8 +109,6 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="city", type="string")
-     * @Assert\Type("string", message="La valeur {{ value.type }} doit etre un {{ type }} valide.")
-     * @Assert\NotBlank(message="La valeur city ne doit pas etre vide")
      *
      */
     private $city;
@@ -132,9 +128,6 @@ class Observation
      *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
-     * @Assert\Type("string", message="La valeur {{ value.type }} doit etre un {{ type }} valide.")
-     * @Assert\NotBlank(message="La valeur slug ne doit pas etre vide")
-     * @Assert\Length(max=255, maxMessage="la valeur slug ne doit pas depasser {{ limit }} caracteres"))
      */
     private $slug;
 

@@ -96,11 +96,11 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Vous êtes sur le point de supprimer de compte de {{ account.username }}, en êtes-vous sûr ?
+                                Vous êtes sur le point de supprimer le compte de {{ account.username }}, en êtes-vous sûr ?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">Annuler</button>
-                                <a href="#" class="btn btn-danger btn-sm">Supprimer</a>
+                                <a href="{{ path('removeAccount', {'id': account.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
                             </div>
                         </div>
                     </div>

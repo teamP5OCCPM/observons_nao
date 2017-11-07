@@ -31,9 +31,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255)
-     * @Assert\Type("string", message="La valeur {{ value.type }} doit etre un {{ type }} valide.")
-     * @Assert\NotBlank(message="La valeur firstName ne doit pas etre vide")
-     * @Assert\Length(max=255, maxMessage="la valeur firstName ne doit pas depasser {{ limit }} caracteres"))
+     * @Assert\Type("string", message="{{ value.type }} n'est pas un prénom.")
+     * @Assert\NotBlank(message="Veuillez entrer votre prénom")
+     * @Assert\Length(max=255, maxMessage="Veuillez ne pas depasser les {{ limit }} caracteres"))
      */
     private $firstName;
 
@@ -41,9 +41,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255)
-     * @Assert\Type("string", message="La valeur {{ value.type }} doit etre un {{ type }} valide.")
-     * @Assert\NotBlank(message="La valeur lastName ne doit pas etre vide")
-     * @Assert\Length(max=255, maxMessage="la valeur lastName ne doit pas depasser {{ limit }} caracteres")
+     * @Assert\Type("string", message="{{ value.type }} n'est pas un nom.")
+     * @Assert\NotBlank(message="Veuillez entrer cotre nom")
+     * @Assert\Length(max=255, maxMessage="Veuillez ne pas depasser les {{ limit }} caracteres")
      */
     private $lastName;
 
@@ -51,14 +51,13 @@ class User extends BaseUser
      * @var bool
      *
      * @ORM\Column(name="newsletter", type="boolean")
-     * @Assert\NotNull(message="La valeur newsletter ne doit pas etre null.")
      */
     private $newsletter = false;
 
 
     /**
      * @var Observation
-     * @ORM\OneToMany(targetEntity="Observation", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Observation", mappedBy="user", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     private $observations;

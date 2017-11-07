@@ -51,9 +51,6 @@ class Taxref
      * @var string
      *
      * @ORM\Column(name="csv_name", type="string", length=255)
-     * @Assert\Type("string", message="La valeur {{ value.type }} doit etre un {{ type }} valide.")
-     * @Assert\NotBlank(message="La valeur csvName ne doit pas etre vide")
-     * @Assert\Length(max=255, maxMessage="la valeur csvName ne doit pas depasser {{ limit }} caracteres")
      */
     private $csvName;
 
@@ -61,7 +58,6 @@ class Taxref
     /**
      * @var boolean
      * @ORM\Column(name="isUpdate", type="boolean")
-     * @Assert\NotNull(message="la valeur isUpdate ne doit pas etre null.")
      */
     private $isUpdate = false;
 
@@ -71,8 +67,6 @@ class Taxref
     {
         $this->updateAt = new \DateTime();
     }
-
-
 
 
     /**

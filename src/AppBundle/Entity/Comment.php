@@ -26,7 +26,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="message", type="text")
-     * @Assert\NotBlank(message="Le contenu de votre commentaire ne peut etre vide")
+     * @Assert\NotBlank(message="Veuillez écrire un message")
      */
     private $message;
 
@@ -35,7 +35,7 @@ class Comment
      *
      * @ORM\Column(name="email", type="string", length=255)
      * @Assert\Email(
-     *     message="The email '{{ value }}' is not a valid email.",
+     *     message="'{{ value }}' n'est pas un e-mail valide.",
      *     checkMX = true
      * )
      */
@@ -46,8 +46,8 @@ class Comment
      *
      * @ORM\Column(name="author", type="string", length=50)
      * @Assert\Type("string", message="la valeur {{ value.type }} n'est pas un {{ type }} valide.")
-     * @Assert\NotBlank(message="La valeur auteur ne peut pas etre vide")
-     * @Assert\Length(max=50, maxMessage="la valeur auteur ne peut pas depasser les 50 caracteres")
+     * @Assert\NotBlank(message="Veuillez entrer un pseudo")
+     * @Assert\Length(max=50, maxMessage="Votre pseudo ne peut pas depasser les 50 caracteres")
      */
     private $author;
 
@@ -55,7 +55,7 @@ class Comment
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
-     * @Assert\DateTime(message="La valeur {{ value.type }} n'est pas un DateTime valide")
+     * @Assert\NotBlank()
      */
     private $createdAt;
 
@@ -63,7 +63,6 @@ class Comment
      * @var bool
      *
      * @ORM\Column(name="is_reported", type="boolean")
-     * @Assert\NotNull(message="Cette valeur ne doit pas etre null")
      */
     private $isReported = false;
 
@@ -71,7 +70,6 @@ class Comment
      * @var bool
      *
      * @ORM\Column(name="is_hidden", type="boolean")
-     * @Assert\NotNull(message="La valeur {{value.type}} ne peut pas etre null")
      */
     private $isHidden = false;
 
@@ -79,7 +77,6 @@ class Comment
     /**
      * @var integer
      * @ORM\Column(name="level", type="integer")
-     * @Assert\Type("integer", message="La valeur {{ value.type }} doit etre un integer")
      */
     private $level = 1;
 
@@ -113,7 +110,14 @@ class Comment
      */
     private $children;
 
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -267,14 +271,6 @@ class Comment
     public function getIsHidden()
     {
         return $this->isHidden;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->createdAt = new \DateTime();
     }
 
     /**
