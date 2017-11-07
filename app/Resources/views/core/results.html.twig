@@ -423,8 +423,8 @@
             google.maps.event.addListener(marker, 'click', (function(ev) {
                 return function() {
                     infowindow.setContent(
-                        "<a href='{{ path("showObservation", {"slug": observation.slug}) }}'>{{ observation.title }}</a>"
-                        {#
+                        {#"<a href='{{ path("showObservation", {"slug": observation.slug}) }}'>{{ observation.title }}</a>"#}
+
                         '<div class="card small">' +
                         '<div class="img-card-box">' +
                         '<img class="card-img-top" src="{{ asset("img/observations/" ~ observation.imageName) }}" alt="Card image cap">'+
@@ -442,10 +442,11 @@
                         '<small class="text-muted">{{ observation.user.lastName }}</small>' +
                         '<small class="text-muted float-right">{{ observation.createdAt | date("d F Y") }}</small>' +
                         '</div>' +
-                        '</div>'#}
+                        '</div>'
                     );
                     infowindow.setPosition(this.getCenter());
                     infowindow.open(map);
+                    map.setCenter(marker.getCenter());
                 }
             })(marker));
 

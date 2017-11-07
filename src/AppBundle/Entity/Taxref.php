@@ -51,9 +51,9 @@ class Taxref
      * @var string
      *
      * @ORM\Column(name="csv_name", type="string", length=255)
-     * @Assert\Type("string", , message="La valeur {{ value.type }} doit etre un {{ type }} valide.")
+     * @Assert\Type("string", message="La valeur {{ value.type }} doit etre un {{ type }} valide.")
      * @Assert\NotBlank(message="La valeur csvName ne doit pas etre vide")
-     * @Assert\Length(max=255, maxMessage="la valeur csvName ne doit pas depasser {{ limit }} caracteres"))
+     * @Assert\Length(max=255, maxMessage="la valeur csvName ne doit pas depasser {{ limit }} caracteres")
      */
     private $csvName;
 
