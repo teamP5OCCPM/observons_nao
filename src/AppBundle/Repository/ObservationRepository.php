@@ -62,7 +62,6 @@ class ObservationRepository extends EntityRepository
 
     /**
      * @param $species
-     *
      * @param $limit
      * @param $id
      *
@@ -129,7 +128,7 @@ class ObservationRepository extends EntityRepository
     public function findAllLocations($status) : array
     {
         $qb = $this->_em->createQuery('SELECT DISTINCT o.city FROM AppBundle:Observation o WHERE o.status = :status');
-        $qb->setParameter(':status', $status);
+        $qb->setParameter('status', $status);
         $results = $qb->getArrayResult();
 
         return $results;
@@ -158,24 +157,48 @@ class ObservationRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('o');
         $qb ->where('o.status = :status')
-            ->setParameter('status', $status)
-            -> leftJoin('o.bird', 'bird')
-            -> addSelect('bird')
+                ->setParameter('status', $status)
+            ->leftJoin('o.bird', 'bird')
+            ->addSelect('bird')
             ->leftJoin('o.user', 'u')
             ->addSelect('u')
-            -> andWhere('bird.species = :species')
-            -> setParameter('species', $keyword);
-
-
+            ->andWhere('REGEXP(bird.species, :regexp) = true')
+                ->setParameter('regexp', $keyword);
 
         return $qb->getQuery()->getArrayResult();
     }
 
+    /**
+     * @param $status
+     * @param $keyword
+     * @return array
+     */
+    public function findByLocations($status, $keyword) : array
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb ->where('o.status = :status')
+                    ->setParameter('status', $status)
+                ->leftJoin('o.bird', 'bird')
+                ->addSelect('bird')
+                ->leftJoin('o.user', 'u')
+                ->addSelect('u')
+                ->andWhere('REGEXP(o.city, :regexp) = true')
+                    ->setParameter('regexp', $keyword);
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+     * @param $status
+     * @param $keyword
+     *
+     * @return array
+     */
     public function findKeyword($status, $keyword) : array
     {
         $qb = $this->createQueryBuilder('o');
         $qb ->where('o.status = :status')
-            ->setParameter('status', $status)
+                ->setParameter('status', $status)
             -> leftJoin('o.bird', 'b')
             -> addSelect('b')
             ->leftJoin('o.user', 'u')
@@ -189,5 +212,4 @@ class ObservationRepository extends EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
-
 }

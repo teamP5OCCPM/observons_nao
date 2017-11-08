@@ -188,8 +188,6 @@ class CoreController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             // récupération des données du formulaire
             $data = $form->getData();
 
@@ -211,13 +209,11 @@ class CoreController extends Controller
             // Envoi du mail
             $mailer->sendMessage($to, $data['subject'], 'mail/contact-model.html.twig', $data['email'], $object);
 
-
             // Redirection de l'utilisateur sur la page d'accueil avec un message
             $this->addFlash('success', "Votre message a été envoyé");
 
             return $this->redirectToRoute('homepage');
         }
-
         return $this->render('core/contact.html.twig', ['form' => $form->createView()]);
     }
 
@@ -257,7 +253,7 @@ class CoreController extends Controller
         $em = $this->getDoctrine()->getManager();
         switch($filter) {
             case("place"):
-                $resultList = $em->getRepository('AppBundle:Observation')->findBy(['city' => $keyword],['status' => 'validate'], ['createdAt' => 'DESC']);
+                $resultList = $em->getRepository('AppBundle:Observation')->findByLocations('validate', $keyword);
                 break;
 
             case("species"):
