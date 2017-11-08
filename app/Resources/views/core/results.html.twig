@@ -423,26 +423,8 @@
             google.maps.event.addListener(marker, 'click', (function(ev) {
                 return function() {
                     infowindow.setContent(
-                        {#"<a href='{{ path("showObservation", {"slug": observation.slug}) }}'>{{ observation.title }}</a>"#}
-
-                        '<div class="card small">' +
-                        '<div class="img-card-box">' +
-                        '<img class="card-img-top" src="{{ asset("img/observations/" ~ observation.imageName) }}" alt="Card image cap">'+
-                        '</div>' +
-                        '<div class="card-body">' +
-                        '<a href="{{ path("showObservation", {"slug": observation.slug}) }}" class="btn-rounded bg-secondary float-right" data-toggle="tooltip" data-placement="left" title="Voir l\'observation">+</a>' +
-                        '<div class="badge badge-primary">Nouveau</div>' +
-                        '<a href="{{ path("showObservation", {"slug": observation.slug}) }}">' +
-                        '<h4 class="card-title">{{ observation.title }}</h4>'+
-                        '</a>' +
-                        '<h6 class="card-subtitle mb-2 text-muted">{{ observation.bird.species }}</h6>' +
-                        '<p class="card-text">{{ observation.description | truncate(100, true, "...") }}</p>' +
-                        '</div>' +
-                        '<div class="card-footer">' +
-                        '<small class="text-muted">{{ observation.user.lastName }}</small>' +
-                        '<small class="text-muted float-right">{{ observation.createdAt | date("d F Y") }}</small>' +
-                        '</div>' +
-                        '</div>'
+                        "<a href='{{ path("showObservation", {"slug": observation.slug}) }}'>{{ observation.title }}</a>"
+                        
                     );
                     infowindow.setPosition(this.getCenter());
                     infowindow.open(map);
