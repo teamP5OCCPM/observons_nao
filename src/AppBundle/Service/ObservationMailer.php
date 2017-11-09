@@ -21,7 +21,6 @@ class ObservationMailer
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
-
     }
 
     public function sendNewNotification(Observation $observation)
@@ -33,13 +32,14 @@ class ObservationMailer
             ->setFrom($this->from, $this->name)
             ->setTo($observation->getUser()->getEmail())
             ->setSubject($this->name)
-            ->setBody( $this->templating->render('mail/observation-model.html.twig',
-                array('observation' => $observation, 'image' => $logo)))
-            ->setReplyTo($this->reply,$this->name)
+            ->setBody(
+                $this->templating->render(
+                    'mail/observation-model.html.twig',
+                    array('observation' => $observation, 'image' => $logo)
+                )
+            )
+            ->setReplyTo($this->reply, $this->name)
             ->setContentType('text/html');
         $this->mailer->send($mail);
-
-
     }
 }
-

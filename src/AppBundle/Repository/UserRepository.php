@@ -16,10 +16,10 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function getUsers() : array
     {
         $qb = $this->createQueryBuilder('u')
-                ->leftJoin('u.observations', 'obs')
-                ->addSelect('obs')
-                ->orderBy('u.id', 'DESC')
-                ->getQuery();
+            ->leftJoin('u.observations', 'obs')
+            ->addSelect('obs')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery();
 
         return $qb->getResult();
     }
@@ -30,16 +30,16 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function getUser() : array
     {
         $qb = $this->createQueryBuilder('u')
-                ->where('u.roles NOT LIKE :naturalist')
-                ->andWhere('u.roles NOT LIKE :editor')
-                ->andWhere('u.roles NOT LIKE :admin')
-                ->setParameter('naturalist', '%ROLE_NATURALIST%')
-                ->setParameter('editor', '%ROLE_EDITOR%')
-                ->setParameter('admin', '%ROLE_ADMIN%')
-                ->leftJoin('u.observations', 'obs')
-                ->addSelect('obs')
-                ->orderBy('u.id', 'DESC')
-                ->getQuery();
+            ->where('u.roles NOT LIKE :naturalist')
+            ->andWhere('u.roles NOT LIKE :editor')
+            ->andWhere('u.roles NOT LIKE :admin')
+            ->setParameter('naturalist', '%ROLE_NATURALIST%')
+            ->setParameter('editor', '%ROLE_EDITOR%')
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->leftJoin('u.observations', 'obs')
+            ->addSelect('obs')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery();
 
         return $qb->getResult();
     }
@@ -52,12 +52,12 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function getOtherUser($role) : array
     {
         $qb = $this->createQueryBuilder('u')
-                ->where('u.roles LIKE :roles')
-                ->setParameter('roles', '%"'.$role.'"%')
-                ->leftJoin('u.observations', 'obs')
-                ->addSelect('obs')
-                ->orderBy('u.id', 'DESC')
-                ->getQuery();
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%')
+            ->leftJoin('u.observations', 'obs')
+            ->addSelect('obs')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery();
 
         return $qb->getResult();
     }
@@ -68,11 +68,9 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('u')
             ->where('u.roles NOT LIKE :editor')
             ->setParameter('editor', '%ROLE_EDITOR%')
-            ->getQuery()
-            ;
+            ->getQuery();
 
         return $qb->getResult();
-
     }
 
     public function getUserAdmin() : array
@@ -80,12 +78,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('u')
             ->where('u.roles NOT LIKE :admin')
             ->setParameter('admin', '%ROLE_ADMIN%')
-            ->getQuery()
-        ;
+            ->getQuery();
 
         return $qb->getResult();
-
     }
-
-
 }

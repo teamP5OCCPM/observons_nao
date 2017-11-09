@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
 /**
  * Class AdminController
  *
@@ -73,6 +72,7 @@ class AdminController extends Controller
                 break;
             default:
                 throw $this->createNotFoundException('Cette page n\'existe pas');
+                break;
         }
         return $this->render('admin/manageObservations.html.twig', ['observations' => $observations]);
     }
@@ -98,7 +98,7 @@ class AdminController extends Controller
         // Récupération du paramètre mail de destination "from"
         $from = $this->getParameter('mailer_user');
 
-        $mailer->sendMessage($observation->getUser()->getEmail(),'Validation de l\'observation', 'mail/validate-model.html.twig', $from, $observation);
+        $mailer->sendMessage($observation->getUser()->getEmail(), 'Validation de l\'observation', 'mail/validate-model.html.twig', $from, $observation);
         $this->addFlash('warning', "L'observation, " . $observation->getTitle() . " a bien été validé");
 
         return $this->redirectToRoute('manageObservations', ['status' => "tous"]);
@@ -196,19 +196,20 @@ class AdminController extends Controller
             case "tous":
                 $articles = $em->getRepository('AppBundle:Article')->findBy([], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles ]);
-                        break;
+                break;
 
             case "isPublished":
                 $articles = $em->getRepository('AppBundle:Article')->findBy(['isPublished' => true], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
-                        break;
+                break;
 
-            case "waitting":
+            case "waiting":
                 $articles = $em->getRepository('AppBundle:Article')->findBy(['isPublished' => false], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
-                        break;
+                break;
             default:
                 throw $this->createNotFoundException('Cette page n\'existe pas');
+                break;
         }
 
         return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
@@ -316,15 +317,15 @@ class AdminController extends Controller
             case "isReported":
                 $comments = $em->getRepository('AppBundle:Comment')->findByIsReported(1);
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
-                    break;
+                break;
             case "isHidden":
                 $comments = $em->getRepository('AppBundle:Comment')->findByIsHidden(1);
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
-                    break;
+                break;
             default:
                 $comments = $em->getRepository('AppBundle:Comment')->findAll();
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
-                    break;
+                break;
         }
     }
 
@@ -339,8 +340,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository('AppBundle:Comment')->findOneById($id);
 
-        if ($comment->getIsReported() === true)
-        {
+        if ($comment->getIsReported() === true) {
             $comment->setIsReported(false);
         }
 
@@ -411,7 +411,6 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             // Upload et enregistrement des informations en Bdd
             $em->persist($taxref);
             $em->flush();
@@ -437,7 +436,7 @@ class AdminController extends Controller
 
         $contentCSV = $parseFile->parsefile($this->get('kernel')->getRootDir() . '/../web/taxref/' . $fileBdd->getCsvName());
 
-        if($contentCSV === false) {
+        if ($contentCSV === false) {
             $this->addFlash('danger', "Le fichier n'est pas valide !!");
 
             return $this->redirectToRoute('manageBdd');
@@ -447,7 +446,7 @@ class AdminController extends Controller
         $checkFile = $this->container->get('check_file');
 
         // Vérification des colonnes
-        if($checkFile->checkFileCol($contentCSV) === false) {
+        if ($checkFile->checkFileCol($contentCSV) === false) {
             $this->addFlash('danger', "Le fichier n'est pas valide !!");
 
             return $this->redirectToRoute('manageBdd');
@@ -466,7 +465,7 @@ class AdminController extends Controller
             $birdExist = $em->getRepository('AppBundle:Bird')->findOneByCdRef($row['cd_ref']);
 
             if ($row['species'] !== '') {
-                if($birdExist === null) {
+                if ($birdExist === null) {
                     $bird->setSpecies($row['species']);
                     $bird->setReign($row['reign']);
                     $bird->setPhYlum($row['phylum']);
@@ -534,6 +533,7 @@ class AdminController extends Controller
                 break;
             default:
                 throw $this->createNotFoundException('Cette page n\'existe pas');
+                break;
         }
 
         return $this->render('admin/manageAccounts.html.twig', ['accounts' => $accounts]);
@@ -568,15 +568,23 @@ class AdminController extends Controller
         $admins = $em->getRepository('AppBundle:User')->getUserAdmin();
 
         // envoi du mail aux admins
-        foreach ($admins as $admin)
-        {
-            $mailer->sendMessage($admin->getEmail(), 'Promotion du compte', 'mail/account-promote-model.html.twig',
-                'teamp5.oc.cpm@gmail.com', $objet);
+        foreach ($admins as $admin) {
+            $mailer->sendMessage(
+                $admin->getEmail(),
+                'Promotion du compte',
+                'mail/account-promote-model.html.twig',
+                'teamp5.oc.cpm@gmail.com',
+                $objet
+            );
         }
-
         // envoi du mail à l'utilisateur
-        $mailer->sendMessage($user->getEmail(), 'Promotion de votre compte', 'mail/account-promote-model.html.twig',
-            'teamp5.oc.cpm@gmail.com', $objet);
+        $mailer->sendMessage(
+            $user->getEmail(),
+            'Promotion de votre compte',
+            'mail/account-promote-model.html.twig',
+            'teamp5.oc.cpm@gmail.com',
+            $objet
+        );
 
         $this->addFlash('success', $user->getUsername() . " à bien été promu naturaliste.");
 
@@ -610,8 +618,13 @@ class AdminController extends Controller
         ];
 
         // envoi du mail à l'utilisateur
-        $mailer->sendMessage($user->getEmail(), 'Compte bloqué', 'mail/account-blocked-model.html.twig',
-            'teamp5.oc.cpm@gmail.com', $objet);
+        $mailer->sendMessage(
+            $user->getEmail(),
+            'Compte bloqué',
+            'mail/account-blocked-model.html.twig',
+            'teamp5.oc.cpm@gmail.com',
+            $objet
+        );
 
         $this->addFlash('success', $user->getUsername() . " à bien été bloqué.");
 
@@ -644,8 +657,13 @@ class AdminController extends Controller
         ];
 
         // envoi du mail à l'utilisateur
-        $mailer->sendMessage($user->getEmail(), 'Compte activé', 'mail/account-activated-model.html.twig',
-            'teamp5.oc.cpm@gmail.com', $objet);
+        $mailer->sendMessage(
+            $user->getEmail(),
+            'Compte activé',
+            'mail/account-activated-model.html.twig',
+            'teamp5.oc.cpm@gmail.com',
+            $objet
+        );
 
         $this->addFlash('success', $user->getUsername() . " à bien été activé.");
         return $this->redirectToRoute('manageAccounts', ['roles' => "tous"]);

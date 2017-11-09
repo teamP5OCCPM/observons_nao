@@ -6,7 +6,8 @@ namespace AppBundle\Service;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Templating\EngineInterface;
 
-class SendMail {
+class SendMail
+{
     protected $mailer;
     protected $templating;
 
@@ -15,11 +16,9 @@ class SendMail {
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
-
-
     }
 
-    public function sendMessage($to, $subject, $template,$from, $object = null)
+    public function sendMessage($to, $subject, $template, $from, $object = null)
     {
         $mail = \Swift_Message::newInstance();
         $logo = $mail->embed(\Swift_Image::fromPath('./img/logo-mail.jpg'));
@@ -27,13 +26,15 @@ class SendMail {
             ->setFrom($from)
             ->setTo($to)
             ->setSubject($subject)
-            ->setBody( $this->templating->render($template,
-                array('object' => $object, 'image' => $logo)))
+            ->setBody(
+                $this->templating->render(
+                    $template,
+                    array('object' => $object, 'image' => $logo)
+                )
+            )
             ->setReplyTo($from)
             ->setContentType('text/html');
 
         $this->mailer->send($mail);
     }
-
-
 }

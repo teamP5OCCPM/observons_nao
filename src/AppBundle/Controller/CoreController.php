@@ -134,10 +134,9 @@ class CoreController extends Controller
             $observation->setUser($user);
             $validator = $this->get('validator');
             $errors = $validator->validate($observation);
-            if (count($errors) > 0)
-            {
-                return new Response( (string) $errors);
-            }else {
+            if (count($errors) > 0) {
+                return new Response((string) $errors);
+            } else {
                 $em->persist($observation);
                 $em->flush();
 
@@ -251,16 +250,16 @@ class CoreController extends Controller
         $filter = $request->request->get('search')['filter'];
         $keyword = $request->request->get('search')['search'];
         $em = $this->getDoctrine()->getManager();
-        switch($filter) {
-            case("place"):
+        switch ($filter) {
+            case ("place"):
                 $resultList = $em->getRepository('AppBundle:Observation')->findByLocations('validate', $keyword);
                 break;
 
-            case("species"):
+            case ("species"):
                 $resultList = $em->getRepository('AppBundle:Observation')->findBySpecies('validate', $keyword);
                 break;
 
-            case("name"):
+            case ("name"):
                 $resultList = $em->getRepository('AppBundle:Observation')->findKeyword('validate', $keyword);
                 break;
         }
@@ -300,7 +299,6 @@ class CoreController extends Controller
 
             return new JsonResponse($listBirds);
         }
-
     }
 
      /**
@@ -317,7 +315,6 @@ class CoreController extends Controller
 
             return new JsonResponse($listLocations);
         }
-
     }
 
     /**
@@ -334,7 +331,6 @@ class CoreController extends Controller
 
             return new JsonResponse($listTitles);
         }
-
     }
 
     /**
@@ -361,8 +357,7 @@ class CoreController extends Controller
 
             $count = count($nbObs);
 
-            if($nbObs)
-            {
+            if ($nbObs) {
                 return new JsonResponse(array('message' => $count, 200));
             }
         }

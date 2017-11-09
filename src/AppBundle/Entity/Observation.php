@@ -109,7 +109,6 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="city", type="string")
-     *
      */
     private $city;
 

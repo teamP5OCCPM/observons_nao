@@ -157,13 +157,13 @@ class ObservationRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('o');
         $qb ->where('o.status = :status')
-                ->setParameter('status', $status)
+            ->setParameter('status', $status)
             ->leftJoin('o.bird', 'bird')
             ->addSelect('bird')
             ->leftJoin('o.user', 'u')
             ->addSelect('u')
             ->andWhere('REGEXP(bird.species, :regexp) = true')
-                ->setParameter('regexp', $keyword);
+            ->setParameter('regexp', $keyword);
 
         return $qb->getQuery()->getArrayResult();
     }
@@ -177,13 +177,13 @@ class ObservationRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('o');
         $qb ->where('o.status = :status')
-                    ->setParameter('status', $status)
-                ->leftJoin('o.bird', 'bird')
-                ->addSelect('bird')
-                ->leftJoin('o.user', 'u')
-                ->addSelect('u')
-                ->andWhere('REGEXP(o.city, :regexp) = true')
-                    ->setParameter('regexp', $keyword);
+            ->setParameter('status', $status)
+            ->leftJoin('o.bird', 'bird')
+            ->addSelect('bird')
+            ->leftJoin('o.user', 'u')
+            ->addSelect('u')
+            ->andWhere('REGEXP(o.city, :regexp) = true')
+            ->setParameter('regexp', $keyword);
 
         return $qb->getQuery()->getArrayResult();
     }
@@ -198,17 +198,17 @@ class ObservationRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('o');
         $qb ->where('o.status = :status')
-                ->setParameter('status', $status)
+            ->setParameter('status', $status)
             -> leftJoin('o.bird', 'b')
             -> addSelect('b')
             ->leftJoin('o.user', 'u')
             ->addSelect('u')
             -> andWhere('REGEXP(o.title, :regexp) = true')
-                ->setParameter('regexp', $keyword)
+            ->setParameter('regexp', $keyword)
             ->orWhere('REGEXP(o.city, :regexp) = true')
-                ->setParameter('regexp', $keyword)
+            ->setParameter('regexp', $keyword)
             ->orWhere('REGEXP(b.species, :regexp) = true')
-                ->setParameter('regexp', $keyword);
+            ->setParameter('regexp', $keyword);
 
         return $qb->getQuery()->getArrayResult();
     }

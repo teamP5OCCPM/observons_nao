@@ -16,9 +16,11 @@ class InArrayExtension extends \Twig_Extension
 
     public function inArray($array, $method, $filter)
     {
-        $filterArray = $array->filter(function ($entry) use($method, $filter) {
-           return in_array($entry->$method(), [$filter]);
-        });
+        $filterArray = $array->filter(
+            function ($entry) use ($method, $filter) {
+                return in_array($entry->$method(), [$filter]);
+            }
+        );
 
         return $filterArray;
     }

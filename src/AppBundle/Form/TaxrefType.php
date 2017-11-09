@@ -17,8 +17,7 @@ class TaxrefType extends AbstractType
     {
         $builder
             ->add('csvFile', VichFileType::class, ['error_bubbling' => true])
-            ->add('save', SubmitType::class, ['label' => 'Sauvegarder'])
-        ;
+            ->add('save', SubmitType::class, ['label' => 'Sauvegarder']);
     }
     
     /**
@@ -26,9 +25,11 @@ class TaxrefType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => 'AppBundle\Entity\Taxref'
-        ));
+            )
+        );
     }
 
     /**
@@ -38,5 +39,4 @@ class TaxrefType extends AbstractType
     {
         return 'appbundle_taxref';
     }
-
 }

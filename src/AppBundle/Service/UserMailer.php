@@ -21,7 +21,6 @@ class UserMailer
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
-
     }
 
     public function sendNewNotification(User $user)
@@ -33,12 +32,14 @@ class UserMailer
             ->setFrom($this->from, $this->name)
             ->setTo($this->reply)
             ->setSubject($this->name)
-            ->setBody( $this->templating->render('mail/user-model.html.twig',
-                array('user' => $user, 'image' => $logo)))
-            ->setReplyTo($this->reply,$this->name)
+            ->setBody(
+                $this->templating->render(
+                    'mail/user-model.html.twig',
+                    array('user' => $user, 'image' => $logo)
+                )
+            )
+            ->setReplyTo($this->reply, $this->name)
             ->setContentType('text/html');
         $this->mailer->send($mail);
-
     }
 }
-

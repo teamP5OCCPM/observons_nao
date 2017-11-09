@@ -50,9 +50,11 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->findOneBySlug($slug);
 
-        $parentComments = $article->getComments()->filter(function ($entry) {
-            return in_array($entry->getParent(), [null]);
-        });
+        $parentComments = $article->getComments()->filter(
+            function ($entry) {
+                return in_array($entry->getParent(), [null]);
+            }
+        );
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -98,7 +100,7 @@ class BlogController extends Controller
 
         if (count($errors) > 0) {
             return new Response((string) $errors);
-        }else {
+        } else {
             $em->persist($comment);
             $em->flush();
 
@@ -116,14 +118,15 @@ class BlogController extends Controller
 
             $editors = $em->getRepository('AppBundle:User')->getUserEditor();
 
-            foreach ($editors as $editor)
-            {
-                $mailer->sendMessage($editor->getEmail(), 'Commentaire signalé', 'mail/comment-reported-model.html.twig',
-                   'teamp5.oc.cpm@gmail.com', $objet);
+            foreach ($editors as $editor) {
+                $mailer->sendMessage(
+                    $editor->getEmail(),
+                    'Commentaire signalé',
+                    'mail/comment-reported-model.html.twig',
+                    'teamp5.oc.cpm@gmail.com',
+                    $objet
+                );
             }
-
-
-
 
             $this->addFlash('warning', "Le commentaire a été signalé.");
 

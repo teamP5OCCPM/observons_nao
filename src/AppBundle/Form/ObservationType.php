@@ -21,23 +21,69 @@ class ObservationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', TextType::class, ['label' => 'Nom de l\'observation'])
-            ->add('bird', EntityType::class, [
-                    'class' => 'AppBundle:Bird',
+        $builder->add(
+            'title',
+            TextType::class,
+            ['label' => 'Nom de l\'observation']
+        )
+            ->add(
+                'bird',
+                EntityType::class,
+                ['class' => 'AppBundle:Bird',
                     'label' => 'Espèce'
-            ])
-            ->add('imageFile', VichImageType::class, [
-                    'label' => 'Photo de l\'oiseau', 'required' => false,
+                ]
+            )
+            ->add(
+                'imageFile',
+                VichImageType::class,
+                ['label' => 'Photo de l\'oiseau',
+                    'required' => false,
                     'label_attr' => ['class' => 'mt-3'],
                     'download_label' => false,
                     'allow_delete' => false
-            ])
-            ->add('description', TextareaType::class, ['label' => 'Description de l\'observation', 'attr' => ['rows' => 8]])
-            ->add('observedAt', DateType::class, ['label' => 'Date de l\'observation'])
-            ->add('lng', TextType::class, ['label' => 'Longitude', 'attr' => ['class' => 'loc-input']])
-            ->add('lat', TextType::class, ['label' => 'Latitude', 'attr' => ['class' => 'loc-input']])
-            ->add('city', HiddenType::class, ['attr' => ['class' => 'city-input']])
-            ->add('save', SubmitType::class, ['label' => 'Envoyer', 'attr' => ['class' => 'btn btn-nao-green']]);
+                ]
+            )
+            ->add(
+                'description',
+                TextareaType::class,
+                ['label' => 'Description de l\'observation',
+                    'attr' => ['rows' => 8]
+                ]
+            )
+            ->add(
+                'observedAt',
+                DateType::class,
+                ['label' => 'Date de l\'observation'
+                ]
+            )
+            ->add(
+                'lng',
+                TextType::class,
+                ['label' => 'Longitude',
+                    'attr' => ['class' => 'loc-input']
+                ]
+            )
+            ->add(
+                'lat',
+                TextType::class,
+                ['label' => 'Latitude',
+                'attr' => ['class' => 'loc-input']]
+            )
+            ->add(
+                'city',
+                HiddenType::class,
+                ['attr' =>
+                    ['class' => 'city-input']
+                ]
+            )
+            ->add(
+                'save',
+                SubmitType::class,
+                ['label' => 'Envoyer',
+                    'attr' =>
+                        ['class' => 'btn btn-nao-green']
+                ]
+            );
     }
     
     /**
