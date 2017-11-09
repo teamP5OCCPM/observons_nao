@@ -20,19 +20,34 @@ class CoreControllerTest extends WebTestCase
         return $kernel;
     }
 
-    public function testIndex()
+    /**
+     * @dataProvider UrlsProvider
+     */
+    public function testUrls($url, $content)
     {
         $client = static::createClient();
         $container = $client->getContainer();
 
 
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', $url);
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
 
-        $this->assertContains('Observez', $response->getContent());
+        $this->assertContains($content, $response->getContent());
 
+    }
+
+    public function UrlsProvider()
+    {
+        return [
+            ['/', 'Observez'],
+            ['/contact', 'Contactez-nous'],
+            ['/les-observations/1', 'Les observations'],
+            ['/qui-sommes-nous', 'Qui sommes nous'],
+            ['/pourquoi-ce-site', 'Pourquoi ce site']
+
+        ];
     }
 
 
