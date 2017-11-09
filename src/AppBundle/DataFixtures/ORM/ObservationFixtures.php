@@ -18,6 +18,7 @@ class ObservationFixtures extends Fixture
         $observation->setBird($this->getReference('bird'));
         $observation->setTitle('Aigle royal en montagne');
         $observation->setImageName('01.jpg');
+        $observation->setImageSize(1000);
         $observation->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation->setCreatedAt(new \DateTime());
         $observation->setObservedAt(new \DateTime());
@@ -34,6 +35,7 @@ class ObservationFixtures extends Fixture
         $observation2->setBird($this->getReference('bird2'));
         $observation2->setTitle('Pigeon de Paris');
         $observation2->setImageName('02.jpg');
+        $observation2->setImageSize(1000);
         $observation2->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation2->setCreatedAt(new \DateTime());
         $observation2->setObservedAt(new \DateTime());
@@ -50,6 +52,7 @@ class ObservationFixtures extends Fixture
         $observation3->setBird($this->getReference('bird3'));
         $observation3->setTitle('Les colibris');
         $observation3->setImageName('03.jpg');
+        $observation3->setImageSize(1000);
         $observation3->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation3->setCreatedAt(new \DateTime());
         $observation3->setObservedAt(new \DateTime());
@@ -66,6 +69,7 @@ class ObservationFixtures extends Fixture
         $observation4->setBird($this->getReference('bird4'));
         $observation4->setTitle('Canetons au soleil');
         $observation4->setImageName('04.jpg');
+        $observation4->setImageSize(1000);
         $observation4->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
         $observation4->setCreatedAt(new \DateTime());
         $observation4->setObservedAt(new \DateTime());
@@ -88,6 +92,7 @@ class ObservationFixtures extends Fixture
             $observationD->setBird($this->getReference('bird'));
             $observationD->setTitle('Oiseau en montagne' . $i);
             $observationD->setImageName('default.jpg');
+            $observationD->setImageSize(1000);
             $observationD->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
             $observationD->setCreatedAt(new \DateTime());
             $observationD->setObservedAt(new \DateTime());

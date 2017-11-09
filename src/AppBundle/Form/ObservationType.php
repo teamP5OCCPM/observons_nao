@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Bird;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -30,7 +31,12 @@ class ObservationType extends AbstractType
                 'bird',
                 EntityType::class,
                 ['class' => 'AppBundle:Bird',
-                    'label' => 'Espèce'
+                    'label' => 'Espèce',
+                    'query_builder' => function(EntityRepository $entityRepository)
+                    {
+                        return $entityRepository->createQueryBuilder('b')
+                            ->orderBy('b.species', 'ASC');
+                    }
                 ]
             )
             ->add(
