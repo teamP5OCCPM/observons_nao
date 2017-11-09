@@ -26,7 +26,11 @@
                          role="tab" id="heading{{ loop.index }}">
                         <h5 class="mb-0">
                             <a class="collapsed text-white" data-toggle="collapse" href="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
-                                {{ comment.author }}
+                                {% if comment.article %}
+                                {{ comment.article.title }}
+                                {% else %}
+                                Data Fixtures
+                                {% endif %}
                             </a>
                         </h5>
                     </div>

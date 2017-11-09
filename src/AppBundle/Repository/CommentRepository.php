@@ -12,4 +12,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommentRepository extends EntityRepository
 {
+    /**
+     * @param $status
+     *
+     * @return array
+     */
+    public function getComsBy($status) : array
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb ->where('c.'.$status.' = :key')
+                ->setParameter('key', true)
+                ->leftJoin('c.article', 'art')
+                ->addSelect('art');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAll() : array
+    {
+        $qb = $this->createQueryBuilder('c')
+                ->leftJoin('c.article', 'art')
+                ->addSelect('art');
+
+        return $qb->getQuery()->getResult();
+    }
 }

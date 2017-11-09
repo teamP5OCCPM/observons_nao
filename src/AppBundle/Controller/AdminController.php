@@ -209,6 +209,7 @@ class AdminController extends Controller
                 $articles = $em->getRepository('AppBundle:Article')->findBy(['isPublished' => false], ['createdAt' => 'DESC']);
                 return $this->render('admin/manageArticles.html.twig', ['articles' => $articles]);
                 break;
+
             default:
                 throw $this->createNotFoundException('Cette page n\'existe pas');
                 break;
@@ -296,7 +297,6 @@ class AdminController extends Controller
         $article = $em->getRepository('AppBundle:article')->findOneBySlug($slug);
 
         $em->remove($article);
-
         $em->flush();
 
         $this->addFlash('warning', "L'article a bien été supprimé.");
@@ -317,15 +317,15 @@ class AdminController extends Controller
 
         switch ($status) {
             case "isReported":
-                $comments = $em->getRepository('AppBundle:Comment')->findByIsReported(1);
+                $comments = $em->getRepository('AppBundle:Comment')->getComsBy("isReported");
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
                 break;
             case "isHidden":
-                $comments = $em->getRepository('AppBundle:Comment')->findByIsHidden(1);
+                $comments = $em->getRepository('AppBundle:Comment')->getComsBy("isHidden");
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
                 break;
             default:
-                $comments = $em->getRepository('AppBundle:Comment')->findAll();
+                $comments = $em->getRepository('AppBundle:Comment')->getAll();
                 return $this->render('admin/manageComs.html.twig', ['comments' => $comments]);
                 break;
         }

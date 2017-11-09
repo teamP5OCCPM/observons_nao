@@ -78,7 +78,6 @@
                                     </div>
                                     <div class="col-12 mb-3 mt-0">
                                         <small class="form-text text-muted mt-0">Pour trouver la latitude et longitude : <a href="https://www.coordonnees-gps.fr/" target="_blank">cliquez ici</a></small>
-                                        {{ form_errors(form_observation.lng) }} {{ form_errors(form_observation.lat) }}
                                     </div>
                                 </div>
                                 {{ form_row(form_observation.city) }}
@@ -106,29 +105,5 @@
     <script src="{{ asset('js/add-observation-img.js') }}"></script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4_tIO1vDypFjzVX1LnY6uuPjd5J6QcJo&callback=initMap">
-    </script>
-    <script>
-
-    function initMap() {
-        let geocoder = new google.maps.Geocoder;
-
-        $('input').focusout( function() {
-            let town;
-            let lngField = parseFloat($('#appbundle_observation_lng').val());
-            let latField = parseFloat($('#appbundle_observation_lat').val());
-
-            geocoder.geocode(
-                {'location': {lat: latField, lng: lngField} },
-                function(results, status) {
-                    if (status === 'OK') {
-                        town = results[2].address_components[1].long_name;
-                        $('#appbundle_observation_city').val(town);
-                    } else {
-                        console.log('La ville n\'a pas été récupérée : ' + status);
-                    }
-                }
-            );
-        });
-    }
     </script>
 {% endblock %}
