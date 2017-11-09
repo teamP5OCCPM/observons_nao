@@ -1,7 +1,3 @@
-# src/AppBundle/Resources/config/services.yml
-
-
-
 services:
     parse_file_csv:
         class: AppBundle\Service\ParseFileCSV
@@ -22,14 +18,13 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postPersist }
 
-
     user_mailer:
         class: AppBundle\Service\UserMailer
         arguments:
             - "@mailer"
             - "@templating"
-             - %mailer_user%
-             - "Création d'un nouvel utilisateur";
+            - %mailer_user%
+            - "Création d'un nouvel utilisateur"
 
     doctrine_listener.userAdd:
         class: AppBundle\DoctrineListener\UserAddListener
@@ -37,7 +32,6 @@ services:
             - "@user_mailer"
         tags:
             - { name: doctrine.event_listener, event: postPersist }
-
 
     send_mail:
         class: AppBundle\Service\SendMail
