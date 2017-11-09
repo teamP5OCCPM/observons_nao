@@ -37,8 +37,13 @@ class Observation
     private $title;
 
     /**
-     * @Vich\UploadableField(mapping="observation_image", fileNameProperty="imageName")
-     *
+     * @Vich\UploadableField(mapping="observation_image", fileNameProperty="imageName", size="imageSize")
+     * @Assert\File(
+     *     maxSize = "2M",
+     *     mimeTypes = {"image/jpeg"},
+     *     mimeTypesMessage = "Veuillez mettre une image au format jpg, merci.",
+     *     maxSizeMessage="Votre image est trop grande, veuillez suivre les indications en cliquant sur l'icône information."
+     * )
      * @var File
      */
     private $imageFile;
@@ -49,6 +54,14 @@ class Observation
      * @ORM\Column(name="image_name", type="string", length=255)
      */
     private $imageName;
+
+    /**
+     * @ORM\Column(name="image_size", type="integer")
+     *
+     * @var integer
+     * @Assert\Type("integer")
+     */
+    private $imageSize;
 
     /**
      * @var \DateTime
@@ -108,7 +121,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string")
+     * @ORM\Column(name="city", type="string", nullable=true)
      *
      */
     private $city;
@@ -450,6 +463,26 @@ class Observation
     public function getImageName()
     {
         return $this->imageName;
+    }
+
+    /**
+     * @param integer $imageSize
+     *
+     * @return Observation
+     */
+    public function setImageSize($imageSize)
+    {
+        $this->imageSize = $imageSize;
+
+        return $this;
+    }
+
+    /**
+     * @return integer|null
+     */
+    public function getImageSize()
+    {
+        return $this->imageSize;
     }
 
     /**

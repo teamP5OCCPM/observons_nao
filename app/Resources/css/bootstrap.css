@@ -7152,3 +7152,5 @@ footer a {
     -moz-appearance: none;
     text-indent: 0.01px;
     text-overflow: ''; } }
+.form-control.is-invalid, .invalid-feedback {
+  display: block; }

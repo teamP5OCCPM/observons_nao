@@ -800,3 +800,10 @@ footer
   }
 }
 
+//
+// SYMFONY PATCH
+//-----------------------------------------------
+.form-control.is-invalid, .invalid-feedback {
+  display: block;
+}
+

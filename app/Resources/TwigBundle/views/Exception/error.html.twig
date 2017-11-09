@@ -5,12 +5,14 @@ Une erreur est survenue : {{ status_text }} - {{ parent() }}
 {% endblock %}
 
 {% block body %}
-<h1>Il semblerait que quelque chose fonctionne mal</h1>
-<h2>Une erreur est survenue : "{{ status_code }} {{ status_text }}".</h2>
-
-<p>
-    Votre demande ne peut aboutir. Pour revenir à la page d'acceuil, cliquez
-    <a href="{{ path('homepage') }}">ici</a>
-    Si le problème persiste, faites nous-en part en nous contactant <a href="{{ path('contact') }}">ici</a>
-</p>
+    <div class="container mt70 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Il semblerait que quelque chose fonctionne mal</h1>
+                <h2 class="mb-5">Une erreur est survenue : "{{ status_code }} {{ status_text }}".</h2>
+                <p class="text-center">Votre demande ne peut aboutir. Pour revenir à la page d'accueil, cliquez<a href="{{ path('homepage') }}">ici</a></p>
+                <p class="text-center">Si le problème persiste, faites nous-en part en nous contactant <a href="{{ path('contact') }}">ici</a></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
