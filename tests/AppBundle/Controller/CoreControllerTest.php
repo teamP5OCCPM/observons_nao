@@ -3,21 +3,21 @@
 namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use AppBundle\Entity\Observation;
-use AppBundle\Entity\User;
 use AppBundle\Entity\Bird;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 
 class CoreControllerTest extends WebTestCase
 {
+    private $client = null;
 
-    private function getKernel()
+    public function setUp()
     {
-        $kernel = $this->createKernel();
-        $kernel->boot();
-
-        return $kernel;
+        $this->client = static::createClient([], [
+                'PHP_AUTH_USER' => 'user',
+                'PHP_AUTH_PW' => '1234'
+        ]);
     }
 
     /**
@@ -25,53 +25,35 @@ class CoreControllerTest extends WebTestCase
      */
     public function testUrls($url, $content)
     {
-        $client = static::createClient();
-        $container = $client->getContainer();
+        $this->logIn();
+        $container = $this->client->getContainer();
 
-
-        $crawler = $client->request('GET', $url);
-        $response = $client->getResponse();
+        $crawler = $this->client->request('GET', $url);
+        $response = $this->client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-
         $this->assertContains($content, $response->getContent());
-
     }
 
     public function UrlsProvider()
     {
         return [
             ['/', 'Observez'],
-            ['/contact', 'Contactez-nous'],
+            ['/ajouter-observation', 'Envoyer'],
             ['/les-observations/1', 'Les observations'],
+            ['/blog/1', 'Les articles'],
+            ['/contact', 'Contactez-nous'],
+            ['/login', 'Connectez-vous'],
             ['/qui-sommes-nous', 'Qui sommes nous'],
             ['/pourquoi-ce-site', 'Pourquoi ce site']
-
         ];
     }
 
 
     public function testAddObservation()
     {
-        $client = static::createClient();
-        $container = $client->getContainer();
-
-        $validator = $container->get('validator');
-
-        //user1
-        $user = new User();
-        $user->setUsername('user');
-        $user->setEmail('Jean-User@test.fr');
-        $user->setPassword(password_hash('1234', PASSWORD_BCRYPT));
-        $user->setFirstName('Jean-User');
-        $user->setLastName('Birdman');
-        $user->setNewsletter(false);
-        $user->setRoles(["ROLE_USER"]);
-        $user->setEnabled(1);
-
-        //Bird 1
         $bird = new Bird();
-        $bird->setSpecies('Aigle Royal');
+        $bird->setSpecies('444');
         $bird->setReign('Animalia');
         $bird->setPhylum('Phylum');
         $bird->setRanking('Ranking');
@@ -80,26 +62,36 @@ class CoreControllerTest extends WebTestCase
         $bird->setLbAuthor('Donald');
         $bird->setCdRef(1234);
 
-        // Observation 1
-        $observation = new Observation();
-        $observation->setUser($user);
-        $observation->setBird($bird);
-        $observation->setTitle('pigeon');
-        $observation->setImageName('01.jpg');
-        $observation->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec sapien sed orci elementum bibendum. Duis nisi diam, pharetra eu tempor sit amet, lacinia a mi. Suspendisse posuere massa ut augue feugiat consequat. Vivamus vel mattis justo. Nulla mollis est nec lacus tincidunt, laoreet fermentum orci aliquam. Sed at dui varius, rutrum elit ut, dignissim est. Pellentesque aliquet molestie sem, a dapibus tellus. Pellentesque ut purus vel velit elementum auctor vel ac enim. Sed pellentesque, lacus in sagittis tristique, urna tortor varius tortor, at porttitor leo tellus ac risus. Aenean sit amet turpis eget felis semper laoreet.');
-        $observation->setCreatedAt(new \DateTime());
-        $observation->setObservedAt(new \DateTime());
-        $observation->setUpdatedAt(new \DateTime("2017/10/26"));
-        $observation->setLng('1.085325');
-        $observation->setLat('42.800503');
-        $observation->setCity('Bethmale');
-        $observation->setStatus('validate');
-        $observation->setSlug('aigle-royal-en-montagne');
+        $this->logIn();
+        $crawler = $this->client->request('GET', '/ajouter-observation');
+        $form = $crawler->selectButton('appbundle_observation_save')->form();
+        $form['appbundle_observation[title]'] = 'Titre de l\'observation';
+        $form['appbundle_observation[bird]'] = $bird;
+        $form['appbundle_observation[lng]'] = 0.7051413;
+        $form['appbundle_observation[lat]'] = 47.378294399999994;
+        $form['appbundle_observation[observedAt][day]'] = '09';
+        $form['appbundle_observation[observedAt][month]'] = '11';
+        $form['appbundle_observation[observedAt][year]'] = '2017';
+        $form['appbundle_observation[description]'] = 'blabla';
+        $crawler = $this->client->submit($form);
+        echo $client->getResponse()->getContent();
+//        $crawler = $this->client->followRedirect();
 
-        $errors = $validator->validate($observation);
-
-        $this->assertEquals(0, count($errors));
-
+//        $this->assertSame(1, $crawler->filter('div.alert')->count());
     }
 
+    private function logIn()
+    {
+        $session = $this->client->getContainer()->get('session');
+
+        // the firewall context defaults to the firewall name
+        $firewallContext = 'secured_area';
+
+        $token = new UsernamePasswordToken('user', null, $firewallContext, array('ROLE_USER'));
+        $session->set('_security_'.$firewallContext, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
+    }
 }

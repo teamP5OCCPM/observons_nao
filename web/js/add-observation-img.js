@@ -35,6 +35,8 @@ $(document).ready(function () {
 
             latInput.val(lat);
             lngInput.val(lng);
+            //Géocodage inversé
+            initMap(lat, lng);
         })
     }
 
@@ -55,6 +57,23 @@ $(document).ready(function () {
                 break;
         }
         $("#infoposition").innerHTML = info;
+    }
+
+    // Géocodage
+    function initMap(lat, lng) {
+        let geocoder = new google.maps.Geocoder;
+        geocoder.geocode(
+            {'location': {lat: lat, lng: lng} },
+            function(results, status) {
+                if (status === 'OK') {
+                    town = results[2].address_components[1].long_name;
+                    console.log(town);
+                    $('#appbundle_observation_city').val(town);
+                } else {
+                    console.log('La ville n\'a pas été récupérée : ' + status);
+                }
+            }
+        );
     }
 
     if(navigator.geolocation) {

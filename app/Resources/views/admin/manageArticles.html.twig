@@ -13,7 +13,7 @@
         <div class="btn-group btn-group-sm mb-4 d-sm-inline-flex d-flex flex-wrap flex-sm-row flex-column" role="group" aria-label="Basic example">
             <a href="{{ path('manageArticles', {'status': 'tous'}) }}" type="button" class="btn btn-dark">Tous</a>
             <a href="{{ path('manageArticles', {'status': 'isPublished'}) }}" type="button" class="btn btn-dark">Publié</a>
-            <a href="{{ path('manageArticles', {'status': 'waitting'}) }}" type="button" class="btn btn-dark">En attente</a>
+            <a href="{{ path('manageArticles', {'status': 'waiting'}) }}" type="button" class="btn btn-dark">En attente</a>
         </div>
         <div id="accordion" role="tablist">
             {% for article in articles %}
@@ -33,7 +33,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-4 col-md-6">
-                                    <img class="mb-2" src="{{ asset("img/" ~ article.imageName) }}" alt="">
+                                    <img class="mb-2" src="{{ asset("img/articles/" ~ article.imageName) }}" alt="{{ article.imageName }}">
                                 </div>
                                 <div class="col-lg-8 col-md-6">
                                     {{ article.content }}
@@ -53,7 +53,7 @@
                                     <a href="{{ path('editArticle', {'slug': article.slug}) }}" class="btn btn-warning btn-sm text-white mt-3">Editer</a>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-danger btn-sm mt-3" data-toggle="modal" data-target="#articleModal{{ article.id }}">
-                                        Refuser
+                                        Supprimer
                                     </button>
                                 {% endif %}
                             </div>
@@ -68,17 +68,17 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Refuser l'observation</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Supprimer l'article</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Vous êtes sur le point de refusé l'article "{{ article.title }}", en êtes-vous sûr ?
+                                Vous êtes sur le point de supprimer l'article "{{ article.title }}", en êtes-vous sûr ?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">Annuler</button>
-                                <a href="{{ path('refusedArticle', {'slug': article.slug}) }}" class="btn btn-danger btn-sm">Refuser</a>
+                                <a href="{{ path('refusedArticle', {'slug': article.slug}) }}" class="btn btn-danger btn-sm">Supprimer</a>
                             </div>
                         </div>
                     </div>

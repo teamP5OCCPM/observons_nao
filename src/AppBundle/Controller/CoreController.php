@@ -130,6 +130,7 @@ class CoreController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->getData()->getImageName() === null) {
                 $observation->setImageName($image);
+                $observation->setImageSize(1000);
             }
             $observation->setUser($user);
             $validator = $this->get('validator');

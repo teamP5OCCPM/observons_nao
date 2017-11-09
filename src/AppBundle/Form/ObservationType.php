@@ -77,9 +77,12 @@ class ObservationType extends AbstractType
             )
             ->add(
                 'city',
-                HiddenType::class,
-                ['attr' =>
-                    ['class' => 'city-input']
+                TextType::class,
+                [
+                    'label' => 'Ville',
+                    'attr' => [
+                            'class' => 'city-input'
+                    ]
                 ]
             )
             ->add(

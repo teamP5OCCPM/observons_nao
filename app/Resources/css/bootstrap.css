@@ -6760,6 +6760,7 @@ h2 {
 
 .badge-notif {
   position: absolute;
+  top: 0;
   left: .2rem;
   background-color: #f90;
   color: white;

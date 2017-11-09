@@ -104,7 +104,6 @@ class BlogController extends Controller
             $em->persist($comment);
             $em->flush();
 
-
             // envoi d'un mail pour indiquer aux editors qu'un commentaire a été signalé
             // Récupération du service d'envoi de mail
             $mailer = $this->container->get('send_mail');
@@ -115,7 +114,6 @@ class BlogController extends Controller
                 'commentAuthor' => $comment->getAuthor(),
             ];
 
-
             $editors = $em->getRepository('AppBundle:User')->getUserEditor();
 
             foreach ($editors as $editor) {
@@ -123,7 +121,7 @@ class BlogController extends Controller
                     $editor->getEmail(),
                     'Commentaire signalé',
                     'mail/comment-reported-model.html.twig',
-                    'teamp5.oc.cpm@gmail.com',
+                    $this->getParameter('mailer_user'),
                     $objet
                 );
             }

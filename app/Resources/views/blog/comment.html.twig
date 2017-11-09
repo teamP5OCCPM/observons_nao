@@ -7,17 +7,23 @@
         </div>
         <div class="row">
             <div class="col-12">
-                {{ comment.message }} <br/>
+                {% if comment.isHidden %}
+                    <p class="text-secondary text-center">Ce message a été masqué car jugé indésirable</p>
+                {% else %}
+                <p>{{ comment.message }}</p> <br/>
+                {% endif %}
             </div>
         </div>
     </div>
     <div class="card-footer">
         <p>
             {{ comment.author }} | {{ comment.createdAt|date('d/m/Y')  }}
+            {% if comment.isHidden == false %}
             {% if comment.level < 3 %}
-            <a href="#" data-id="{{ comment.id }}" id="comment-{{ comment.id }}" class="btn btn-secondary btn-sm cta-small pull-right reply-comment">répondre</a>
+            <a href="#" data-id="{{ comment.id }}" id="comment-{{ comment.id }}" class="btn btn-nao-green btn-sm cta-small pull-right reply-comment">répondre</a>
             {% endif %}
             <a href="{{ path('reportedComment', {'slug': article.slug, 'id': comment.id }) }}" class="btn btn-secondary btn-sm cta-small pull-right mr-3">signaler</a>
+            {% endif %}
         </p>
 
     </div>

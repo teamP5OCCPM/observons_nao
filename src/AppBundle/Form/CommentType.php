@@ -25,7 +25,7 @@ class CommentType extends AbstractType
             ->add('message', TextareaType::class, ['label' => 'Message', 'attr' => ['placeholder' => 'Ecrivez votre message...']])
             ->add('level', HiddenType::class, ['attr' => ['value' => '1']])
             ->add('parentId', HiddenType::class, ['attr' => ['value' => null]])
-            ->add('save', SubmitType::class, ['label' => 'Envoyer']);
+            ->add('save', SubmitType::class, ['label' => 'Envoyer', 'attr' => ['class' => 'btn btn-secondary text-white']]);
     }
     
     /**

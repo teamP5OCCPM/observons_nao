@@ -10,6 +10,8 @@ services:
         arguments:
             - "@mailer"
             - "@templating"
+            - "%mailer_user%"
+            - "Nos Amis les Oiseaux"
 
     doctrine_listener.observationAdd:
         class: AppBundle\DoctrineListener\ObservationAddListener

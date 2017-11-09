@@ -99,7 +99,6 @@ class Comment
 
     /**
      * @var integer
-     * @Assert\Type("integer", message="La valeur {{ value.type }} doit etre un {{ type }} valide")
      */
     private $parentId;
 

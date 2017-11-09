@@ -98,6 +98,7 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="lng", type="float")
+     * @Assert\NotBlank()
      * @Assert\Regex(
      *     pattern="/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/",
      *     match=false,
@@ -110,6 +111,7 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="lat", type="float")
+     * @Assert\NotBlank()
      * @Assert\Regex(
      *     pattern="/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/",
      *     match=false,
@@ -121,7 +123,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string")
+     * @ORM\Column(name="city", type="string", length=255)
      */
     private $city;
 
