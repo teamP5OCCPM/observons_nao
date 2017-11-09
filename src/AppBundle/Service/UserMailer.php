@@ -13,14 +13,18 @@ class UserMailer
      */
     private $mailer;
     protected $templating;
-    private $from = "teamp5.oc.cpm@gmail.com";
-    private $reply = "teamp5.oc.cpm@gmail.com";
-    private $name = "Création d'un nouvel utilisateur";
+    private $from;
+    private $reply;
+    private $name;
 
-    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
+    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating, $mail, $name)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->from = $mail;
+        $this->reply = $mail;
+        $this->name = $name;
+
     }
 
     public function sendNewNotification(User $user)

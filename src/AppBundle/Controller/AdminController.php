@@ -21,6 +21,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AdminController extends Controller
 {
+
+
     /**
      * @Route("/", name="board")
      */
@@ -559,6 +561,8 @@ class AdminController extends Controller
         // Récupération du service d'envoi de mail
         $mailer = $this->container->get('send_mail');
 
+        $naoMail = $this->getParameter('mailer_user');
+
         $objet = [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
@@ -573,7 +577,7 @@ class AdminController extends Controller
                 $admin->getEmail(),
                 'Promotion du compte',
                 'mail/account-promote-model.html.twig',
-                'teamp5.oc.cpm@gmail.com',
+                $naoMail,
                 $objet
             );
         }
@@ -582,7 +586,7 @@ class AdminController extends Controller
             $user->getEmail(),
             'Promotion de votre compte',
             'mail/account-promote-model.html.twig',
-            'teamp5.oc.cpm@gmail.com',
+            $naoMail,
             $objet
         );
 
@@ -611,6 +615,9 @@ class AdminController extends Controller
         // Récupération du service d'envoi de mail
         $mailer = $this->container->get('send_mail');
 
+        $naoMail = $this->getParameter('mailer_user');
+
+
         $objet = [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
@@ -622,7 +629,7 @@ class AdminController extends Controller
             $user->getEmail(),
             'Compte bloqué',
             'mail/account-blocked-model.html.twig',
-            'teamp5.oc.cpm@gmail.com',
+            $naoMail = $this->getParameter('mailer_user'),
             $objet
         );
 
@@ -650,6 +657,8 @@ class AdminController extends Controller
         // Récupération du service d'envoi de mail
         $mailer = $this->container->get('send_mail');
 
+        $naoMail = $this->getParameter('mailer_user');
+
         $objet = [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
@@ -661,7 +670,7 @@ class AdminController extends Controller
             $user->getEmail(),
             'Compte activé',
             'mail/account-activated-model.html.twig',
-            'teamp5.oc.cpm@gmail.com',
+            $naoMail,
             $objet
         );
 
