@@ -28,8 +28,8 @@ services:
         arguments:
             - "@mailer"
             - "@templating"
-             - %mailer_user%
-             - "Création d'un nouvel utilisateur";
+            - %mailer_user%
+            - "Création d'un nouvel utilisateur"
 
     doctrine_listener.userAdd:
         class: AppBundle\DoctrineListener\UserAddListener
