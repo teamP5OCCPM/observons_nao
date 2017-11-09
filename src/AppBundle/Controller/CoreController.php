@@ -135,7 +135,7 @@ class CoreController extends Controller
             $validator = $this->get('validator');
             $errors = $validator->validate($observation);
             if (count($errors) > 0) {
-                return new Response((string) $errors);
+                return new Response( (string) $errors);
             } else {
                 $em->persist($observation);
                 $em->flush();
@@ -145,6 +145,7 @@ class CoreController extends Controller
                 return $this->redirectToRoute('homepage');
             }
         }
+
         return $this->render('core/addObservation.html.twig', ['title' => "Ajouter une observation", 'form_observation' => $form->createView(), 'image' => $image]);
     }
 

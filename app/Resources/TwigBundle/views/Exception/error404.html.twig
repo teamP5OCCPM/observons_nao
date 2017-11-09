@@ -5,27 +5,17 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container mt70">
-        <div class="flex-wrap justify-content-center">
-            <div class="card col-12">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div>
-                                <img src="{{ asset('img/bird404.jpg') }}" alt="image erreur" />
-                            </div>
-                            <h2 class="card-title"></h2>
-                            <p class="mb-0"></p>
+    <div class="container mt70 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Vous vous trompez de route !!</h1>
+                <h2 class="mb-5">Une erreur est survenue : "{{ status_code }} {{ status_text }}".</h2>
 
-                        </div>
-                        <div class="col-md-6">
-                            <h1 class="card-title">Oups ! Une erreur est survenue !</h1>
-                            Le serveur a retourne une erreur "{{ status_code }} {{ status_text }}".
-
-                        </div>
-                    </div>
-                </div>
+                <p class="text-center">Votre demande ne peut aboutir, vérifiez bien que l'adresse URL est correct.</p>
+                <p class="text-center">Pour revenir à la page d'accueil, cliquez <a href="{{ path('homepage') }}">ici</a></p>
+                <p class="text-center">Si le problème persiste, faites nous-en part en nous contactant <a href="{{ path('contact') }}">ici</a></p>
             </div>
+
         </div>
     </div>
 {% endblock %}

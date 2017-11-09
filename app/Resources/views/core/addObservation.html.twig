@@ -55,6 +55,7 @@
                             <div class="col-md-6 col-12 mb-3">
                                 <img id="add-observation-img" class="card-img-top mb-3" src="{{ asset('img/observations/' ~ image) }}" alt="">
                                 {{ form_widget(form_observation.imageFile) }}
+                                {{ form_errors(form_observation.imageFile) }}
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="row">
@@ -63,6 +64,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         {{ form_row(form_observation.bird) }}
+                                        {{ form_errors(form_observation.bird) }}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -76,11 +78,18 @@
                                     </div>
                                     <div class="col-12 mb-3 mt-0">
                                         <small class="form-text text-muted mt-0">Pour trouver la latitude et longitude : <a href="https://www.coordonnees-gps.fr/" target="_blank">cliquez ici</a></small>
+                                        {{ form_errors(form_observation.lng) }} {{ form_errors(form_observation.lat) }}
                                     </div>
                                 </div>
                                 {{ form_row(form_observation.city) }}
+                                {{ form_errors(form_observation.city) }}
+
                                 {{ form_row(form_observation.observedAt) }}
+                                {{ form_errors(form_observation.observedAt) }}
+
                                 {{ form_row(form_observation.description) }}
+                                {{ form_errors(form_observation.description) }}
+
                                 {{ form_row(form_observation.save) }}
                             </div>
                         </div>

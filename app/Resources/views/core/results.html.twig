@@ -415,15 +415,24 @@
                 clickable: true
             });
 
-
-
             infowindow = new google.maps.InfoWindow();
-
 
             google.maps.event.addListener(marker, 'click', (function(ev) {
                 return function() {
                     infowindow.setContent(
-                        "<a href='{{ path("showObservation", {"slug": observation.slug}) }}'>{{ observation.title }}</a>"
+                        {#"<a href='{{ path("showObservation", {"slug": observation.slug}) }}'>{{ observation.title }}</a>"#}
+                        '<div class="card mb-0">' +
+                            '<div class="card-body">' +
+                                '<a href="{{ path("showObservation", {"slug": observation.slug}) }}">' +
+                                    '<h4 class="card-title">{{ observation.title }}</h4>'+
+                                '</a>' +
+                                '<h6 class="card-subtitle mb-2 text-muted">{{ observation.bird.species }}</h6>' +
+                            '</div>' +
+                            '<div class="card-footer">' +
+                                '<small class="text-muted">{{ observation.user.lastName }}</small>' +
+                                '<small class="text-muted float-right">{{ observation.createdAt | date("d F Y") }}</small>' +
+                            '</div>' +
+                        '</div>'
                         
                     );
                     infowindow.setPosition(this.getCenter());
