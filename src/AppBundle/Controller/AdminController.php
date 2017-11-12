@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class AdminController
@@ -25,6 +26,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/", name="board")
+     * @Security("has_role('ROLE_USER')")
      */
     public function boardAction()
     {
@@ -33,7 +35,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/mes-observations", name="myObservations")
-     *
+     *@Security("has_role('ROLE_USER')")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function myObservationsAction() : Response
@@ -47,6 +49,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion-observations/{status}", name="manageObservations")
+     * @Security("has_role('ROLE_NATURALIST')")
      * @param $status
      *
      * @return Response
@@ -83,6 +86,7 @@ class AdminController extends Controller
      * @param $slug
      *
      * @return RedirectResponse
+     * @Security("has_role('ROLE_NATURALIST')")
      * @Route("/validate-observation/{slug}", name="validateObservation")
      */
     public function validateObservationAction($slug) : RedirectResponse
@@ -111,6 +115,7 @@ class AdminController extends Controller
      *
      * @return RedirectResponse
      * @Route("/waiting-observation/{slug}", name="waitingObservation")
+     * @Security("has_role('ROLE_NATURALIST')")
      */
     public function waitingObservationAction($slug) : RedirectResponse
     {
@@ -130,6 +135,7 @@ class AdminController extends Controller
      *
      * @return RedirectResponse
      * @Route("/refused-observation/{slug}", name="refusedObservation")
+     * @Security("has_role('ROLE_NATURALIST')")
      */
     public function refusedObservationAction($slug)
     {
@@ -149,6 +155,7 @@ class AdminController extends Controller
      *
      * @return Response
      * @Route("/ajouter-article", name="addArticle")
+     * @Security("has_role('ROLE_EDITOR')")
      */
     public function addArticleAction(Request $request) : Response
     {
@@ -189,6 +196,8 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion-articles/{status}", name="manageArticles")
+     * @Security("has_role('ROLE_EDITOR')")
+     * @param $status
      */
     public function manageArticlesAction($status)
     {
@@ -224,6 +233,7 @@ class AdminController extends Controller
      *
      * @return RedirectResponse
      * @Route("/waiting-article/{slug}", name="waitingArticle")
+     * @Security("has_role('ROLE_EDITOR')")
      */
     public function waitingArticleAction($slug) : RedirectResponse
     {
@@ -244,6 +254,7 @@ class AdminController extends Controller
      *
      * @return RedirectResponse
      * @Route("/validate-article/{slug}", name="validateArticle")
+     * @Security("has_role('ROLE_EDITOR')")
      */
     public function validateArticleAction($slug) : RedirectResponse
     {
@@ -264,6 +275,7 @@ class AdminController extends Controller
      *
      * @return Response
      * @Route("/editer-article/{slug}", name="editArticle")
+     * @Security("has_role('ROLE_EDITOR')")
      */
     public function editArticleAction(Request $request, $slug) : Response
     {
@@ -290,6 +302,7 @@ class AdminController extends Controller
      *
      * @return RedirectResponse
      * @Route("/refused-article/{slug}", name="refusedArticle")
+     * @Security("has_role('ROLE_EDITOR')")
      */
     public function refusedArticleAction($slug)
     {
@@ -306,6 +319,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion-commentaires/{status}", name="manageComs")
+     * @Security("has_role('ROLE_EDITOR')")
      * @param $status
      *
      * @return Response
@@ -336,6 +350,7 @@ class AdminController extends Controller
      *
      * @return RedirectResponse
      * @Route("/hidden-comment/{id}", name="hiddenComment")
+     * @Security("has_role('ROLE_EDITOR')")
      */
     public function hiddenCommentAction($id)
     {
@@ -362,6 +377,7 @@ class AdminController extends Controller
      *
      * @return RedirectResponse
      * @Route("/validate-comment/{id}", name="validateComment")
+     * @Security("has_role('ROLE_EDITOR')")
      */
     public function validateCommentAction($id)
     {
@@ -384,6 +400,7 @@ class AdminController extends Controller
      *
      * @return RedirectResponse
      * @Route("/noHidden-comment/{id}", name="noHiddenComment")
+     * @Security("has_role('ROLE_EDITOR')")
      */
     public function noHiddenCommentAction($id)
     {
@@ -400,6 +417,8 @@ class AdminController extends Controller
 
     /**
      * @Route("/mise-a-jour-bdd", name="manageBdd")
+     * @param Request $request
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function manageBddAction(Request $request)
     {
@@ -426,6 +445,7 @@ class AdminController extends Controller
     /**
      *
      * @Route("updateBdd", name="updateBdd")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateBddAction()
     {
@@ -499,6 +519,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion-comptes/{roles}", name="manageAccounts")
+     * @Security("has_role('ROLE_ADMIN')")
      * @param $roles
      *
      * @return Response
@@ -544,6 +565,7 @@ class AdminController extends Controller
     /**
      * @param $id
      * @Route("/promotion-compte/{id}", name="promoteAccount")
+     * @Security("has_role('ROLE_ADMIN')")
      *
      * @return RedirectResponse
      */
@@ -598,6 +620,7 @@ class AdminController extends Controller
     /**
      * @param $id
      * @Route("/bloquer-compte/{id}", name="blockAccount")
+     * @Security("has_role('ROLE_ADMIN')")
      *
      * @return RedirectResponse
      */
@@ -640,6 +663,7 @@ class AdminController extends Controller
     /**
      * @param $id
      * @Route("/activer-compte/{id}", name="activateAccount")
+     * @Security("has_role('ROLE_ADMIN')")
      *
      * @return RedirectResponse
      */
@@ -681,6 +705,7 @@ class AdminController extends Controller
     /**
      * @param $id
      * @Route("/supprimer-compte/{id}", name="removeAccount")
+     * @Security("has_role('ROLE_ADMIN')")
      *
      * @return RedirectResponse
      */

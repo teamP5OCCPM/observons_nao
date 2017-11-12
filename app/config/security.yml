@@ -15,3 +15,4 @@ security:
         - { path: ^/ajouter-observation, role: ROLE_USER }
         - { path: ^/admin/ajouter-article, role: ROLE_EDITOR }
         - { path: ^/admin, role: ROLE_USER }
+
