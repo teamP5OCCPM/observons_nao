@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class CoreController extends Controller
 {
@@ -113,7 +115,9 @@ class CoreController extends Controller
     }
 
     /**
-     * @param Request $request *
+     * @param Request $request
+     * @Security("has_role('ROLE_USER')")
+     *
      * @return Response
      * @Route("/ajouter-observation", name="addObservation")
      */
@@ -153,6 +157,7 @@ class CoreController extends Controller
     /**
      * @param Request $request
      * @param         $slug
+     * @Security("has_role('ROLE_USER')")
      *
      * @return Response
      * @Route("/editer-observation/{slug}", name="editObservation")
@@ -171,6 +176,12 @@ class CoreController extends Controller
 
             $this->addFlash('success', "L'observation à bien été modifié");
 
+            //call the authorization_checker
+            $roleChecker = $this->get('security.authorization_checker');
+            if (!$roleChecker->isGranted('ROLE_NATURALIST')) {
+                //if user is not naturalist redirect to
+                return $this->redirectToRoute('myObservations');
+            }
             return $this->redirectToRoute('manageObservations', ['status'  => 'tous']);
         }
 
