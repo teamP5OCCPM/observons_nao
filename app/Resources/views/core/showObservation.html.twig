@@ -71,7 +71,7 @@
     </div>
     {# Other images for gallery #}
     {% for otherImg in otherImgSpecies %}
-        <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="{{ asset("img/observations/" ~ otherImg.imageName) }}" data-title="<a href='{{ path('showObservation', {'slug': otherImg.slug}) }}'>{{ otherImg.title }}</a>"></div>
+        <div data-toggle="lightbox" data-gallery="hidden-images" data-remote="{{ asset("img/observations/" ~ otherImg.imageName) }}" data-title="<a href='{{ path('showObservation', {'slug': otherImg.slug}) }}' class='btn btn-secondary text-white'>{{ otherImg.title }}</a>"></div>
     {% endfor %}
 {% endblock %}
 
