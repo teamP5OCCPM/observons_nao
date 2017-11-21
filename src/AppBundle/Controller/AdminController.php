@@ -419,8 +419,9 @@ class AdminController extends Controller
      * @Route("/mise-a-jour-bdd", name="manageBdd")
      * @param Request $request
      * @Security("has_role('ROLE_ADMIN')")
+     * @return Response
      */
-    public function manageBddAction(Request $request)
+    public function manageBddAction(Request $request) : Response
     {
         $em = $this->getDoctrine()->getManager();
         $fileBdd = $em->getRepository('AppBundle:Taxref')->getLast();
@@ -446,8 +447,9 @@ class AdminController extends Controller
      *
      * @Route("updateBdd", name="updateBdd")
      * @Security("has_role('ROLE_ADMIN')")
+     * @return RedirectResponse
      */
-    public function updateBddAction()
+    public function updateBddAction() : RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $fileBdd = $em->getRepository('AppBundle:Taxref')->getLast();
